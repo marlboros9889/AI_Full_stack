@@ -7,6 +7,7 @@ dey002
 ## part001
 -TOD01 : GITHUB - PULL
 
+ 1. git push origin main
 
 ---
 ## part002
