@@ -46,6 +46,6 @@ public class DataTypeEx005 {
 	    System.out.printf("총점 :%d \n 평균 :%.2f ",total,avg);
 	    
 	  
-}
+	}
 
 }

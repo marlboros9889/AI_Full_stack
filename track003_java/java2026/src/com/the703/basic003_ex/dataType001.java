@@ -1,6 +1,6 @@
 package com.the703.basic003_ex;
 
-public class dataType001 {
+public class DataType001 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
