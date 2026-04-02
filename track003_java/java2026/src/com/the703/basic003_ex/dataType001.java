@@ -11,10 +11,10 @@ public class DataType001 {
 		System.out.println("1. 논리 : "+ b1);
 		
 		//2-2.  정수형  ( byte- short- ★int★- long(L) / 1-2-4-8 )
-		byte  by=1;    short sh=2;    int      i=4; long   lo=8L; 
+		byte  by=1;    short sh=2;    int      i=4;    long   lo=8L; 
 		
 		// byte hap = by+1;     //byte(1) + int(4) 
-		int hap = by+1;
+		int hp = by+1;
 		System.out.println("2. 정수 : byte- short- ★int★- long ");
 	
 		
