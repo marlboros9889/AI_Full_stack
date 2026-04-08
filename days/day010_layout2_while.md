@@ -2,13 +2,15 @@
 
 ### ■1. html + css
 ```
-    1. 레이아웃잡는방법은? (     ,       ,      )
+    1. 레이아웃잡는방법은? ( class    , block      , inline    )
 
     2. box를 왼쪽, 오른쪽에 붙이는 방법은?
+    .box{ float:left }
+    .box{ float:right }
 
     3. 다음박스를 왼쪽 오른쪽에 배치하려고 한다. 들어가야하는 코드는?
     <style>
-      .left{}     .right{}    .clear{}
+      .left{ float:left; }     .right{ float:right; }    .clear{  clear:both; }
     </style>
     <div class="box">
       <div class="left">LEFT</div>
@@ -18,7 +20,7 @@
 
     4. 다음li를 왼쪽으로 붙이려고한다. 코드는?
     <style>
-      ul{}    li{}
+      ul{ float:left }    li{ float:left }
     </style>
     <ul>
       <li>ONE </li><li>TWO</li><li>THREE</li>
@@ -35,7 +37,7 @@
 ```
 1. if버젼에 해당하는 다음에 연결해서 문제를 작성하시오.
     문자를 한개 입력받아 a이면 apple , b이면 banana, c이면 coconut
-    
+
 2. switch버젼에 해당하는 다음에 연결해서 문제를 작성하시오.
     문자를 한개 입력받아 a이면 apple , b이면 banana, c이면 coconut
 
