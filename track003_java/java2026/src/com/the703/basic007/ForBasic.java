@@ -28,15 +28,12 @@ public class ForBasic {
 		// 패턴 : 시작 1; 종료 10 ; 변화 1
 		for (int i=1; i<=10; i++)     {System.out.print(i);}  System.out.println();
 		
-		
-		
 		System.out.println("\n*step)3 for 연습");
 		// 패턴 : 시작 2; 종료 8 ; 변화 1
 		for (int i=2; i<=8; i++)     {System.out.print(i);}  System.out.println();
 		
-		
 		System.out.println("\n*step)3 for 연습");
-		// 패턴 : 시작 3; 종료 9 ; 변화 1
+		// 패턴 : 시작 3; 종료 9 ; 변화 3
 		for (int i=3; i<=9; i=i+3)     {System.out.print(i);}  System.out.println();
 		
 		System.out.println("\n*step)3 for 연습");
