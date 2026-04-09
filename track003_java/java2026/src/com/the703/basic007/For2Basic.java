@@ -1,0 +1,46 @@
+package com.the703.basic007;
+
+public class For2Basic {
+	public static void main(String[] args) {
+//		####  이거 출력해주세요~~
+//		1234
+//		1234
+//		1234
+//		1234
+// ver-1
+		 System.out.println( 1 + "층" ); 
+		 System.out.println(1);
+		 System.out.println(2);
+		 System.out.println(3);
+		 System.out.println();
+			
+			 
+				
+				
+		     System.out.println( 2+ "층" );		
+			 System.out.println(1);
+			 System.out.println(2);
+			 System.out.println(3);
+			 
+		System.out.println();	 
+		System.out.println(1+ "층");	 
+		for( int kan=1;kan<=3; kan++ ) 
+		            { System.out.println(kan); } System.out.println();
+				 
+		System.out.println(2+"층");
+		for(int kan =1; kan<=3; kan++)
+		            { System.out.println(kan); } System.out.println();
+		            
+		            
+		   System.out.println();
+		   for(int ch=1; ch>=2; ch++)
+        {
+        	System.out.println( ch +"층");
+    		for(int kan =1; kan<=3; kan++)
+    		            { System.out.println(kan); } System.out.println();	
+        }
+		            
+		            
+	}
+
+}

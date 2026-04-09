@@ -1,0 +1,37 @@
+package com.the703.basic007_ex;
+
+public class For2Ex002 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+//		@###
+//		#@##
+//		##@#
+//		###@
+		//ver-1 눈에 보이는 그대로
+		//		System.out.println('@'); System.out.println('#'); System.out.println('#'); System.out.println('#');
+		//		System.out.println('#'); System.out.println('@'); System.out.println('#'); System.out.println('#');
+		//		System.out.println('#'); System.out.println('#'); System.out.println('@'); System.out.println('#');
+		//		System.out.println('#'); System.out.println('#'); System.out.println('#'); System.out.println('@'); 
+		//		
+		//ver-2 칸 정리
+//					System.out.println();//4번출력 - 첫번째 자리에 오면 @
+//					for (int i=1; i<=4; i++) {System.out.println(i==1 ? '@' : '#' ); } System.out.println();
+//					
+//					//4번출력 - 두번째 자리에 오면 @
+//					for (int i=1; i<=4; i++) {System.out.println(i==2 ? '@' : '#' ); } System.out.println();
+//					
+//					//4번출력 - 세번째 자리에 오면 @
+//					for (int i=1; i<=4; i++) {System.out.println(i==3 ? '@' : '#' ); } System.out.println();
+//					
+//					//4번출력 - 네번째 자리에 오면 @
+//					for (int i=1; i<=4; i++) {System.out.println(i==4 ? '@' : '#' ); } System.out.println();
+					
+		//ver-3 층 정리
+		             System.out.println();
+		             for( int a=1; a<=4; a++)
+					      {for (int i=1; i<=4; i++) {System.out.print(i==a ? + '@' : '#' ); } System.out.println();}
+	}
+
+}
