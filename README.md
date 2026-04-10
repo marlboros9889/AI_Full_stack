@@ -11,7 +11,7 @@
 
 
 ### 📌 **Contact & Links**
-<img  src="me.png" alt="어여쁜 학생"
+<img  src="CAt.jpg" alt="Rack & Roll"
       style="width:80px" />
 
 

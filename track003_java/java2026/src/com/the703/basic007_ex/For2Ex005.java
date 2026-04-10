@@ -13,22 +13,26 @@ public class For2Ex005 {
 //		1234
 		// 보이는 그대로 
 //		System.out.println();
-//		System.out.println(1234); System.out.println();
-//		System.out.println(123); System.out.println();
-//		System.out.println(12); System.out.println();
-//		System.out.println(1); System.out.println();
+//		System.out.println(1); 
+//		System.out.println(1); System.out.println(2);System.out.println();
+//		System.out.println(1); System.out.println(2);System.out.println(3);System.out.println();
+//		System.out.println(1); System.out.println(2);System.out.println(3);System.out.println(4);System.out.println();
 		// 칸 정리
-//		for( int a=1; a<=4; a++ ) { System.out.print(1234); } System.out.println();
-//		for( int a=1; a<=4; a++ ) { System.out.print(123); } System.out.println();
-//		for( int a=1; a<=4; a++ ) { System.out.print(12); } System.out.println();
-//		for( int a=1; a<=4; a++ ) { System.out.print(1); } System.out.println();
+		
+//		for( int a=1; a<=4; a++ ) { System.out.print(a); } System.out.println();
+//		for( int a=1; a<=3; a++ ) { System.out.print(a); } System.out.println();
+//		for( int a=1; a<=2; a++ ) { System.out.print(a); } System.out.println();
+//		for( int a=1; a<=1; a++ ) { System.out.print(a); } System.out.println();
 		
 		
 		// 층 정리
-		for(int ch=1; ch>=4; ch--)
-		   {for( int a=1; a<=ch; a++ ) { System.out.print(ch); } System.out.println();}
-		
-		
+//		for(int ch=1; ch>=4; ch--)
+//		   {for( int a=1; a<=ch; a++ ) { System.out.print(ch); } System.out.println();}
+//		for (int ch=1; ch<=4; ch--)
+//		for( int a=1; a<=1; a++ ) { System.out.print('i'); } System.out.println();
+		System.out.println();
+		for( int i=1; i<=4; i++){
+		for( int a=1; a<=4; a++ ) { System.out.print(a); } System.out.println();}  
 	}
 
 }

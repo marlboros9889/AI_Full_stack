@@ -1,4 +1,4 @@
-package com.the007.basic004_ex;
+package com.the703.basic004_ex;
 
 public class OperatorEx002 {
 
