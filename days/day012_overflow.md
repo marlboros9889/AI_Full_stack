@@ -3,21 +3,31 @@
 ### ■ 1. html + css (  java는 오후에  eclipse 로  진행합니다    )
 ```
 1. float 속성을 사용할 때 부모 요소의 높이가 사라지는 문제를 해결하는 방법은?  
- 
+ Ex) display:block// 
+ Ex) 부모요소에 overflow:hidden
+ Ex) clear: both
+
 2. position: absolute로 자식 요소를 배치할 때, 부모 요소에 반드시 설정해야 하는 속성은?  
- 
+ Ex) position:relative
+
 3. 여러 요소를 가로 또는 세로로 쉽게 배치하기 위해 사용하는 레이아웃 방식은?  
- 
+ Ex) display:flex
+
 4. float와 display의 차이점을 간단히 설명하시오.   
+ Ex) float은 왼쪽, 오른쪽에 붙혀서 사용 여백은 margin 으로 조정
+ Ex) display:flex 는 자식요소들의 배치방법이 들어가는데 여백도 자동으로 맞추는게 가능함 gap 필수
 
 5. position: sticky 속성은 어떤 상황에서 유용하게 사용되는가?  
+ Ex) 스크롤시 특정위치에 고정
 
 6. margin: auto를 사용하여 블록 요소를 가운데 정렬하려면 어떤 조건이 필요한가?  
+ Ex) width
 
 7. z-index 속성은 어떤 경우에 사용되며, 값이 클수록 어떤 효과가 나타나는가?  
+ Ex) 요소들이 겹칠때 ( position) 배치,  값이 클수록 앞쪽에 배치
 
 8. header 안에서 로고와 내비게이션을 양쪽 끝에 배치하고 간격을 일정하게 유지하려면 어떤 방법을 사용하는가?  
-    
+ Ex) Display:flex;   jusfiy-content:space-between;   
 ```    
 
 ### ■ 2. java
@@ -41,6 +51,7 @@ int day = scanner.nextInt();
 
 3. for, while, do while 버전
 1 2 3 4 5 6 7 8 9 10
+
 
 4. 이중 for 버전
 다음과 같은 모양을 출력하는 프로그램을 작성하시오.
