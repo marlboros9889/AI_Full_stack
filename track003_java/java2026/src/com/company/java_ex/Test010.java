@@ -1,0 +1,26 @@
+package com.company.java_ex;
+
+public class Test010 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		int[] arr2 = {1, 2, 3};
+		System.out.println(arr2[2]); // 인덱스는 0부터 시작하므로 3은 index 2
+		
+		// 1. 배열 생성 (크기 5)
+		double[] arr = new double[5];
+
+		// 2. 값 넣기 (for + length)
+		for (int i = 0; i < arr.length; i++) 
+		   { arr[i] = 1.1 + (i * 0.1); }
+		
+
+		// 3. 출력 (for + length)
+		for (int i = 0; i < arr.length; i++)
+		{System.out.print(arr[i] + "  ");}
+		
+        
+	}
+
+}

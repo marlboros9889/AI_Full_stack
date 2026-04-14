@@ -1,45 +1,17 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>float</title>
-    <style> 
-   *{margin: 0; padding: 0;}
-   /*    
-    여러 개의 얼굴 이미지를 원형으로 꾸미고,
-   Q1. ul 태그의 기본 목록 스타일 제거, 안쪽/바깥 여백 없애기
-   Q2. li 태그는 왼쪽으로 나란히 배치(float:left), 바깥 여백(10px)
-   Q3. img 너비/높이(100px), 원형(border-radius:50%), 테두리(3px solid #ff6600),
-     전환 효과(transform, border-color 각각 0.8s)
-   Q4. 첫 번째 얼굴: 마우스 오버 시 위로 점프(translateY(-20px)), 테두리 색(#00ccff)
-   Q5. 두 번째 얼굴: 마우스 오버 시 좌우 흔들기(rotateZ(20deg)), 테두리 색(#33cc33)
-   Q6. 세 번째 얼굴: 마우스 오버 시 X축 뒤집기(rotateX(180deg)), 테두리 색(#ff33aa)
-   Q7. 네 번째 얼굴: 마우스 오버 시 Y축 뒤집기(rotateY(180deg)), 테두리 색(#ffaa00)
-   Q8. 마지막 얼굴: 마우스 오버 시 빙글빙글 회전(rotate(360deg) scale(1.2)), 테두리 색(#6600ff) 
-   // .t1은 왼쪽에 배치,   .t2는 오른쪽 배치 - 하얀색 배경나오게
-*/  
-ul{ width: 0;}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1> 어벤져스</h1>
-        <ul class="team t1">
-            <li><img src="./img/one.png"   alt="팀원1"/></li>
-            <li><img src="./img/two.png"   alt="팀원2"/></li>
-            <li><img src="./img/three.png" alt="팀원3"/></li>
-            <li><img src="./img/four.png"  alt="팀원4"/></li>
-            <li><img src="./img/five.png"  alt="팀원5"/></li>
-        </ul>
+■1. 부트스트랩에 해당하는 class와 문제를 풀으시오.
+1. __________
+   - 전체 레이아웃을 감싸는 박스  
+   - 웹 페이지의 최대 너비를 관리  
+   - `container`(고정 폭) / `container-fluid`(가변 폭)
 
-        <ul class="team t2">
-            <li><img src="https://picsum.photos/100?random=1" alt="얼굴1"></li>
-            <li><img src="https://picsum.photos/100?random=2" alt="얼굴2"></li>
-            <li><img src="https://picsum.photos/100?random=3" alt="얼굴3"></li>
-            <li><img src="https://picsum.photos/100?random=4" alt="얼굴4"></li>
-            <li><img src="https://picsum.photos/100?random=5" alt="얼굴5"></li>
-        </ul>
-    </div>
-</body>
-</html>
+2. __________
+   - `container` 안에서 줄(행)을 만드는 역할   
+
+3. __________
+   - `row` 안에서 칸(열)을 만드는 역할  
+   - 기본 단위는 **12칸**   
+             col-ms-4/4/4
+4. 4칸으로 균등하게 레이아웃을 지정하려고 한다. 줘야하는것은?   
+
+5. 전체 레이아웃을 감싸는 박스(여백있음) ,  선주기, 두께는 3으로, 둥근모서리 , 좋아하는 색상 , 배경초록색, 글자 하얀색
+<div></div>

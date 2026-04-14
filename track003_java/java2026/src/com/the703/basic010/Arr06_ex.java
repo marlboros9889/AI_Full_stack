@@ -13,17 +13,25 @@ public class Arr06_ex {
 
 			        // 2. 대문자(A-Z)와 소문자(a-z) 대입
 			        // 대문자 A는 65, 소문자 a는 97 
-			        for (int i = 0; i < 26; i++) {
-			            ch[i] = (char) ('A' + i);       // 0~25번 인덱스: A-Z
-			            ch[i + 26] = (char) ('a' + i);  // 26~51번 인덱스: a-z
-			        }
-
+			        char data = 'A';
+//			        ch[0]= data++;
+//			        ch[1]= data++;
+			        // i 는 변하는 숫자 또는 변하는 값?
+			        // ch 는 모아논 값?
+			        
+			        
+			        for (int i=0; i<26; i++)
+			        {ch[i] = (char)('A' +i); 
+			         ch[i+26]= (char) ('a'+i);
+			         }
+			        
+			
 			        // 3. 모음(a, e, i, o, u)의 개수 구하기
 			        int count = 0;
 			        for (int i = 0; i < ch.length; i++) {
-			            char c = ch[i];
-			            if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U' ||
-			                c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') 
+			            char j = ch[i];
+			            if (j == 'A' || j == 'E' || j == 'I' || j == 'O' || j == 'U' ||
+			                j == 'a' || j == 'e' || j == 'i' || j == 'o' || j == 'u') 
 			               {count++;}
 			             }
 			       

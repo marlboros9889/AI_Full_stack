@@ -11,11 +11,14 @@ public class ArrayNewEx002 {
 		
 		char [] arr = new char[5];
 		char data = 'A';
+		
 //		arr[0] = 'A';
 //		arr[1] = 'B';
 //		arr[2] = 'C';
 //		arr[3] = 'D';
 //		arr[4] = 'E';
+		
+		
 //		arr[0]=data++; /*data('A') 대입; 빠져나와서 증가 (B) */
 //		arr[1]=data++; /*data('B') 대입; 빠져나와서 증가 (C) */
 		
