@@ -1,0 +1,34 @@
+package com.company.java_ex;
+
+public class aaaa {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		for(int i=3; i>=1; i--) {System.out.println(i+"");} System.out.println();
+		
+		int i=3; while( i>=1 ) {System.out.println(i+"");i--;} System.out.println();
+		
+		int i1=3; do {System.out.println(i1+"");i1--;} while( i1>=1 ); System.out.println();
+		//
+		//
+		//
+		for (int j=3; j>=1; j--) {
+		for(int a=1; a<=j; a++) {System.out.print("★");} System.out.println();}
+		//
+		//
+		//
+		char [] arr = new char[3]; // 인덱스 0부터 2까지
+		for(int c=0; c<arr.length; c++) {
+			arr[c]=(char)('A'+ c);
+		}
+		for(int c1=0; c1<arr.length; c1++) {
+			System.out.println(arr[c1]+ "");
+		}
+		
+		
+		
+	}
+
+}
