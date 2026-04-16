@@ -22,9 +22,9 @@ public class Test015 {
 		arr[1][1]= data; data+=1;
 		arr[1][2]= data; data+=1;
 		
-		for (int j=0; j<arr.length; j++) 
-		for (int i=0; i<arr[j].length; i++)
-			 { arr[j][i]= data; data+=1;}
+	/*	for (int j=0; j<arr.length; j++) 
+		  for (int i=0; i<arr[j].length; i++)
+			 { arr[j][i]= data; data+=1;} */
 		
 		
 		for (int j=0; j<arr.length; j++) {

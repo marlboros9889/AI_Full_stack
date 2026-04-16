@@ -1,0 +1,51 @@
+package com.the703.basic011;
+
+public class Method003 {
+			
+	
+	//1. 함수구조 public static 리턴값(결과물)  메서드명 (마법상자 이름) (파라미터) { 할일}
+	public static                 int       hello(String name) { return 1;   }  
+	//								void    hello(String name) {      }		
+	
+	
+	public static String sing() { return "용감한 자바전사"; }
+	
+	public static String  intro(String name, int level) { return name+ "님의 레벨은"+ level;}
+
+	public static double spell(int a) { return a /2.0; }
+	
+	public static  int    luck(int l) { return 100; }
+	
+	public static  double    s(int i) { return i*100; }
+	
+	/////////////////////////////////////////////
+	public static void main(String[] args) {
+		hello("aaa");
+		System.out.println(hello("bbb") ); // 출력1
+		
+		
+		
+		// public static 리터값, 메서드명(파라미터) {해야할일}
+		// public static String sing(파라미터) {용감한 자바전사}
+		System.out.println("당신의 이름은 ? "+ sing()); //용감한 자바전사
+		System.out.println("당신의 이름은 ? "+ intro("홍길동",9)); 
+						   // 당신의 이름은?     홍길동님의 레벨은 9
+		System.out.println("당신의 이름은 ? "+ intro(sing(),10));
+			// public static  String    intro(홍길동 , 9) { return 홍길동님의 레벨은 9}
+		
+		System.out.println("3. 반타작의 저주 > " + spell(9));  // 반타작의 저주 > 4.5
+		// public static  double    spell(int , 9) { return a /2.0; }
+		
+		System.out.println("4. 오늘의 운세 >" + luck(0));  //4. 운세 >100
+		//public static  int    luck(int l) { return 100; }
+		
+		System.out.println("5. 주식 > " + s(1));   //5. 주식 > 100
+		//public static  double    s(int i) { return i*100; }
+		
+		
+	}
+////////////////////////////////////////////		
+		
+	}
+
+

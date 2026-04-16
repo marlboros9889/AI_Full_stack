@@ -1,0 +1,18 @@
+package com.the703.basic011;
+
+public class Method001 {
+	
+	//#1 마법상자  ( 함수, 매서드, funciton) - 원하는 기능을 해주는 box 
+	//					결과물(리터값) 		마법상자 이름(메서드명) (파라미터)
+	public static void 								hello() 
+	{ 
+		System.out.println("hello");
+	}
+	
+	
+/////////////////////////////////////
+	public static void main(String[] args) {
+
+	}
+//////////////////////////////////////
+}

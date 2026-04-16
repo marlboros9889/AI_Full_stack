@@ -11,7 +11,7 @@
 
 
 ### 📌 **Contact & Links**
-<img  src="CAt.jpg" alt="Rack & Roll"
+<img  src="Cat.jpg" alt="C:\Program Files\Jang_adam\AI_Full_stack\track002_html\img\Cat.jpg"
       style="width:80px" />
 
 
