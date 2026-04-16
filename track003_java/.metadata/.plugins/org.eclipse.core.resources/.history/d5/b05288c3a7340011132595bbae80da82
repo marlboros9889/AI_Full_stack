@@ -1,0 +1,84 @@
+package com.the703.v1;
+
+import java.util.Scanner;
+
+public class Bankproject_v2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+//		Q1. 메뉴판나오게 만들고 사용자가 메뉴 선택시
+//	      1을 입력하면 추가기능입니다. 출력구문까지만
+//	      2를 입력하면 조회기능입니다. 출력구문까지만
+//	      3을 입력하면 입금기능입니다. 출력구문까지만
+//	      4를 입력하면 출금기능입니다. 출력구문까지만
+//	      5를 입력하면 삭제기능입니다. 출력구문까지만
+//	      9를 입력하면 종료합니다.    출력구문까지만
+		Scanner sc= new Scanner(System.in);
+		//변수
+		int cas=0, balance=-1,pass=-1;
+		char ch='\u0000';
+		
+		for(;;)
+		{
+			System.out.println("🌟💰 WELCOME TO BANK SYSTEM 💰🌟\r\n"
+		 		+ "\r\n"
+		 		+ "[1] ➕ 계좌 추가\r\n"
+		 		+ "[2] 🔍 계좌 조회\r\n"
+		 		+ "[3] 💵 입금하기\r\n"
+		 		+ "[4] 💸 출금하기\r\n"
+		 		+ "[5] 🗑️ 계좌 삭제  \r\n"
+		 		+ "\r\n"
+		 		+ "👉 번호를 선택하세요:");
+			cas = sc.nextInt();
+			
+			
+			if (cas == 1) {
+				System.out.println("추가 기능입니다");
+				System.out.println("ID 입력하세요");
+				ch=(char) sc.nextInt();
+				System.out.println("PASS 입력하세요");
+				pass=sc.nextInt();
+				System.out.println("금액을 입력하세요");
+				balance=sc.nextInt();
+		}
+			else if (cas==2) {
+				System.out.println("조회기능입니다");
+				char ch1='\u0000';
+				int  pass1=-1;
+				System.out.println("ID를 입력해주세요");
+				ch1=(char) sc.nextInt();
+				System.out.println("PASS를 입력해주세요");
+				pass1=sc.nextInt(); 
+				
+			
+			if (ch == ch1 && pass == pass1)
+				System.out.println("\n ID"+ id+
+						           "\n PASS"+ pass +
+						           "\n 금액" +balance);
+			else {System.out.println("PASS를 확인해주세요");} }
+			
+			else if(cas==3) {
+				System.out.println("입금 기능입니다"); }
+			else if(cas==4) {
+				System.out.println("출금 기능입니다"); }
+			else if(cas==5) {
+				System.out.println("삭제 기능입니다");	}
+			else if(cas==9) {
+				System.out.println("END"); break;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			}
+		
+		
+		
+	}
+
+}

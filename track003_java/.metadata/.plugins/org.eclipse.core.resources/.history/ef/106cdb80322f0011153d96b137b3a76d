@@ -1,0 +1,59 @@
+package com.the703.v1;
+
+import java.util.Scanner;
+
+public class Bankproject_v1 {
+
+	public static void main(String[] args) {
+		
+//		Q1. 메뉴판나오게 만들고 사용자가 메뉴 선택시
+//	      1을 입력하면 추가기능입니다. 출력구문까지만
+//	      2를 입력하면 조회기능입니다. 출력구문까지만
+//	      3을 입력하면 입금기능입니다. 출력구문까지만
+//	      4를 입력하면 출금기능입니다. 출력구문까지만
+//	      5를 입력하면 삭제기능입니다. 출력구문까지만
+//	      9를 입력하면 종료합니다.    출력구문까지만
+    Scanner sc= new Scanner(System.in);
+		int a= 9 
+   
+		for(; a==9 ;)
+		{
+		System.out.println("메뉴를 선택하세요");
+		System.out.println("");
+		int a = sc.nextInt();
+		if(a == 9 ) {break}
+		}
+		
+
+	}
+
+}
+
+
+/*
+Q1. 메뉴판나오게 만들고 사용자가 메뉴 선택시
+      1을 입력하면 추가기능입니다. 출력구문까지만
+      2를 입력하면 조회기능입니다. 출력구문까지만
+      3을 입력하면 입금기능입니다. 출력구문까지만
+      4를 입력하면 출금기능입니다. 출력구문까지만
+      5를 입력하면 삭제기능입니다. 출력구문까지만
+      9를 입력하면 종료합니다.    출력구문까지만
+
+
+
+
+
+Q2. 무한반복으로 메뉴나오게, 9 나오면 종료
+   ■ 힌트
+   for(;;) { 
+      System.out.println("숫자1을 입력하세요.");
+      int a = scanner.nextInt();
+      if(a == 1) { break;}
+   }
+   
+   
+   
+     
+ * */
+
+ 

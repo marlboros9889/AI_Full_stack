@@ -1,0 +1,31 @@
+package com.the703.basic007;
+
+public class ForEx001_ex {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+			//		q1  for문을 이용해서 다음과 같이 출력하시오 :   1 2 3 4 5 
+			 System.out.println("\n *출력* ");
+			 for (int i=1; i<=5; i++ ) 
+			 { System.out.print(i); } System.out.println();
+			 
+			//		q2  for문을 이용해서 다음과 같이 출력하시오 :   5 4 3 2 1 
+			 System.out.println("\n *출력* ");
+			 for (int i=1; i>=5; i=i-1 )
+			 { System.out.print(i); } System.out.println();
+			//		q3  for문을 이용해서 다음과 같이 출력하시오 :   JAVA1 , JAVA2 , JAVA3  
+			//		q4  for문을 이용해서 다음과 같이 출력하시오 :   HAPPY3 ,HAPPY2, HAPPY1  
+			//		q5  for문을 이용해서 다음과 같이 출력하시오 :   0,1,2  
+			//		q6  for문을 이용해서 다음과 같이 출력하시오 :   0,1,2, ,,,중간생략 ,,, 99  
+			//		q7  for문을 이용해서 다음과 같이 출력하시오 :   10, 9,,,,중간생략 ,,, , 1 
+			//		q8  for문을 이용해서 다음과 같이 출력하시오 :   0, 2, 4, 6, 8 
+			//		q9  for문을 이용해서 다음과 같이 출력하시오 :   0, 2, 4, 6, 8 ,,,중간생략 ,,, 18 
+		
+		
+		
+		
+		
+	}
+
+}

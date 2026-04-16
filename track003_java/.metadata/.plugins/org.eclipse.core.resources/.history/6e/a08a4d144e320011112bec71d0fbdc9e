@@ -1,0 +1,52 @@
+package com.the703.basic007;
+
+public class ForBasic {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	   // Step1 ))  줄바꿈 안된 Print 이용해서 1  2  3 
+		System.out.println(" step)1 출력 ");
+		System.out.print(1);
+		System.out.print(2);
+		System.out.print(3);
+		
+		
+		
+		// Step2-1 ))  반복되는 영역
+		// Step2-1 ))  반복되는 영역 >> 변수 찾기
+		// Step2-1 ))  패턴찾기 시작>종료>변환
+		
+		
+		
+		
+		
+		// Step3)) 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

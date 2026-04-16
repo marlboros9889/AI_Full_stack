@@ -1,0 +1,47 @@
+package com.company.java_ex;
+
+import java.util.Scanner;
+
+public class Test002 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	
+
+		        Scanner scanner = new Scanner(System.in);
+		        System.out.print("평균입력 > ");
+		        int avg = scanner.nextInt();
+
+		        // 1. if 버전
+		        if (avg >= 90) {
+		            System.out.println("A 학점");
+		        } else if (avg >= 80) {
+		            System.out.println("B 학점");
+		        } else if (avg >= 70) {
+		            System.out.println("C 학점");
+		        } else {
+		            System.out.println("F 학점");
+		        }
+
+		        // 2. switch 버전
+		        // 점수를 10으로 나눈 몫을 활용하여 범위를 지정합니다.
+		        switch (avg / 10) {
+		            case 10: case 9:
+		                System.out.println("A 학점");
+		                break;
+		            case 8:
+		                System.out.println("B 학점");
+		                break;
+		            case 7:
+		                System.out.println("C 학점");
+		                break;
+		            default:
+		                System.out.println("F 학점");
+		        }
+		    }
+		}
+		
+	}
+
+}

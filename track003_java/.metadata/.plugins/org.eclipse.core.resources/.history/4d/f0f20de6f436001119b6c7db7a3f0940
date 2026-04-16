@@ -1,0 +1,31 @@
+package com.the703.basic010;
+
+public class Arr005_ex {
+	public static void main(String[] args) {
+//		1. 배열명 : ch
+//	    2. 값 넣기 : 'B' , 'a' , 'n' , 'a', 'n' , 'a'
+//	    3. ch 배열에서 대문자의 갯수카운트, 소문자의 갯수 카운트
+		
+		// 배열 넣기 , 값 넣기
+		char [] arr = {'B','a','n','a','n','a'};
+		
+//	    3. ch 배열에서 대문자의 갯수카운트, 소문자의 갯수 카운트
+		//갯수를 넣을 변수를 준비
+		int big = 0;
+		int smal = 0;
+		
+		
+//	    3. ch 배열에서 대문자의 갯수카운트, 소문자의 갯수 카운트
+		// 꺼낸 대문자 글자가 'A'보다 크거나 'Z' 보다 작거나 같다면 
+		for (int i=0; i<=6; i++)
+		if (arr[i] >= 'A' && arr[i] <='Z') { big = big +1; }
+		if (arr[smal] >= 'a' && arr[smal] <='z') { smal= smal +1; }
+		
+		System.out.println("대문자의 개수" + big);
+		System.out.println("소문자의 개수" + smal);
+		
+		
+		
+	}
+
+}

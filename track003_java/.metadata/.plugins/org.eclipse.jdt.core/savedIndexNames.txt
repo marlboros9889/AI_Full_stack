@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Program Files\Jang_adam\AI_Full_stack\track003_java\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+992999837.index
+1576023294.index

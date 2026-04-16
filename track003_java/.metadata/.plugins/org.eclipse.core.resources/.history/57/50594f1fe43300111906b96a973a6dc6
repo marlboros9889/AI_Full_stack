@@ -1,0 +1,29 @@
+package com.the703.basic007_ex;
+
+public class For2Ex002 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+//		@###
+//		#@##
+//		##@#
+//		###@
+		//ver-1 눈에 보이는 그대로
+		System.out.println('@'); System.out.println('#'); System.out.println('#'); System.out.println('#');
+		System.out.println('#'); System.out.println('@'); System.out.println('#'); System.out.println('#');
+		System.out.println('#'); System.out.println('#'); System.out.println('@'); System.out.println('#');
+		System.out.println('#'); System.out.println('#'); System.out.println('#'); System.out.println('@'); 
+		
+		//ver-2 칸 정리
+		 System.out.println();
+		 
+		 System.out.println( '@' + '#' );
+		 
+		
+		//ver-3 층 정리
+		
+		
+	}
+
+}

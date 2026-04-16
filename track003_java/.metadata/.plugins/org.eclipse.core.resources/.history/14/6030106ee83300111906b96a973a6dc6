@@ -1,0 +1,44 @@
+package com.the703.basic007_ex;
+
+public class For2Ex003 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+//		#
+//		##
+//		###
+//		####
+
+	// 보이는 그대로
+//		System.out.println();
+//		System.out.println('#'); System.out.println();
+//		System.out.println('#'); System.out.println('#'); System.out.println();
+//		System.out.println('#'); System.out.println('#'); System.out.println('#'); System.out.println();
+//		System.out.println('#'); System.out.println('#'); System.out.println('#'); System.out.println('#'); System.out.println();
+		
+		
+	// 반복 정리
+//	   System.out.println();
+//	  for (int i=1; i<=1; i++) { System.out.println( i= 1 ? '#' + '#' ); } System.out.println();
+//	  
+//	  for (int i=1; i<=2; i++) { System.out.println( i= 2 ? '#' + '#' ); } System.out.println();
+//	  
+//	  for (int i=1; i<=3; i++) { System.out.println( i= 3 ? '#' + '#' ); } System.out.println();
+//	  
+//	  for (int i=1; i<=4; i++) { System.out.println( i= 4 ? '#' + '#' ); } System.out.println();
+	  
+	
+	// 압축 정리
+		System.out.println();
+	  for( int a=1; a<=4; a++)
+	  { for (int i=1; i<=2; i++) { System.out.print( i== 2 ? '#' : '#' ); } System.out.println();
+	    for (int i=1; i<=3; i++) { System.out.print( i== 3 ? '#' : '#' ); } System.out.println();
+	    for (int i=1; i<=4; i++) { System.out.print( i== 4 ? '#' : '#' ); } System.out.println();
+	  
+	  }
+	
+	
+	}
+
+}

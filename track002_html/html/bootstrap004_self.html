@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>낭만의 개발자</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="./css/my.css" rel="stylesheet">
+
+</head>
+<body>
+    <!-- HEADER -->
+    <!-- Q1. h1 내용 바꾸고 /a 태그에 들어가 있는 Loge / nav 좋아하는 색상으로 바꾸기 -->
+    <header>
+        <h1 class="myhidden">낭만의 Adam</h1>
+        <nav class="navbar navbar-expand-sm navbar-dark ">
+            <h2 class="myhidden">주메뉴</h2>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="javascript:void(0)">Adam</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                    <a class="nav-link text-white" href="javascript:void(0)">포트폴리오</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link text-white" href="javascript:void(0)">About Me</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link text-white" href="javascript:void(0)">Galley</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link text-white" href="javascript:void(0)">Contact me</a>
+                    </li>
+                </ul>
+
+                </div>
+            </div>
+        </nav>        
+    </header>
+
+
+
+    <!-- INFO -->
+    <section class="">
+        <div class="container text-white">
+            <h3 class="p-5 text-center"> About Me </h3>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p ><img src="./img/Cat.jpg" alt="cat" class="w-40"></p>
+                        <h4> Adam.Jang Yeung Tak</h4>
+                        <ul>
+                            <li>marlboro9236@naver.com</li>
+                            <li>
+                                <a href="https://github.com/sally03915/2026-AI-FULLSTACK"
+                                title="깃 허브 보기"
+                                target="_blank"> 깃허브 보기</a>
+                            </li>
+                        </ul> 
+                </div>
+                <div class="col-sm-4">
+                    <h4 >Education</h4>
+                        <ul>
+                           <li>풀스택 교육중</li> 
+                        </ul>
+                    <h4>KeyWord</h4>
+                        <ul>
+                            <li class="btn btn-danger">열정</li>
+                            <li class="btn btn-warning">성실</li>
+                            <li class="btn btn-info">끈기</li>
+                        </ul>
+                </div>
+                <div class="col-sm-4">
+                    <h4 >SKILLS</h4>
+                    <div class="progress my-3">
+                        <div class="progress-bar bg-info progress-bar-striped" style="width:30%">java-30%</div>
+                    </div>
+                    <div class="progress my-">
+                        <div class="progress-bar bg-warning progress-bar-striped" style="width:57%">CSS-57%</div>
+                    </div>
+                    <div class="progress my-3">
+                        <div class="progress-bar bg-danger progress-bar-striped" style="width:77%">끈기-77%</div>
+                    </div>
+                    <div class="progress my-3">
+                        <div class="progress-bar progress-bar-striped" style="width:88%">의자력-88%</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POTFOLIO -->
+    <section class="p-5">
+        <h3 class="text-center text-white p-5">My potfolio</h3>
+            <div class="container  p-4 rounded">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4 class="text-info">홍보영상</h4>
+                        <!-- 동영상 -->
+                         <iframe class="iframe width=560" height="315" src="https://www.youtube.com/embed/6RQ-bBdASvk?si=5ruZj6QryMPSFxsS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                         <botton class="btn btn-info">포트폴리오 더보기</botton>
+                    </div>
+                    <div class="col-sm-4 text-white">
+                         <h4 class="text-danger ">spring boot + jpa + rect portfolio</h4>
+                           <ul>
+                                <li><strong>Spring Boot + JPA</strong>반의 백엔드와 데이터 처리 로직 구현</li>
+                                <li><strong>React</strong>를 활용한 사용자 중심의 프론트엔드 UI 개발</li>
+                                <li><strong>JWT 인증</strong>과 CI/CD 자동 배포로 보안성과 효율성 강화</li>
+                           </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4 class="text-danger">기술스택</h4>
+                            <ul class="text-white">
+                                <li>Spring Boot 2.7.14</li>
+                                <li>Spring Security 5.7.x</li>
+                                <li>Spring Data JPA 2.7.x</li>
+                                <li>Hibernate 5.6.x</li>
+                                <li>Oracle 11</li>
+                                <li>React 18.x</li>
+                                <li>Axios 1.x</li>
+                                <li>React Router v6</li>
+                                <li>JWT</li>
+                                <li>Git & GitHub</li>
+                                <li>GitHub Actions</li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="p-3 mybg">
+        <h3 class="p-3 text-center text-white">Contact me</h3>
+        <div class="container shadow p-5  rounded text-white">
+            <form action="/action_page.php">
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="comment ">Comments:</label>
+                    <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <!--Q1. 글자 페이지 정중앙/ 배경색 -->
+    <footer class="footer bg-secondary text-white text-center">
+        <div>© copyrights company 2026 all. rights reserved</div>
+    </footer>
+</body>
+</html>

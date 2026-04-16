@@ -1,0 +1,79 @@
+package com.the703.v1;
+
+import java.util.Scanner;
+
+public class Bankproject_v1 {
+
+	public static void main(String[] args) {
+		
+//		Q1. 메뉴판나오게 만들고 사용자가 메뉴 선택시
+//	      1을 입력하면 추가기능입니다. 출력구문까지만
+//	      2를 입력하면 조회기능입니다. 출력구문까지만
+//	      3을 입력하면 입금기능입니다. 출력구문까지만
+//	      4를 입력하면 출금기능입니다. 출력구문까지만
+//	      5를 입력하면 삭제기능입니다. 출력구문까지만
+//	      9를 입력하면 종료합니다.    출력구문까지만
+    Scanner sc= new Scanner(System.in);
+	//변수	
+    int menu= 1, b=2,c=3,d=4,e=5,g=9;
+     
+				
+		//입력
+    for(;;)
+    {
+		 System.out.println("🌟💰 WELCOME TO BANK SYSTEM 💰🌟\r\n"
+		 		+ "\r\n"
+		 		+ "[1] ➕ 계좌 추가\r\n"
+		 		+ "[2] 🔍 계좌 조회\r\n"
+		 		+ "[3] 💵 입금하기\r\n"
+		 		+ "[4] 💸 출금하기\r\n"
+		 		+ "[5] 🗑️ 계좌 삭제  \r\n"
+		 		+ "\r\n"
+		 		+ "👉 번호를 선택하세요:");
+		 menu = sc.nextInt();	
+
+		 //처리
+		      if (menu == 1) {System.out.println("추가 기능입니다");} 
+		 else if (menu == 2) {System.out.println("조회 기능입니다");}
+		 else if (menu == 3) {System.out.println("입금 기능입니다");} 
+		 else if (menu == 4) {System.out.println("출금 기능입니다");}
+		 else if (menu == 5) {System.out.println("삭제 기능입니다");} 
+		 else                {System.out.println("종료합니다"); break;}
+		      
+		      
+		 
+	}
+		 //출력
+		 
+	}
+
+}
+
+
+/*
+Q1. 메뉴판나오게 만들고 사용자가 메뉴 선택시
+      1을 입력하면 추가기능입니다. 출력구문까지만
+      2를 입력하면 조회기능입니다. 출력구문까지만
+      3을 입력하면 입금기능입니다. 출력구문까지만
+      4를 입력하면 출금기능입니다. 출력구문까지만
+      5를 입력하면 삭제기능입니다. 출력구문까지만
+      9를 입력하면 종료합니다.    출력구문까지만
+
+
+
+
+
+Q2. 무한반복으로 메뉴나오게, 9 나오면 종료
+   ■ 힌트
+   for(;;) { 
+      System.out.println("숫자1을 입력하세요.");
+      int a = scanner.nextInt();
+      if(a == 1) { break;}
+   }
+   
+   
+   
+     
+ * */
+
+ 

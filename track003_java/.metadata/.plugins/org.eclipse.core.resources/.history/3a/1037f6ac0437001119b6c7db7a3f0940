@@ -1,0 +1,27 @@
+package com.the703.basic010;
+
+import java.util.Arrays;
+
+public class Arr002 {
+	public static void main(String[] args) {
+		
+
+		// 배열
+		// [같은 타입]의 데이터  [연속된 공간에] 저장하는 자료구조
+		// arr(1000번지) =  1000번지{1,2,3}   만드는거와 동시에 값넣기
+		
+		int [] arr= {1,2,3} ;  //arr  주소를 담을수있어
+		
+		int [] arr2 = new int [3];  // new 공간을 빌리기  int 형태의 자료형 몇개?
+		System.out.println(arr2);
+		System.out.println(Arrays.toString(arr2));
+		
+		
+		arr2[0] = 0;
+		arr2[1] = 10;
+		arr2[2] = 20;
+		for ( int i=0; i<arr2.length; i++)  { System.out.println(arr2[i]+ "\t");}
+				
+	}
+
+}
