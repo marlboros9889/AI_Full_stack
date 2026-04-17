@@ -2,8 +2,6 @@ package com.the703.basic011_ex;
 
 import java.util.Scanner;
 
-import jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput;
-
 public class MethodEx004 {
 
 	public static int process_total(int kor, int eng, int math) {
@@ -20,8 +18,21 @@ public class MethodEx004 {
 	}
 //  public static String process_pass(float avg ,int kor,int eng,int math){ avg>=60, kor>=40, eng>=40,math>=40; }
 
-	public static String process_scholar(float avg){ if (avg<=95) {return "장학생";} else {return "---";} }
-
+	public static String process_scholar(float avg){ if (avg>=95) {return "장학생";} else {return "---";} }
+	
+	public static String process_star(float avg) {String aa = "";
+							        for (int i = 0; i <avg/10; i++) { aa += "*";  } return aa;}
+	
+	public static void process_show(String name, int kor,int eng,int math,int total, float avg, String pass, String jang,String star)
+								{ 
+								 System.out.println("\t이름\t국어\t영어\t수학\t총점\t평균\t합격여부\t장학생\t랭킹");
+								 System.out.println("--------------------------------------------------------------------------------------------");
+								 System.out.printf("\t%s\t%d\t%d\t%d\t%d\t%.1f\t%s\t%s\t%s\r\n",name, kor, eng, math, total, avg, pass, jang, star);
+								  System.out.println("-------------------------------------------------------------------------------------------");
+								 }					    
+							      
+							        
+	
 	
 	public static void main(String[] args) {
 		// public static 리턴값 메서드명(재료){ 할일 }
@@ -34,16 +45,16 @@ public class MethodEx004 {
 		String star = " ";
 		Scanner sc = new Scanner(System.in);
 		/////////////////////////(2) 입력 : 이름, 국어, 영어, 수학점수를 입력받으시오.
-		//		System.out.println("이름을 입력하세요");
-		//		name = sc.next();
-		//		System.out.println("국어점수를 입력하세요");
-		//		kor = sc.nextInt();
-		//		System.out.println("영어점수를 입력하세요");
-		//		eng = sc.nextInt();
-		//		System.out.println("수학점수를 입력하세요");
-		//		math = sc.nextInt();
+				System.out.println("이름을 입력하세요");
+				name = sc.next();
+				System.out.println("국어점수를 입력하세요");
+				kor = sc.nextInt();
+				System.out.println("영어점수를 입력하세요");
+				eng = sc.nextInt();
+				System.out.println("수학점수를 입력하세요");
+				math = sc.nextInt();
 		
-		name="yt";  kor=100; eng=100; math=99;
+		
 		///////////////////////(3) 처리 : 
 		total = process_total(kor, eng, math); // 1. 총점처리
 		//  // public static int process_total(int kor+int eng+int math){ retrun kor+eng+math; }
@@ -61,14 +72,18 @@ public class MethodEx004 {
 
 		// 5. 평균점수대로 별표 붙이기 , 예) 70점대이면 별7개, 80점대이면 별8개, 90점대이면 별9개 , 100점이면 별10개 
         //star = process_star(avg);  
-		star="★★★★★★★★★";
+		// public static String process_star(avg){ 70점대이면 별7개, 80점대이면 별8개, 90점대이면 별9개 , 100점이면 별10개  }
+		star=process_star(avg);
+		
+		
         ///////////////////////(4) 출력
-        //  process_show(name, kor, eng, math, total, avg, pass, jang, star);
- System.out.println("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: ");
- System.out.println("\t이름+\t국어+\t영어+\t수학+\t총점+\t평균+\t합격여부+\t장학생+\t랭킹");
- System.out.println("--------------------------------------------------------------------------------------------");
- System.out.printf("%s\t+%d\t+%d\t+%d\t+%d\t+%s\t+%s\t%s",name, kor, eng, math, total, avg, pass, jang, star);
-  System.out.println("-------------------------------------------------------------------------------------------");
+		//process_show=(name, kor, eng, math, total, avg, pass, jang, star);
+		// public static 리턴값 메서드명(재료){ 할일 }
+		// public static void process_show(String name, int kor,int  eng,int  math,int total,float avg, String pass,String jang,String star)
+		 //							{ name, kor, eng, math, total, avg, pass, jang, star }
+		
+		 process_show(name, kor, eng, math, total, avg, pass, jang, star);
+
 	}// end main
 
 }// end class

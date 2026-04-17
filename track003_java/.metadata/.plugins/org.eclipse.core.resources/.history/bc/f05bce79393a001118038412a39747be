@@ -1,0 +1,26 @@
+package com.the703.basic011_ex;
+import java.util.Scanner;
+public class MethodEx005 {
+	
+	 
+
+	public static int abs(int i) {if (i < 0) { return -i;}
+									else { return i; }
+	}
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//한개의 숫자를 입력받아서 절대값을 출력하는 메서드 작성
+		
+	//	public static  재료 메서드() { }
+		int res1= 0;
+		Scanner sc= new Scanner(System.in);
+		System.out.println("절대값을 구하는 프로그램입니다.\n숫자를 입력하세요");
+		res1=abs(sc.nextInt());
+		System.out.println(res1);
+		
+		
+	}
+
+}

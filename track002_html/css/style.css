@@ -9,3 +9,23 @@
     box-shadow: 0 0 10px rgb(196, 41, 41);
     padding: 10px;} 
 */
+#demo img{object-fit: cover;}
+
+/*배경 body fixed 하고 원하는 배경 부분만 투명하게*/
+.mybg{ background-color: transparent;}
+
+body{ background-image: url(../img/Spacer.jpg);
+    /* background: linear-gradient(135deg, rgb(196, 194, 136), rgb(131, 232, 220));*/
+     background-repeat:repeat;
+     background-size: cover;
+     background-position: bottom;
+     background-attachment: fixed;
+    }
+
+h3{transition: all 0.3s ease; color: white;}
+h3:hover{color: red; font-size: 2em;}
+
+.myhidden{ position: absolute; left: -9999px; width: 1px; top: 1px;
+    height: 1px; overflow: hidden;  border: 0; white-space: nowrap;
+clip:rect(0,0,0,0); /*요소를 잘라서 시각적으로 완전히 숨김-구형브라우저 호환*/
+}

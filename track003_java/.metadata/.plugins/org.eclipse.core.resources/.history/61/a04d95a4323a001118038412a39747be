@@ -1,0 +1,33 @@
+package com.the703.basic011_ex;
+
+import java.util.Scanner;
+
+public class MethodEx006 {
+	
+	
+	
+	private static int max(int a, int b, int c) {
+		
+		return 0; }
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+		
+		//세개의 숫자를 입력받아 최대값을 출력하는 메서드 작성
+		int a=0, b=0, c=0;
+		Scanner sc= new Scanner(System.in);
+		System.out.println("숫자 1> "); a=sc.nextInt();
+		System.out.println("숫자 2> "); b=sc.nextInt();
+		System.out.println("숫자 3> "); c=sc.nextInt();
+		int res3 = max(a,b,c);
+		System.out.println("최대값 :"+ res3);
+	}
+
+	
+	}
+
+}

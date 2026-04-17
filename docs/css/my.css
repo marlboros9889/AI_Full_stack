@@ -1,24 +1,154 @@
 @charset "UTF-8";
 
-.myhidden{ position: absolute; left: -9999px; width: 1px; top: 1px;
-    height: 1px; overflow: hidden;  border: 0; white-space: nowrap;
-clip:rect(0,0,0,0); /*요소를 잘라서 시각적으로 완전히 숨김-구형브라우저 호환*/
+/* [1] 기본 초기화 및 숨김 설정 */
+.myhidden { 
+    position: absolute; left: -9999px; width: 1px; height: 1px; 
+    overflow: hidden; border: 0; white-space: nowrap; clip: rect(0,0,0,0);
 }
 
-#demo{height: 300px;  }
+/* [2] 움직이는 그라데이션 배경 및 별빛 효과 */
+body {
+    /* 움직이는 성운 그라데이션 */
+    background: linear-gradient(-45deg, #0b0b0d, #1a1a2e, #16213e, #0b0b0d) !important;
+    background-size: 400% 400% !important;
+    animation: gradientMove 15s ease infinite;
+    background-attachment: fixed;
+    
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    font-family: 'pretendard', sans-serif;
+    color: #e0e0e0;
+    overflow-x: hidden;
+    z-index: 0;
+}
 
-#demo img{object-fit: cover;}
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-/*배경 body fixed 하고 원하는 배경 부분만 투명하게*/
-.mybg{ background-color: transparent;}
+/* 별빛 반짝임 가상 요소 */
+body::before, body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
 
-body{ background-image: url(../img/Spacer.jpg);
-    /* background: linear-gradient(135deg, rgb(196, 194, 136), rgb(131, 232, 220));*/
-     background-repeat:repeat;
-     background-size: cover;
-     background-position: bottom;
-     background-attachment: fixed;
-    }
+body::before {
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
+        radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px);
+    background-size: 250px 250px, 350px 350px;
+    animation: twinklingStar 5s infinite alternate;
+}
 
-h3{transition: all 0.3s ease; color: white;}
-h3:hover{color: red; font-size: 2em;}
+body::after {
+    background-image: radial-gradient(white, rgba(255,255,255,.15) 2px, transparent 3px);
+    background-size: 450px 450px;
+    animation: twinklingStar 7s infinite alternate-reverse;
+}
+
+@keyframes twinklingStar {
+    0% { opacity: 0.2; }
+    100% { opacity: 0.8; }
+}
+
+/* [3] 레이아웃: 인포 박스 및 카드 (투명도 & 블러 핵심) */
+.info-box, .row {
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(10px); /* 배경 그라데이션이 은은하게 비침 */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 15px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 123, 255, 0.5) !important; /* 호버 시 파란색 테두리 */
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* [4] 키워드 & 기술 스택 스타일링 */
+.keyword-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.keyword-group .badge {
+    padding: 8px 12px;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+/* 기술 태그 (스택 부분) */
+.skill-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    margin: 4px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+    background: linear-gradient(135deg, #007bff, #00ff88);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+}
+
+/* [5] 프로그레스바 */
+.progress {
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+/* [6] 마우스 입자 효과 */
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 10px white;
+    animation: fadeOut 1s forwards;
+    z-index: 9999;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: scale(0); }
+}
+
+/* 기타 */
+h3:hover { transition: all 0.5s ease; color: #837ddf; text-shadow: 0 0 10px rgba(72, 76, 199, 0.3); }
+#demo img { object-fit: cover; }
+
+    
+/* 박스 전체를 감싸는 컬럼에 마우스를 올렸을 때 내부 박스가 변하도록 설정 */
+.col-md-4:hover .info-box {
+    /* 1. 배경을 네온 그라데이션으로 변경 */
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.8), rgba(0, 255, 136, 0.8)) !important;
+    /* 2. 살짝 커지는 효과 */
+    transform: scale(1.05);
+    /* 3. 테두리를 둥글게 유지 */
+    border-radius: 15px;
+    /* 4. 네온처럼 빛나는 그림자 효과 */
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+    /* 5. 내부 텍스트가 더 잘 보이도록 설정 */
+    border-color: transparent !important;
+}
+
+/* 부드러운 전환을 위해 기존 .info-box에 transition 추가 확인 */
+.info-box {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 튕기는 듯한 부드러운 효과 */
+}

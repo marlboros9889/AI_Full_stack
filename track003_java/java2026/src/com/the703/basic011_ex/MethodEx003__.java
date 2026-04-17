@@ -2,11 +2,17 @@ package com.the703.basic011_ex;
 
 public class MethodEx003__ {
 	public static int return_num() {return 1;}
+	
 	public static double return_float() {return 3.333;}
+	
 	public static String mycolor() {return "PURPLE";}
+	
 	public static String jangsu() {return "★★★★★";}
+	
 	public static int myadd(int i, int a ) {return i+a;}
-	public static String myban(char ban) { if(ban=='A') {return "노랑조";} else { return "주황조";}}
+	
+	public static String myban(char ban) {return ban=='A'? "노랑조" : ban=='B'? "주황조":""; } 
+	
 	public static String stdId(String string ) {return "G"+string;}
 
 	//public static String stdAvg(int a) {a가 90점"A", 80점"B",70점"C",D}
@@ -35,16 +41,36 @@ public class MethodEx003__ {
 		
 		System.out.println("5.숫자"+"숫자" + myadd(30,20));       // 두숫자를 더한값을 결과값으로 줌
 		//public static int myadd(10+20) {return i+a;}
-		
+		//변수 
+		//int result=0;
+		//입력 없음 
+		//처리
+		//int result=a+b;
+		//출력
+		//return result;
 		System.out.println("6. 반(노랑조/주황조)=" + myban('A'));  // A이면 노랑조 ,  B이면 주황조
 		//public static char myban('A','B',) { A이면 노랑조 ,  B이면 주황조}
+		//public static String myban(char ban) {return ban=='A'? "노랑조" : ban=='B'? "주황조":""; } 
 		
 		System.out.println("7. 당신의 학번은?" + stdId(""+3333));   // G하고 넣어준 학번 나오게
-		//public static 1111 stdId(String a , int i ) {return i하고 String}
+		//public static G1111 stdId(11111 ) {return i하고 String}
+		//public static String stdId(int stdid ) {return "G" + stdid}
 		
-		System.out.println("8.당신의 평균은?" + stdAvg(88));    
+		System.out.println("8.당신의 평균은?" + stdAvg(77));    
 		// 90점이상이면 A ,  80점이상이면 B ,  70점이상이면 C , 아니라면  D
 		//public static String stdAvg(int a) {a가 90점"A", 80점"B",70점"C",D}
+		//public static Char stdAvg(int(avg 90점 이상이면)
+		// {if(avg 90점 이상이면{A} else if (avg 80점이상이면){B}
+		// else if (avg 70점이상이면){c}else (avg 60점이상이면)
+		//  {D};  }
+		
+		// ver-2
+//		public static String stdAvg(int avg) {
+//			return avg<70 ? 'D': avg<80 ? 'C': avg<90 ? 'B': avg<=100 ? 'A' : ' ';
+//		}
+//		
+		
+		
 										
 	}
 		/////////////////////////////////////////////	

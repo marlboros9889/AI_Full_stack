@@ -1,0 +1,19 @@
+package com.the703.v1;
+
+import java.util.Scanner;
+
+public class Bankproject_v5 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 //변수                          0   1    2
+		  String []id=new String[3];       //  one two three
+		  String []pass = new String[3];   // 1111 2222 3333
+		  double []balance = new double[3];// 1100 2200 3300   
+		      int menu=-1;  
+		      Scanner sc = new Scanner(System.in);
+		   
+		- Bank ver3 :  method 메서드
+	
+}
+}
