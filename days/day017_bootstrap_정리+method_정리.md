@@ -15,4 +15,4 @@
 
 - Bank ver1 : control 제어문
 - Bank ver2 : array (3명짜리 ) 배열
-- Bank ver3 : method 메서드
+- Bank ver3 : method 메서드 

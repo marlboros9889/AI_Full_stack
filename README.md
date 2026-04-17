@@ -11,7 +11,7 @@
 
 
 ### 📌 **Contact & Links**
-<img  src="Cat.jpg" alt="C:\Program Files\Jang_adam\AI_Full_stack\track002_html\img\Cat.jpg"
+<img  src="Cat.jpg" alt="./css/img/Cat.jpg"
       style="width:80px" />
 
 
@@ -19,7 +19,7 @@
 |-|-|
 |EMAIL|marlboros9889@gmail.com|
 |GITHUB|https://github.com/marlboros9889/AI_Full_stack.git|
-
+|Portfolio|https://marlboros9889.github.io/AI_Full_stack/|
 ---
 ### 📌 Goals
 GitHub의 **핵심기능** 이해 및 실습
