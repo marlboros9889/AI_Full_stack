@@ -1,0 +1,27 @@
+package com.the703.basic012;
+
+class FishBB{
+	String bread;
+	int  redb;
+}
+
+public class Class002 {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
+
+//////////////////////////////////////////////////////
+/* [RUNTIME DATA AREA]
+------------------------------------
+[METHOD:정보] FishBB.class   , Class002.class
+------------------------------------
+[HEAP:동적]            |  [STACK:지역]
+						    main
+						    
+------------------------------------
+*/
+//////////////////////////////////////////////////////

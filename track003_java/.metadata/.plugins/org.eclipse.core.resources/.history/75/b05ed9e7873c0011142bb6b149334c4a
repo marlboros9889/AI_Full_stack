@@ -1,0 +1,35 @@
+package com.the703.basic012;
+//1. 클래스는 부품객체
+//2. 클래스는 상태(멤버변수)와 행위(멤버함수)
+class FishBB{
+	  //멤버 변수
+	  String bread;
+	  int  redb;
+	  //멤버 함수
+	  void show() { System.out.println(bread + "," + redb);}
+	  
+}
+
+public class Class002 {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		FishBB my1= new FishBB();
+		
+	}
+
+}
+
+
+//////////////////////////////////////////////////////
+/* [RUNTIME DATA AREA]
+------------------------------------
+[METHOD:정보] FishBB.class   , Class002.class
+------------------------------------
+[HEAP:동적]            |  [STACK:지역]
+						   
+						    main2
+						    		
+------------------------------------
+*/
+//////////////////////////////////////////////////////

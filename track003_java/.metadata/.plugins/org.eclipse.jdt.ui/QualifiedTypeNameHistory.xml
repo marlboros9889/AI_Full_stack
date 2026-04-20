@@ -4,7 +4,7 @@
     <fullyQualifiedTypeName name="java.net.MulticastSocket"/>
     <fullyQualifiedTypeName name="jdk.internal.net.http.RequestPublishers.ByteArrayPublisher"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
-    <fullyQualifiedTypeName name="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"/>
 </qualifiedTypeNameHistroy>

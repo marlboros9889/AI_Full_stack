@@ -1,0 +1,44 @@
+package com.the703.basic012;
+//멤버변수 : String name;  int no, kor, eng, math;
+//멤버함수 : void info()
+	class numb{
+	String name;
+	int no, kor, eng, matg;
+	}
+
+public class Class001_ex {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		
+	
+		
+		  Student001   s1 = new Student001();
+		     s1.name="first";  s1.no=11; s1.kor=100; s1.eng=100; s1.math=99;
+		     s1.info();
+		  
+	}
+
+}
+/*/////////////////////////////////////////////////////
+ * 연습문제1)  class
+패키지명 : com.company.com.the703.basic010_ex
+클래스명 :  ClassEx001
+class Student001{
+  멤버변수 : String name;  int no, kor, eng, math;
+  멤버함수 : void info()
+}
+
+public class ClassEx001{
+   public static void main(String[] args) {
+      Student001   s1 = new Student001();
+     s1.name="first";  s1.no=11; s1.kor=100; s1.eng=100; s1.math=99;
+     s1.info();
+   }
+}
+출력내용 : 
+  이름: first
+  총점 : 299
+  평균 : 99.67
+ */
