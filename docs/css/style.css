@@ -1,31 +1,66 @@
 @charset "UTF-8";
-
-/* Q1: 제목(h3)에 왼쪽 테두리(10px solid #ff6600), 배경색(#ffcc99), 패딩(1em)을 주려면? */
-/*h3{ border-left: 10px solid #ff6600;
-    background-color: #ffcc99;
-    padding: 1em;}*/
-/* Q2:  둥근 모서리(10px) , 그림자효과를 주려면?  
-.box{border-radius: 10px;
-    box-shadow: 0 0 10px rgb(196, 41, 41);
-    padding: 10px;} 
-*/
-#demo img{object-fit: cover;}
-
-/*배경 body fixed 하고 원하는 배경 부분만 투명하게*/
-.mybg{ background-color: transparent;}
-
-body{ background-image: url(../img/Spacer.jpg);
-    /* background: linear-gradient(135deg, rgb(196, 194, 136), rgb(131, 232, 220));*/
-     background-repeat:repeat;
-     background-size: cover;
-     background-position: bottom;
-     background-attachment: fixed;
-    }
-
-h3{transition: all 0.3s ease; color: white;}
-h3:hover{color: red; font-size: 2em;}
-
 .myhidden{ position: absolute; left: -9999px; width: 1px; top: 1px;
     height: 1px; overflow: hidden;  border: 0; white-space: nowrap;
 clip:rect(0,0,0,0); /*요소를 잘라서 시각적으로 완전히 숨김-구형브라우저 호환*/
 }
+/* 초기화 및 변수 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --bg: #0a0a0a;
+    --card-bg: #161616;
+    --accent: #3b82f6;
+    --text: #ffffff;
+    --text-dim: #a0a0a0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;
+    line-height: 1.7;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+/* 내비게이션 */
+nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 30px 5%; position: sticky; top: 0; background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px); z-index: 1000;
+}
+nav .logo { font-weight: 700; letter-spacing: 2px; }
+nav ul { display: flex; list-style: none; gap: 30px; }
+nav a { color: var(--text-dim); text-decoration: none; transition: 0.3s; font-size: 0.9rem; }
+nav a:hover { color: var(--text); }
+
+/* 히어로 섹션 */
+.hero { height: 90vh; display: flex; align-items: center; }
+.tagline { color: var(--accent); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
+.hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.2; font-weight: 700; }
+.hero h1 span { color: var(--accent); }
+.contact-links { margin-top: 30px; display: flex; gap: 20px; }
+.contact-links a { color: var(--text); border-bottom: 1px solid var(--text); text-decoration: none; padding-bottom: 5px; }
+
+/* 공통 섹션 스타일 */
+section { padding: 100px 0; }
+.section-title { font-size: 0.8rem; text-transform: uppercase; color: var(--accent); letter-spacing: 5px; margin-bottom: 50px; }
+
+/* 프로젝트 카드 */
+.project-list { display: flex; flex-direction: column; gap: 40px; }
+.project-card {
+    background: var(--card-bg); padding: 40px; border-radius: 12px;
+    transition: transform 0.4s; border: 1px solid #222;
+}
+.project-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+.project-category { color: var(--accent); font-size: 0.8rem; font-weight: 700; }
+.project-card h3 { font-size: 1.8rem; margin: 10px 0; }
+.project-card p { color: var(--text-dim); margin-bottom: 20px; }
+.tech-tags span {
+    background: #222; padding: 5px 12px; border-radius: 5px;
+    font-size: 0.75rem; margin-right: 8px; color: var(--text-dim);
+}
+
+/* 기술 스택 그리드 */
+.skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+.skill-item h3 { margin-bottom: 10px; color: var(--text); border-left: 3px solid var(--accent); padding-left: 15px; }
+.skill-item p { color: var(--text-dim); font-size: 0.95rem; }
