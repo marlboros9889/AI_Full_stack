@@ -1,0 +1,56 @@
+package com.the703.basic013;
+
+import java.util.Scanner;
+
+class MyPrice001 {
+	String name;  int price;
+
+	//1)모든클래스는 생성자-컴파일러가 기본생성자를 자동생성 MyPrice001()
+	void input() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("상품이름 입력>");
+		name = sc.next();
+		System.out.println("상품가격 입력>");
+		price = sc.nextInt();
+	    };
+
+	void show() {
+		System.out.println();
+		System.out.println("상품이름은: " + name + " 상품가격은 :" + price);
+	    };
+
+        }
+
+public class ClassEx002 {
+	public static void main(String[] args) {
+		MyPrice001 p1 = new MyPrice001(); 
+		//1)new  가 객체생성  2)MyPrice001()  name=null, price=0  초기화 3) p1 1번지
+		p1.input();
+		p1.show();
+       
+			        
+	 }	
+  }
+//////////////////////////////////////////////////////
+/* [RUNTIME DATA AREA]
+------------------------------------
+[METHOD:정보] MyPrice001.class , ClassEx002.class
+------------------------------------
+[HEAP:동적]            |  [STACK:지역]
+1번지: MyPrice001
+{name="입력" ,price=1, input(),show()}    <<p1[1번지]
+                              main#2
+------------------------------------
+*/
+//////////////////////////////////////////////////////
+		
+			
+//			  출력내용 : 
+//			  상품이름 입력 >  apple
+//			  상품가격 입력 >  1500
+//
+//			  상품정보입니다
+//			  상품이름 : apple  / 상품가격 : 1500
+
+
+

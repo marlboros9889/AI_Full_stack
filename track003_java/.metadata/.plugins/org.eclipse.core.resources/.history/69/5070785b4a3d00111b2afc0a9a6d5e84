@@ -1,0 +1,35 @@
+package com.the703.basic013;
+
+abstract class MyPrice001{String name;
+				int price;
+			  	abstract void input(); 
+			  	abstract void show(); }
+
+			  	   
+   public class ClassEx002{
+     public static void main(String[] args) {
+			        MyPrice001   p1 = new MyPrice001();
+		        				 p1.input();
+			        
+			        
+			        
+			        
+			        
+			        
+			        
+	 }	
+  }
+
+			
+			
+			
+			
+			//			출력내용 : 
+//			  상품이름 입력 >  apple
+//			  상품가격 입력 >  1500
+//
+//			  상품정보입니다
+//			  상품이름 : apple  / 상품가격 : 1500
+
+
+

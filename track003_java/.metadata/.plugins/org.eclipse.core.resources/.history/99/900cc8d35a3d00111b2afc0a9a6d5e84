@@ -1,0 +1,57 @@
+package com.the703.basic013;
+
+import java.util.Scanner;
+
+class TV{
+	//상태-멤버변수  : 채널/볼륨 
+	String channel; int volume;   
+	public TV(String string, int i) {
+		// TODO Auto-generated constructor stub
+	}
+	   //행위-멤버함수  : 채널, 볼륨 입력: input() / 출력 : show()
+	   void input() {
+		   Scanner sc= new Scanner(System.in);
+		   System.out.println("채널을 입력하세요 >");
+		   channel= sc.next();
+		   System.out.println("볼륨을 입력하세요 >");
+		   volume= sc.nextInt();
+	       }
+	   void show() {
+		   System.out.println("채널이름은:"+ channel);
+		   System.out.println("볼륨은:"+volume);
+	   }
+	}
+public class ClassEx004 {
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TV  t1 = new TV("JDBC" , 8);
+		   t1.show(); 
+		   TV  t2 = new TV(channel + volume);
+		   t2.input();  
+		   t2.show();
+		
+	}
+}
+
+/*
+-- 생성자 작성하시오.
+class TV{
+//상태-멤버변수  : 채널/볼륨 String channel; int volume;   
+//행위-멤버함수  : 채널, 볼륨 입력: input() / 출력 : show()
+}
+public class ClassEx004 {
+    public static void main(String[] args) {
+   TV  t1 = new TV("JDBC" , 8);
+   t1.show(); 
+   TV  t2 = new TV();
+   t2.input();  
+   t2.show();
+   }
+}
+출력내용 :
+JDBC   8
+
+* channel입력>youtube
+* volume 입력>10
+youtube   10
+*/

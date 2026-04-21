@@ -1,0 +1,58 @@
+package com.the703.basic013;
+
+class Coffee {
+	String name; int price, num;
+
+	public Coffee() {
+		super();
+		// TODO Auto-generated constructor stub
+		this.name = "아메리카노";
+		this.num = 1;
+		this.price =2000;
+	}
+
+
+
+	public Coffee(String name, int price, int num) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.num = num;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Coffee [name=" + name + ", price=" + price + ", num=" + num + "]";
+	}
+
+
+
+	void show() {
+		System.out.println("====커피메뉴====");
+		System.out.println( name + "\t" + price + "\t" + num);
+	}
+}
+
+public class ClassEx003 {
+	public static void main(String[] args) {
+        // 1. 정보를 직접 넣어서 생성
+        Coffee a1 = new Coffee("까페라떼", 2, 4000);
+        a1.show();
+
+        // 2. 아무 정보 없이 생성 (기본값 아메리카노 출력)
+        Coffee a2 = new Coffee();
+        a2.show();
+		 
+//          출력내용 :
+//        	=====커피
+//        	커피명 : 까페라떼
+//        	커피잔수 : 2 
+//        	커피가격 : 8000
+//        	=====커피
+//        	커피명 : 아메리카노
+//        	커피잔수 : 1
+//        	커피가격 : 2000
+	 }
+}
