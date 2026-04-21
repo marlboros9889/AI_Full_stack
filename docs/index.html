@@ -3,196 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>낭만의 개발자</title>
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="./css/my.css" rel="stylesheet">
-
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-    <!-- HEADER -->
-    <!-- Q1. h1 내용 바꾸고 /a 태그에 들어가 있는 Loge / nav 좋아하는 색상으로 바꾸기 -->
-    <header>
-        <h1 class="myhidden">낭만의 Adam</h1>
-        <nav class="navbar navbar-expand-sm navbar-dark ">
-            <h2 class="myhidden">주메뉴</h2>
-            <div class="container-fluid">
-                <a class="navbar-brand" href="javascript:void(0)">Adam</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                    <a class="nav-link text-white" href="javascript:void(0)">포트폴리오</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link text-white" href="javascript:void(0)">About Me</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link text-white" href="javascript:void(0)">Galley</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link text-white" href="javascript:void(0)">Contact me</a>
-                    </li>
-                </ul>
+    <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | AI Full-stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+KR:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">DEVELOPER.</div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+        </ul>
+    </nav>
 
-                </div>
+    <header class="hero">
+        <div class="container">
+            <p class="tagline">Always Learning & Recording</p>
+            <h1>기본을 지키며 성장하는<br><span>풀스택 개발자</span> 지망생입니다.</h1>
+            <div class="contact-links">
+                <a href="https://github.com/marlboros9889" target="_blank">GitHub</a>
+                <a href="mailto:이메일주소">Email</a>
             </div>
-        </nav>        
+        </div>
     </header>
 
-
-
-    <!-- INFO -->
-<section class="portfolio-card p-5">
-    <div class="container text-white">
-        <h3 class="p-5 text-center"> 🚀 About Me 🚀 </h3>
-        <div class="row g-4"> 
-            
-            <div class="col-md-4">
-                <div class="info-box h-100"> <p class="text-center"><img src="./img/Cat.jpg" alt="cat" class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover;"></p>
-                    <h4 class="text-center">🤖 Adam.Jang 🤖</h4>
-                    <ul class="list-unstyled text-center">
-                        <li>💌 marlboros9889@gmail.com</li>
-                        <li><a href="https://github.com/marlboros9889/AI_Full_stack" target="_blank" class="text-info text-decoration-none">🌏 깃허브 보기</a></li>
-                    </ul> 
-                </div>
+    <section id="about" class="about container">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>2026년 3월부터 <strong>AI 풀스택 부트캠프</strong>를 통해 소프트웨어 개발의 전 과정을 학습하고 있습니다. 단순한 코드 작성을 넘어, 시스템의 구조를 이해하고 문제 해결 과정을 기록하는 것을 즐깁니다.</p>
+                <ul class="history">
+                    <li><span>2026.03 - Present</span> AI Full-stack Bootcamp 수강 중</li>
+                    <li><span>2026.04 - Present</span> Linux Master Level 2 준비 중</li>
+                </ul>
             </div>
+        </div>
+    </section>
 
-            <div class="col-md-4">
-                <div class="info-box h-100">
-                    <h4>Education</h4>
-                    <p>풀스택 교육 중</p>
-                    <hr>
-                    <h4>KeyWord</h4>
-                    <div class="keyword-group"> <span class="badge bg-danger">Self-Driven</span>
-                        <span class="badge bg-warning text-dark">Consistency</span>
-                        <span class="badge bg-info">Troubleshooter</span>
-                        <span class="badge bg-primary">Growth Mindset</span>
-                        <span class="badge bg-secondary">Collaborative</span>
-                    </div>
-                </div>
-            </div>
+    <section id="skills" class="skills container">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skill-grid">
+            <div class="skill-item"><h3>Java</h3><p>객체지향 프로그래밍, 배열 및 자료구조 활용</p></div>
+            <div class="skill-item"><h3>Frontend</h3><p>HTML5, CSS3 레이아웃 설계 및 반응형 웹</p></div>
+            <div class="skill-item"><h3>DevOps</h3><p>Git 버전 관리, Linux 기본 명령어 및 환경 구축</p></div>
+        </div>
+    </section>
 
-            <div class="col-md-4">
-                <div class="info-box h-100">
-                    <h4>SKILLS ⚔️</h4>
-                    <div class="progress-wrapper">
+    <section id="projects" class="projects container">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-list">
+            <article class="project-card">
+                <div class="project-info">
+                    <span class="project-category">Java Application</span>
+                    <h3>Console Banking System</h3>
+                    <p>사용자 계좌 생성, 입출금 및 잔액 조회를 지원하는 콘솔 기반 뱅킹 시스템입니다. 배열을 활용한 데이터 관리 로직을 직접 구현하며 백엔드 기초를 다졌습니다.</p>
+                    <div class="tech-tags">
                         <span>Java</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-info" style="width:30%">30%</div>
-                        </div>
-                        <span>CSS</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-warning" style="width:57%">57%</div>
-                        </div>
-                        <span>Consistency</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-danger" style="width:77%">77%</div>
-                        </div>
-                        <span>Deep Work</span>
-                        <div class="progress mb-3">
-                            <div class="progress-bar" style="width:88%; background-color:#6f42c1;">88%</div>
-                        </div>
+                        <span>Object-Oriented</span>
                     </div>
                 </div>
-            </div>
+            </article>
 
-        </div>
-    </div>
-</section>
-    
-
-    <!-- POTFOLIO -->
-    <section class="p-5 portfolio-card">
-        <h3 class="text-center  p-5 ">My portfolio 🤟🏻</h3>
-            <div class="container  p-4 rounded">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h4 class="text-white skill-tag">홍보영상</h4>
-                        <!-- 동영상 -->
-                         <iframe class="iframe width=560" height="315" src="https://www.youtube.com/embed/6RQ-bBdASvk?si=5ruZj6QryMPSFxsS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                         <botton class="btn btn-danger">포트폴리오 더보기</botton>
-                    </div>
-                    <div class="col-sm-4 text-white">
-                         <h4 class=" skill-tag text-white ">spring boot + jpa + rect portfolio🧑🏻‍🔧</h4>
-                           <ul>
-                                <li><strong>Spring Boot + JPA</strong>반의 백엔드와 데이터 처리 로직 구현</li>
-                                <li><strong>React</strong>를 활용한 사용자 중심의 프론트엔드 UI 개발</li>
-                                <li><strong>JWT 인증</strong>과 CI/CD 자동 배포로 보안성과 효율성 강화</li>
-                           </ul>
-                    </div>
-                    <div class="col-sm-4">
-                        <h4 class="skill-tag text-white ">🧑🏻‍🔧기술스택🧑🏻‍🔧</h4>
-                            <ul class="text-white">
-                                <li>Spring Boot 2.7.14</li>
-                                <li>Spring Security 5.7.x</li>
-                                <li>Spring Data JPA 2.7.x</li>
-                                <li>Hibernate 5.6.x</li>
-                                <li>Oracle 11</li>
-                                <li>React 18.x</li>
-                                <li>Axios 1.x</li>
-                                <li>React Router v6</li>
-                                <li>JWT</li>
-                                <li>Git & GitHub</li>
-                                <li>GitHub Actions</li>
-                            </ul>
+            <article class="project-card">
+                <div class="project-info">
+                    <span class="project-category">Web Design</span>
+                    <h3>AI Full-stack Portfolio</h3>
+                    <p>나만의 학습 여정과 프로젝트를 기록하기 위한 웹사이트입니다. HTML/CSS를 활용하여 직관적이고 감각적인 UI를 구현하는 데 집중했습니다.</p>
+                    <div class="tech-tags">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>GitHub Pages</span>
                     </div>
                 </div>
-            </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="p-3 mybg portfolio-card">
-        <h3 class="p-3 text-center ">Contact me</h3>
-        <div class="container shadow p-5  rounded text-white">
-            <form action="/action_page.php">
-                <div class="mb-3 mt-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                </div>
-                <div class="mb-3">
-                    <label for="comment ">Comments:</label>
-                    <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </article>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <!--Q1. 글자 페이지 정중앙/ 배경색 -->
-    <footer class="footer bg-secondary text-white text-center">
-        <div>© copyrights company 2026 all. rights reserved</div>
+    <footer>
+        <p>&copy; 2026. All rights reserved.</p>
     </footer>
 </body>
-        <script>
-        document.addEventListener('mousemove', function(e) {
-        // 입자를 생성할 div 요소 만들기
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-
-        // 마우스 위치(e.clientX, e.clientY)에 입자 배치
-        // 스크롤 위치까지 고려하기 위해 window.pageXOffset 등을 더함
-        particle.style.left = (e.clientX + window.pageXOffset) + 'px';
-        particle.style.top = (e.clientY + window.pageYOffset) + 'px';
-
-        // 랜덤한 크기 설정 (2px ~ 10px)
-        const size = Math.random() * 8 + 2;
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-
-        document.body.appendChild(particle);
-
-        // 1초 뒤에 생성된 입자를 자동으로 제거 (메모리 관리)
-        setTimeout(() => {
-        particle.remove();
-        }, 1000);
-        });
-</script>
 </html>
-
-
-http://marlboro9236/dosc/index.html
-http://127.0.0.1:5500/dosc/index.html
+</body>
+</html>
