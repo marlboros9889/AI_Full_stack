@@ -1,0 +1,33 @@
+package com.the703.basic014;
+//1.클래스는 부품객체
+//2.클래스는 상태(멤버변수)와 행위(멤버함수)
+class farm{
+	//상태(멤버변수)
+	String name;//인스턴스 변수
+	int age;
+	
+	static String Farmname="(주) 동물농장"; //클래스 변수-클래스명.변수명
+	static int FarmNum;
+	static String FarmBoss;
+	static {FarmNum=2; FarmBoss="신동엽"; }
+	//행위(멤버함수)
+	
+ }
+
+
+
+
+
+
+
+
+
+
+
+public class Class005 {
+	public static void main(String[] args) {
+		
+
+	}
+
+}

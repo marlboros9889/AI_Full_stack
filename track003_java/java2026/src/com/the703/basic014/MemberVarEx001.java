@@ -1,0 +1,75 @@
+package com.the703.basic014;
+//////////////////////////////////////////////////////
+/* [RUNTIME DATA AREA]
+------------------------------------
+[METHOD:정보]
+Sawon3.class ,    MemberVarEx001.class((#1번으로 적용))
+Sawon3.su=10;			Sawon3,basicpay2       Sawon3,basicpay    Sawon3.showSu()  Sawon3.showAll002() 
+------------------------------------
+[HEAP:동적]            |  [STACK:지역]
+
+1번지:{pay=10000,
+	  showAll001 }  ←       Sola [1번지]      - 1)new 2)생성자 3)번지 -new 한후 객체생성 후 사용가능
+							main #2번으로적용
+------------------------------------
+*/
+//인스턴스변수는 new를 생성후에 쓸수있다.
+//////////////////////////////////////////////////////
+
+class Sawon3{ 
+		int pay =10000;  //1) 인스턴스 변수-new O-heap area- 생성자- this(각각)
+    static int su=10;     //2)클래스 변수-static-method area-공용- 클래스명.su(변수)
+ //static int basicpay=pay; //3)클래스변수 안에 인스턴스변수-static은 인스턴스 변수(this) 불가  
+    static int basicpay2;  //4)클래스변수-static-method area-공용- 클래스명.basicpay2(변수)
+    public static void showSu() {   System.out.println(su);  }//5)클래스메서드          
+   // public static void showPay() {   System.out.println(this.pay);  }//6)클래스메서드 
+    //static은 인스턴스 변수(this) 불가
+  
+    public  void  showAll001() {    //7) 인스턴스메서드 (static 없어서 불가)
+       System.out.println(su);
+       System.out.println(this.pay); // new 객체를 만들어서 사용 가능
+    } 
+    public static  void  showAll002() { //8)클래스메서드 (static 있어서 가능)
+      //  showAll001();                   //인스턴스메서드 static - this 사용불가
+      // System.out.println(pay);
+    } 
+} 
+
+public class MemberVarEx001 {
+	public static void main(String[] args) {
+		   Sawon3   sola = new Sawon3();  
+		   sola.showAll001();		
+
+	}
+
+}
+/*
+-- class Sawon3작성해주세요 
+1. 인스턴스변수, 클래스변수, 지역변수 를 구분하시오.
+2. 인스턴스메서드, 클래스메서드 구분하시오.
+3. 오류나는 이유는?
+class Sawon3{ 
+    int pay      =10000;    
+    static int su=10;     
+    static int basicpay=pay;    
+    static int basicpay2;    
+    
+    public static void showSu() {   System.out.println(su);  }          
+    public static void showPay() {   System.out.println(this.pay);  }    
+  
+    public  void  showAll001() {   
+       System.out.println(su);  
+       System.out.println(this.pay);  
+    } 
+    public static  void  showAll002() {   
+        showAll001();    
+       System.out.println(this.pay);
+    } 
+} 
+public class MemberVarEx001{
+  public static void main(String[] args) {
+   Sawon3   sola = new Sawon3();  
+   sola.showAll001();
+  }
+}      
+*/

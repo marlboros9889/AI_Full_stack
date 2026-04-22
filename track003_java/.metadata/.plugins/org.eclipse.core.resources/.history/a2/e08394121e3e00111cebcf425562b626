@@ -1,0 +1,66 @@
+package com.the703.basic014;
+class Area1{
+	double Pi, rect1, triangle1;
+	
+	static double pi =3.1459;
+	
+	static double rect(double width, double height) {
+		return width*height;  }
+	static double triangle(double base,double height ) {
+		return base*height /2;
+	}
+
+public Area1() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Area1(double pi, double rect, double triangle) {
+	super();
+	Pi = pi;
+	this.rect1 = rect;
+	this.triangle1 = triangle;
+}
+@Override
+public String toString() {
+	return "Area1 [Pi=" + Pi + ", rect=" + rect1 + ", triangle=" + triangle1 + "]";
+}
+
+	
+
+
+
+	
+}
+
+
+
+public class StaticEx001{
+	  public static void main(String[] args) {  
+	   System.out.println("원의 면적    : " + 10 * 10 * Area1.pi);
+	   
+	   System.out.println("사각형의 면적 : " + Area1.rect(10, 5));
+	
+	   System.out.println("삼각형의 면적 : " + Area1.triangle(10, 5));
+	  }
+	}
+
+
+
+
+
+
+/*
+-- class Area1 작성해주세요   ※ pi값은 3.14159
+public class StaticEx001{
+  public static void main(String[] args) {  
+   System.out.println("원의 면적    : " + 10 * 10 * Area1.pi);
+   System.out.println("사각형의 면적 : " + Area1.rect(10, 5));
+   System.out.println("삼각형의 면적 : " + Area1.triangle(10, 5));
+  }
+} 
+
+출력내용 : 
+원의 면적    : 314.159
+사각형의 면적 : 50.0
+삼각형의 면적 : 25.0
+*/

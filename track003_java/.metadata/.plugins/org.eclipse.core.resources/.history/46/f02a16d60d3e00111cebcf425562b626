@@ -1,0 +1,35 @@
+package com.the703.basic014;
+
+//1. 클래스는 부품객체
+//2. 클래스 상태(멤버 변수) 와 행위(멤버 함수)
+class product{
+	String name;
+	int price;
+	
+	
+	
+	public product() { super();}
+
+
+
+	public product(String name, int price)
+	{ super(); this.name = name; this.price = price; }
+
+
+
+	@Override public String toString() 
+	{ return "product [name=" + name + ", price=" + price + "]"; } 
+}
+
+
+
+///////////////////////////////////////////////////////
+public class Class004 {
+public static void main(String[] args) {
+		product p1 = new product();
+		System.out.println(p1);
+		
+
+	}
+
+}

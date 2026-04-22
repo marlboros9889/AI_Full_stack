@@ -1,0 +1,37 @@
+package com.the703.basic014;
+//1.클래스는 부품객체
+//2.클래스는 상태(멤버변수)와 행위(멤버함수)
+class farm{
+	//상태(멤버변수)
+	String name;//인스턴스 변수- heap area- new O- 생성자 
+	int age;
+	
+	static String Farmname="(주) 동물농장"; //클래스 변수-클래스명.변수명
+	static int FarmNum;  //클래스 변수 -method area - new X - 생성자 X
+	static String FarmBoss;
+	static {FarmNum=2; FarmBoss="신동엽"; } //초기화블록
+	//행위(멤버함수)
+	static	void numPlus() { FarmNum++; }//클래스.메서드 
+ }
+
+public class Class005 {
+	public static void main(String[] args) {
+		System.out.println("\n\n0.동물농장");
+		System.out.println("::회사이름>" + farm.Farmname);
+		System.out.println("::회사사장>" + farm.FarmBoss);
+		System.out.println("::회사인원>" + farm.FarmNum);
+		
+		//farm.numPlus();
+	}
+
+}
+//////////////////////////////////////////////////////
+/* [RUNTIME DATA AREA]
+-------------------------------------------------------------------
+[METHOD:정보  static,final ]    Farm.class,   Class005.class
+Farm.Farmname="(주) 동물농장"; // Farm.FarmNum=2; //Farm.FarmBoss="신동엽";   
+-------------------------------------------------------------------
+[HEAP:동적]            |  [STACK:지역]
+-------------------------------------------------------------------
+*/
+//////////////////////////////////////////////////////
