@@ -1,0 +1,10 @@
+package com.the703.basic015;
+
+public class Class007_modifier {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

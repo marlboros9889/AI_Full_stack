@@ -1,0 +1,14 @@
+package Class000;
+
+public class UserInfo2 {
+	class UserInfoSon extends UserInfo{
+		public void show() {
+			System.out.println("::홍길동 아버지    이름> "+ name);
+			System.out.println("::홍길동 아버지 비밀번호> "+ safeCode);
+			System.out.println("::홍길동 아버지     집> "+ house);
+			//System.out.println("::홍길동 아버지  아이큐> "+ iQ);
+			System.out.println("::홍길동 아버지  아이큐> "+ getiQ());
+			
+		}
+	}
+}

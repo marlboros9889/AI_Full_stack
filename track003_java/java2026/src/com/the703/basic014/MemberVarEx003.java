@@ -1,9 +1,47 @@
 package com.the703.basic014;
 
-public class MemberVarEx003 {
+class LunchTray {
+   String owner;        
+   int rice = 90;               
+   int soup = 85;               
 
+   static int trayCount = 0;      
+
+   int totalFood = rice + soup;
+
+   static int maxRice = 100;       
+
+   public int getFoodAmount() {
+       return rice + soup;         
+   }
+
+   public static void showTrayCount() {
+       System.out.println("전체 급식판 수: " + trayCount);   
+   }
+   public LunchTray() {
+	   trayCount++;
+   }
+//   public static void showOwner() { 
+//      System.out.println(owner);
+//   } static은 인스턴스 변수에서 사용불가 
+
+   public void showTray() {
+       System.out.println("\n\n:: 주인 이름: " + owner);                
+       System.out.println("총 음식량: " + getFoodAmount());     
+   }
+}
+
+public class MemberVarEx003 {
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		LunchTray tray1 = new LunchTray();
+		tray1.owner="std-1";
+        tray1.showTray();                    
+        LunchTray.showTrayCount();         
+
+        LunchTray tray2 = new LunchTray();   
+        tray2.owner="std-2";
+        tray2.showTray();                   
+        LunchTray.showTrayCount();  
 
 	}
 

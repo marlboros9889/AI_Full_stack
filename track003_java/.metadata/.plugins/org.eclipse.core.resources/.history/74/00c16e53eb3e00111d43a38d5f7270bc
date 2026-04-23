@@ -1,0 +1,8 @@
+package ClassEX;
+
+//privated(Apple 클래스 내부)<<default(package)폴더<<protected 상속자식<<public 아무데서나
+public class Apple {
+	 
+	 private String name; 
+	 private int price;
+}

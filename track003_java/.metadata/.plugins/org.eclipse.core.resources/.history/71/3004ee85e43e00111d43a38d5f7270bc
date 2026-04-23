@@ -1,0 +1,26 @@
+package Class000;
+
+//1) basic010, basic010_ex
+class UserInfo{
+	
+}
+public class Class007_modifier {
+	public static void main(String[] args) {
+		
+
+	}
+}
+/************************
+1. 지정접근자 
+- 클래스의 구성요세 대한 접근을 제한하는 역할
+				클래스내부			패키지(폴더)		하위클래스			그 외
+public			O				O				O				O
+protected		O				O				O				X
+default			O				O				X				X				
+private 		O				X				X				X
+
+ 
+ 
+ 
+ */
+ 

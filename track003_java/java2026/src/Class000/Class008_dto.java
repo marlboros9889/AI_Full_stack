@@ -1,0 +1,14 @@
+package Class000;
+//1. basic010_ex - 클래스 Apple{private name; private price;}
+
+
+import ClassEX.Apple;
+
+public class Class008_dto {
+	public static void main(String[] args) {
+		Apple one = new Apple();
+		System.out.println(one);
+		
+	}
+
+}

@@ -1,0 +1,50 @@
+package Class000;
+
+public class Milk{  // basic010에 설정해주세요!
+	   private int  mno;   
+	   private String mname;  
+	   private  int mprice;
+	   @Override
+	   public String toString() {
+		return "Milk [mno=" + mno + ", mname=" + mname + ", mprice=" + mprice + "]";
+	   }
+	   public Milk(int mno, String mname, int mprice) {
+		super();
+		this.mno = mno;
+		this.mname = mname;
+		this.mprice = mprice;
+	   }
+	   public Milk() {
+		super();
+		// TODO Auto-generated constructor stub
+	   }  
+	   
+	}
+
+public class ModifierEx1 {
+	public static void main(String[] args) {
+		
+	   } // end main
+	} // end class
+/*
+ * ㅁ출력된화면
+   Milk [mno=0, mname=null, mprice=0]
+   Milk [mno=0, mname=null, mprice=2000]
+   
+ㅁ주어진조건
+public class Milk{  // basic010에 설정해주세요!
+   private int  mno;   
+   private String mname;  
+   private  int mprice;  
+}
+
+public class ModifierEx1{ // basic010_ex 패키지에 설정해주세요.
+   public static void main(String[] args) {
+      Milk m1 = new Milk();  
+      System.out.println( m1 );  
+      m1.setMprice(2000);       
+      System.out.println( m1 );
+   } // end main
+} // end class
+
+ */
