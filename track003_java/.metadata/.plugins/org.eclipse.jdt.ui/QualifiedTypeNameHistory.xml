@@ -5,8 +5,8 @@
     <fullyQualifiedTypeName name="jdk.internal.net.http.RequestPublishers.ByteArrayPublisher"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
-    <fullyQualifiedTypeName name="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"/>
     <fullyQualifiedTypeName name="com.the703.basic013.car32"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="com.the703.basic014.farm"/>
+    <fullyQualifiedTypeName name="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"/>
 </qualifiedTypeNameHistroy>
