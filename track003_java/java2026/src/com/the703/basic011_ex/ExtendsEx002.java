@@ -74,6 +74,7 @@ public class ExtendsEx002 {
 //		        my7.setIris("brown");
 //		        my7.setFace("pretty");
 //		        my7.newShow();
+		
 //
 //		        MobileNote8 my8 = new MobileksNote8();
 //		        my8.setFace("pretty");
