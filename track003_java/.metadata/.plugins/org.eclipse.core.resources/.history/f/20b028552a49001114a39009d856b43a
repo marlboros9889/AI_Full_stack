@@ -1,0 +1,8 @@
+package basic.days_;
+
+public class Snippet {
+	public static void main(String[] args) {
+		Day028
+	}
+}
+

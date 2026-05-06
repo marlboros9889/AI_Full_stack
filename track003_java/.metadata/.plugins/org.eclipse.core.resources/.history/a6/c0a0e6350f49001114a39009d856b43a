@@ -1,0 +1,26 @@
+package basic.basic014_;
+
+import java.util.HashMap;
+import java.util.Map;
+
+//List(기차)	- 순서o  ,  중복o
+//Set(주머니)	- 순서x  ,  중복x
+//Map(사전)	- Key   :  Value	put, get(key), size, remove, contains
+
+public class Map001 {
+	public static void main(String[] args) {
+		Map<String, Integer> maps = new HashMap<>();
+		maps.put("One"	, 1);		//키, 값
+		maps.put("Two"	, 2);		//엔트리
+		maps.put("Three", 3);
+		
+		System.out.println("1 : " + maps);
+		System.out.println("2 : " + maps.get("Two"));
+		System.out.println("3 : " + maps.size());
+		
+		System.out.println("4-1 : " + maps.remove("Two") );
+		System.out.println("4-2 : " + maps);
+
+	}
+
+}

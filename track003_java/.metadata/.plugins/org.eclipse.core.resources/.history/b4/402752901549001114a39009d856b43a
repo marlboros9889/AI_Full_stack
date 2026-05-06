@@ -1,0 +1,10 @@
+package basic.basic014_;
+
+public class UserDto {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
