@@ -1,0 +1,10 @@
+package basic.basic015_ex_;
+
+public class LambdaEx001 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

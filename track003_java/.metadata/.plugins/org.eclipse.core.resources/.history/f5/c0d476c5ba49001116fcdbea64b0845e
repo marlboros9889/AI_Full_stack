@@ -1,0 +1,27 @@
+package basic.basic015_;
+
+//1. 클래스는 부품객체 - 설계도(틀, can do this !)
+//2. 상태 + 행위 - Interface( public static final / public  absteract
+Interface Inter1{
+	void method1();
+}
+class InterImpl implements Inter1{
+	@Override
+	public void method() {
+		System.out.println("Hello 실행");
+	}
+}
+
+public class Lambda001 {
+	public static void main(String[] args) {
+	
+	}
+}
+/*
+	1.Lambda
+	- 자바에서 함수적 프로그램 지원기법
+	- 코드의 간결함
+	- 함수형 인터페이스 : 1개의 추상메소드만 가지는 인터페이스
+	
+	
+*/

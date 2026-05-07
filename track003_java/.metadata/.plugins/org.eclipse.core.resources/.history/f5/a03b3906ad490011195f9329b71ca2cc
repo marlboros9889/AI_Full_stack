@@ -1,0 +1,15 @@
+package basic.days_;
+
+class Milk{
+	private String name;
+	private int mprice;
+}
+
+
+public class MapEx0022 {
+	public static void main(String[] args) {
+
+
+		
+	}
+}

@@ -1,0 +1,68 @@
+package basic.days_;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+class Milk{
+	private String name;
+	private int mprice;
+	
+	public String getName() {		return name;	}
+	public void setName(String name) {		this.name = name;	}
+	public int getMprice() {		return mprice;	}
+	public void setMprice(int mprice) {		this.mprice = mprice;	}
+	@Override
+	public String toString() {
+		return "Milk [name=" + name + ", mprice=" + mprice + "]";
+	}
+	public Milk(String name, int mprice) {
+		super();
+		this.name = name;
+		this.mprice = mprice;	}
+	public Milk() {		super();	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(mprice, name);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Milk other = (Milk) obj;
+		return mprice == other.mprice && Objects.equals(name, other.name);
+	}
+	public Milk get(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
+}
+
+
+
+public class MapEx0022 {
+	public static void main(String[] args) {
+		List<Milk> milks = new ArrayList<>();
+		
+		milks.add( new Milk("바나나우유", 1300));
+		milks.add( new Milk("메론맛우유", 1800));
+		milks.add( new Milk("커피맛우유", 1500));
+		milks.add( new Milk("커피맛우유", 1500));
+		
+		for(int i=0; i<milks.size(); i++) {
+			Milk milk = milk.get(i);
+			System.out.println("%d   %s   %d\n", i+1, milk.getName(), milk.Mprice);
+		}
+		System.out.println();
+		Set<milk>
+		
+	}
+}

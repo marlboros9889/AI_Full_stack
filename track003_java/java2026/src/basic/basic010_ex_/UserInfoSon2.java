@@ -1,6 +1,6 @@
 package basic.basic010_ex_;
 
-import com.the703.basic010.UserInfo2;
+import basic.basic010_.UserInfo2;
 
 public class UserInfoSon2 extends UserInfo2{
    public void show() {

@@ -1,6 +1,7 @@
 package basic.basic010_ex_;
 
-import com.the703.basic010.Milk;   // basic010 패키지에 있는 Milk
+import basic.basic010_.Milk;
+
 public class ModifierEx1 {
 	public static void main(String[] args) {
 	      Milk m1 = new Milk();  
