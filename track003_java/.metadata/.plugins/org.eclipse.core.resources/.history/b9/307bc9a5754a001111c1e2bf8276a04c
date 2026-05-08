@@ -1,0 +1,22 @@
+package basic.days_;
+
+public class Day030 {
+    public static void main(String[] args) {
+        // Q4. HashSet 출력
+        System.out.println("========== Set (HashSet) ==========");
+        Set<Player> playerSet = new HashSet<>();
+        
+        playerSet.add(new Player("Mario", 1200));
+        playerSet.add(new Player("Luigi", 1500));
+        playerSet.add(new Player("Peach", 1800));
+        playerSet.add(new Player("Bowser", 900));
+        playerSet.add(new Player("Bowser", 900)); // 중복 데이터
+        
+        // HashSet은 순서가 없고 중복을 허용하지 않으므로 Bowser는 한 번만 저장됨
+        for(Player player : playerSet) {
+            System.out.printf("%-10s  %d\n", player.getName(), player.getScore());
+        }
+        
+        System.out.println("\nQ5 해설: HashSet은 순서가 없는 구조로 중복을 허용하지 않으므로 같은 데이터는 하나만 저장됩니다.\n");
+    }
+}

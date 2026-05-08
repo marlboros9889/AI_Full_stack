@@ -1,0 +1,24 @@
+package basic.basic015_;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+public class Stream003 {
+	public static void main(String[] args) {
+		Integer[]  ages = {17 , 21, 26 , 45, 18};
+	
+		
+		Stream<Integer> ages1 = Arrays.stream(ages);
+	
+		
+		//Ex1. 짝수만 출력
+		ages1.filter( t-> t % 2 == 0 )
+		.forEach( System.out::print);
+		//Ex2. 평균값 출력
+		ages1.filter( t-> t >= 19 )
+		.forEach(System.out::print);
+		//Ex3. 제일 나이가 많은 사람
+		
+	}
+}

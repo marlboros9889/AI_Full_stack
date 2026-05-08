@@ -1,0 +1,41 @@
+package basic.basic016;
+
+public class Java_IO_002_byte {
+	public static void main(String[] args) {
+			//#1. 경로
+		
+		String folder_rel = "src/basic/basic016/";	// 상대경로 - 현재작업 폴더기준
+		String file_path = "io002_byte.txt";	
+		
+			//#2.폴더 + 파일 (exists, mkdirs, createNewFile)
+		
+			//#3. byte 파일쓰기	InputStream		>프로그램 > 	#OutputStream	
+		
+			//#4. byte 파일읽기	InputStream#	>프로그램 > 	OutputStream
+
+		
+		
+	}
+}
+/*
+1. JAVA I/O
+-	입력(input)과 출력(output)
+-	두 대상간의 데이터를 주고 받는것
+-	스트림이란? 사용 연결 통로
+
+	입력스트림  →       [프로그램]  →       출력스트림
+	InputStream	         			    OutputStream	
+    Reader								Writer
+    
+    
+    
+2. JAVA I/O 분류
+- byte(모든종류-그림, 멀티미디어, 문자)   /  char(문자)
+- byte( InputStream/ OutputStream) /  char(Reader/ Writer)
+
+
+3. 보조스트림
+
+
+
+*/

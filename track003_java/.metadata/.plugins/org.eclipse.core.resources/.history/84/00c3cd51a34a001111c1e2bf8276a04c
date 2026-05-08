@@ -1,0 +1,38 @@
+package basic.basic016;
+
+
+public class Java_IO_001 {
+	public static void main(String[] args) {
+		//1. 경로체크
+		String folder_abs = "C:\\file";	// 절대경로 - 시스템의 폴더기준
+		String folder_rel = "src/basic/basic016/";	// 상대경로 - 현재작업 폴더기준
+		String foile_path = " ";	
+		
+		//2. 폴더 + 파일 준비
+		
+		
+		
+		
+		
+		
+	}
+}
+/*
+1. JAVA I/O
+-	입력(input)과 출력(output)
+-	두 대상간의 데이터를 주고 받는것
+-	스트림이란? 사용 연결 통로
+
+	입력스트림  →       [프로그램]  →       출력스트림
+	InputStream	         			    OutputStream	
+    Reader								Writer
+    
+    
+    
+2. JAVA I/O 분류
+
+3. 보조스트림
+
+
+
+*/

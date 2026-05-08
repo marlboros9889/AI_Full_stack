@@ -1,0 +1,32 @@
+package basic.basic016_;
+
+
+public class Java_IO_001 {
+	public static void main(String[] args) {
+		
+		
+		
+		
+		
+		
+	}
+}
+/*
+1. JAVA I/O
+-	입력(input)과 출력(output)
+-	두 대상간의 데이터를 주고 받는것
+-	스트림이란? 사용 연결 통로
+
+	입력스트림  →       [프로그램]  →       출력스트림
+	InputStream	         			    OutputStream	
+    Reader								Writer
+    
+    
+    
+2. JAVA I/O 분류
+
+3. 보조스트림
+
+
+
+*/

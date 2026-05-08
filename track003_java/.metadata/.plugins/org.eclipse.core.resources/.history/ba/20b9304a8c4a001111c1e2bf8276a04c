@@ -1,0 +1,34 @@
+package basic.basic015_;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Stream;
+
+
+
+public class Stream002 {
+	public static void main(String[] args) {
+	
+	      Integer[]     arr  = {1,2,5,4,3,4,5,1,2,1,1,1,1,1,1};   
+	      List<Integer> list = Arrays.asList(arr);
+		
+	      //1단계 stream
+	      Stream<Integer> sarr = Arrays.stream(arr);
+	      Stream<Integer> slist = list.stream();
+
+	      //2단계 중간연산
+	      //( t ) -> {}
+	      //void java.util.function.Consumer.accept( T t )
+	      //sarr.forEach( (t) -> {System.out.print(t);} );  ver-1
+	      //sarr.forEach( t -> System.out.print(t) );       ver-2
+	      
+	      //( t )-> { return }
+	      //boolean java.util.function.Predicate.test( T t )
+	      sarr.filter( (t)-> t%1 !=0 )
+	          .forEach(System.out::printf);			
+	      
+	      
+	      //3단계 최종연산
+
+	}
+}
