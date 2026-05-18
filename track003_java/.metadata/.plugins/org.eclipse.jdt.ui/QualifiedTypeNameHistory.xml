@@ -24,4 +24,8 @@
     <fullyQualifiedTypeName name="jdk.internal.misc.FileSystemOption"/>
     <fullyQualifiedTypeName name="jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput"/>
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+    <fullyQualifiedTypeName name="java.io.OutputStream"/>
+    <fullyQualifiedTypeName name="java.io.FileInputStream"/>
+    <fullyQualifiedTypeName name="java.io.Reader"/>
+    <fullyQualifiedTypeName name="java.io.Writer"/>
 </qualifiedTypeNameHistroy>

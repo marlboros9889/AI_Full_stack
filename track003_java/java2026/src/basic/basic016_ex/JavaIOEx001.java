@@ -13,7 +13,7 @@ public class JavaIOEx001 {
 		//#1. 경로
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMdd_HHmmss"); // 포맷설정
 		long millis = System.currentTimeMillis();	//시스템 시간 가져오기
-		String folder_rel = "src/basic/basic016_ex";	//상대경로 - 현재 작업 중인 폴더 기준
+		String folder_rel = "src/basic/basic016_ex//";	//상대경로 - 현재 작업 중인 폴더 기준
 		String file_path = "app.log";
 		
 		File folder = new File(folder_rel);
