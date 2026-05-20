@@ -108,7 +108,9 @@ limit  1, 2; -- 어디서부터, 몇개 ( 1번쨰 부터, 2개) 55, 44
 -- |  7844 | TURNER | SALESMAN | 7698 | 1981-09-08 | 1500 |    0 |     30 |
 -- +-------+--------+----------+------+------------+------+------+--------+
 -- 4 rows in set (0.00 sec)
-select * from emp where job = 'SALESMAN';
+select * 
+from emp 
+where job = 'SALESMAN';
 
 -- 실습 3. emp 테이블에서 ename, mgr, sal  필드를 조회하시오.     
 -- +--------+------+------+
@@ -150,8 +152,7 @@ select ename, mgr, sal
 from emp
 where job = 'SALESMAN';
 
- 
-    
+
 -- 실습 5. emp 테이블에서  급여(SAL)가 높은 순서로  조회하시오.     
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- | empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
@@ -177,8 +178,6 @@ from emp
 order by sal desc;
  -- sal을 기준으로 내림차순 정렬. 
 
- 
-
 -- 실습 6. emp 테이블에서  Job기준으로 올림차순, 같으면 sal을 기준으로 내림차순으로 정렬하시오.
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- | empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
@@ -202,10 +201,8 @@ order by sal desc;
 select *
 from emp
 order by job asc, sal desc;
-   
  -- Job기준으로 올림차순, 같으면 sal을 기준으로 내림차순정렬 
-
-
+ 
 -- 실습 7. emp 테이블에서     sal가 2000이상인 레코드 들중에  ename, sal, empno필드를  empno를 기준으로 내림차순 정렬하시오. 
 -- +-------+------+-------+
 -- | ename | sal  | empno |
@@ -218,10 +215,12 @@ order by job asc, sal desc;
 -- | JONES | 2975 |  7566 |
 -- +-------+------+-------+
 -- 6 rows in set (0.00 sec)
-  -- sal가 2000이상인 레코드 들중에 ename, sal, select_userinfono를
+  -- sal가 2000이상인 레코드 들중에 ename, sal, empno를
   -- 가져오데 empno를 기준으로 내림차순 정렬 
-
-    
+select ename, sal, empno
+from emp
+where  sal >= 2000
+order by empno desc;
     
 -- 실습 8. emp 테이블에서    job을 기준으로 중복행은 제거하여 같은것은 한번만 나오게 출력하시오
 -- +-----------+
@@ -234,12 +233,13 @@ order by job asc, sal desc;
 -- | PRESIDENT |
 -- +-----------+
 -- 5 rows in set (0.00 sec)
-    
-    
+select  distinct job   -- distinct 중복제거
+from emp;
 
-    
 -- 실습 9.  emp 테이블에서    empno ( 사원번호 ) , ename ( 이름) , job ( 담담 업무)  필드를 
 -- 다음과 같이 필드명을 바꿔(별명으로) 출력하시오.
+select empno as `사원번호`, ename as `이 름`, job as `담당 업무`
+from emp; 
 -- +----------+--------+-----------+
 -- | 사원번호 | 이름   | 담담 업무 |
 -- +----------+--------+-----------+
@@ -260,13 +260,12 @@ order by job asc, sal desc;
 -- +----------+--------+-----------+
 -- 14 rows in set (0.00 sec)
 
-
 --  * 컬럼명에 별칭주기(as) 
 
- 
-
-
 -- 실습 10 emp 테이블에서 급여를 기준으로 오름차순으로 정렬하여 조회하시오.
+select *
+from emp
+order by sal asc;
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- | empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
 -- +-------+--------+-----------+------+------------+------+------+--------+
@@ -286,13 +285,13 @@ order by job asc, sal desc;
 -- |  7839 | KING   | PRESIDENT | NULL | 1981-11-17 | 5000 | NULL |     10 |
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- 14 rows in set (0.00 sec)
-
+ -- 오름차순으로 정렬
  
-
-
-
 
 -- 실습 11 emp 테이블에서 급여를 기준으로 내차순으로 정렬하여 조회하시오.
+select *
+from emp
+order by sal desc;
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- | empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
 -- +-------+--------+-----------+------+------------+------+------+--------+
@@ -312,11 +311,12 @@ order by job asc, sal desc;
 -- |  7369 | SMITH  | CLERK     | 7902 | 1980-12-17 |  800 | NULL |     20 |
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- 14 rows in set (0.00 sec)
- 
-
 
 
 -- 실습 12 emp테이블에서 1순위는 부서번호를 (deptno)를 기준으로 오차순, 그중에서도 급여를기준으로(sal) 내림차순으로 정렬하시오.
+select *
+from emp
+order by deptno asc, sal desc;
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- | empno | ename  | job       | mgr  | hiredate   | sal  | comm | deptno |
 -- +-------+--------+-----------+------+------------+------+------+--------+
@@ -336,10 +336,13 @@ order by job asc, sal desc;
 -- |  7900 | JAMES  | CLERK     | 7698 | 1981-12-03 |  950 | NULL |     30 |
 -- +-------+--------+-----------+------+------------+------+------+--------+
 -- 14 rows in set (0.00 sec)
- 
 
 
 -- 실습 13. 다음의 결과가나오게 조회하시오.
+select 
+empno `EMPLOYEE_NO`, ename `EMPLOYEE_NAME`, job `JOB `, mgr `MANAGER`, hiredate `HIREDATE `, sal `SALARY`, comm `COMMISSION `, deptno `DEPARTMENT_NO`
+from emp
+order by deptno desc, ename asc;
 -- +-------------+---------------+-----------+---------+------------+--------+------------+---------------+
 -- | EMPLOYEE_NO | EMPLOYEE_NAME | JOB       | MANAGER | HIREDATE   | SALARY | COMMISSION | DEPARTMENT_NO |
 -- +-------------+---------------+-----------+---------+------------+--------+------------+---------------+
