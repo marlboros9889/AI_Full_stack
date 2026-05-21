@@ -26,6 +26,8 @@
 		
 		//3. 19세 마만이라면  jsp013_child.jsp 파일 넘기기 ( sendRedirect)
 		//   19세 아니라면 	  jap013_adult.jsp (경로 안보이게 숨기기 - diespch 이영)
+		//                                 쿼리 스트링 주소? name=value1&name2=value2
+		
 		if (userage < 19 ) { response.sendRedirect("jsp013_child.jsp?userage="+ userage); }
 		else{ request.getRequestDispatcher("jsp013_adult.jsp").forward(request, response); }
 		%>
