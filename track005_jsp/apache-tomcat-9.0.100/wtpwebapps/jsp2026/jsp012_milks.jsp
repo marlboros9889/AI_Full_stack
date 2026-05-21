@@ -223,17 +223,10 @@
 		      <div class="card-body">
 		      	<form action ="jsp012_delete.jsp" method="post" onsubmit="return order()">
 		      		<div class="my-3">
-							<label for="onum" class="form-labal">삭제할 우유 번호</label>
-							<input type="text" class="form-control" id="onum" name="onum" />
+							<label for="ono" class="form-labal">삭제할 우유 번호</label>
+							<input type="text" class="form-control" id="ono" name="ono" />
 						</div>
-		      		<div class="my-3">
-		      			<label for="oname" class="form-labal">삭제할 우유 이름</label>
-		      			<input type="text" class="form-control" id="oname" name="oname" />
-		      		</div>
-		      		<div class="my-3">
-		      			<label for="onum" class="form-labal">삭제할 우유 갯수</label>
-		      			<input type="text" class="form-control" id="onum" name="onum" />
-		      		</div>
+		      		
 		      		<div class="my-3">
 		      			<button type="submit" class="btn btn-warning"> 삭제하기</button>
 		      		</div>

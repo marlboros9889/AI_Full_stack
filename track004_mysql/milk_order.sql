@@ -37,3 +37,4 @@ DELETE FROM milk_order
 WHERE ono = 1;
 
 desc milk_order;
+use mbasic;

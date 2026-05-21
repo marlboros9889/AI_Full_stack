@@ -17,9 +17,7 @@
 	String oname = request.getParameter("oname");
 	int     onum = Integer.parseInt(request.getParameter("onum"));
 	//3. insert 구문처리
-	
 	try{
-	
 	Connection conn=null; PreparedStatement pstmt = null;
 	Class.forName("com.mysql.cj.jdbc.Driver");
 	String url = "jdbc:mysql://localhost:3306/mbasic";
@@ -30,19 +28,14 @@
 	pstmt.setInt   (2,  onum);
 	pstmt.setInt   (3,   ono); 
 	int result = pstmt.executeUpdate();			
-	
 	//4. jsp012_milks.jsp로 돌아가기
 	if(result > 0 ){ out.println("<script> alert('수정에 성공했습니다!'); location.href='jsp012_milks.jsp'; </script>"); 
 	}else{
 		out.println("<script> alert('관리자에게 문의하세요!'); location.href='jsp012_milks.jsp'; </script>");
 	}
-	
-	
 	if(pstmt != null){ pstmt.close(); }
 	if(conn != null) { conn.close();  }
-	
 	}catch(Exception e){e.printStackTrace();}
-
 //4. jsp012_milk.jsp 로 돌아가기
 
 
