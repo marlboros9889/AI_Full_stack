@@ -420,20 +420,9 @@ insert into fn_select_userinfo (name, age, email) values ('bca', 66, 'bca@gmail.
 
 -- 3. fn_select_userinfo 구조만 복사 (select_userinfo → fn_select_userinfo 로 수정!)
 drop table if exists fn_select_userinfo2;
-create table fn_select_userinfo2
-select * from fn_select_userinfo where 1=2;
+create table fn_select_userinfo2   select * from fn_select_userinfo where 1=2;
 
--- 4. primary key 재설정
-alter table fn_select_userinfo2 drop primary key;
-alter table fn_select_userinfo2 modify no int not null auto_increment primary key;
 
--- 5. 데이터 삽입
-insert into fn_select_userinfo2 (name, age, email) values ('aaaaa', 11, 'aaa@gmail.com');
-insert into fn_select_userinfo2 (name, age, email) values ('bbaab', 22, 'bbb@gmail.com');
-insert into fn_select_userinfo2 (name, age, email) values ('ccaac', 33, 'ccc@gmail.com');
-insert into fn_select_userinfo2 (name, age, email) values ('ddddd', 44, 'ddd@gmail.com');
-insert into fn_select_userinfo2 (name, age, email) values ('abc'  , 55, 'abc@gmail.com');
-insert into fn_select_userinfo2 (name, age, email) values ('baaca', 66, 'bca@gmail.com');
 
 -- 6. 확인
 select * from fn_select_userinfo;
@@ -465,6 +454,10 @@ select * from fn_select_userinfo2;
 
 
 -- 1. 유저의 이름의 글자수를 조회하시오.
+select name, length(name)
+from fn_select_userinfo;
+
+show tables;
 -- +------+------+
 -- | 이름 | 갯수 |
 -- +------+------+
@@ -478,6 +471,10 @@ select * from fn_select_userinfo2;
 -- 6 rows in set (0.00 sec)
 
 -- 2. 유저의 이름과 이름의  첫번째 글자 , 마지막글자 를 조회하시오. (left, right)
+select name, 
+			left(name, 1)`첫번째 글자`,
+			right(name, 1)`마지막 글자`
+from fn_select_userinfo;
 -- +------+-------------+------------+
 -- | name | 첫번째 글자 | 마지막글자 |
 -- +------+-------------+------------+
@@ -492,6 +489,8 @@ select * from fn_select_userinfo2;
 
 
 -- 3. 유저이름의 aaa인 유저를 찾아서 'aaa 1등'으로 변경하시오.
+select name, replace(name, 'aaa' , 'aaa 1등')  -- 문자열에서, 문자 찾아서, 바꾸기
+from fn_select_userinfo;
 -- +------+-----------------------------------+
 -- | name | replace( name, 'aaa' , 'aaa 1등') |
 -- +------+-----------------------------------+
@@ -504,10 +503,11 @@ select * from fn_select_userinfo2;
 -- +------+-----------------------------------+
 -- 6 rows in set, 1 warning (0.00 sec)
 
--- mysql>
--- mysql>
-
 -- 4. 다음과 같이 직업을 출력하시오.   (concat)
+-- mysql> -- 6. 문자열 연결   - concat 
+select  
+	concat(name,'는 개발자입니다')`직업` 
+from fn_select_userinfo;
 -- +---------------------+
 -- | 직업                |
 -- +---------------------+
@@ -522,6 +522,8 @@ select * from fn_select_userinfo2;
 
 
 -- 5. 이름을 대문자로 조회하시오.
+select upper(name)
+from fn_select_userinfo;
 -- +-------------+
 -- | upper(name) |
 -- +-------------+
@@ -535,6 +537,8 @@ select * from fn_select_userinfo2;
 -- 6 rows in set (0.00 sec)
 
 --  6. 이름을 소문자로 조회하시오.
+select lower(name)
+from fn_select_userinfo;
 -- +-------------+
 -- | lower(name) |
 -- +-------------+
@@ -548,6 +552,10 @@ select * from fn_select_userinfo2;
 -- 6 rows in set (0.00 sec)
 
 -- 7. 나이가 40대이상의 유저의 이름과 b의 위치를  조회하시오. (instr)
+select name,
+instr(name, 'b')`instr(name, 'b')`
+from fn_select_userinfo
+where age >= 40;
 -- +------+-----------------+
 -- | name | instr(name,'b') |
 -- +------+-----------------+
@@ -558,6 +566,15 @@ select * from fn_select_userinfo2;
 -- 3 rows in set (0.03 sec)
 
 -- 8. [upgrade] 나이가 40대이상의 유저의 이름과 b의 위치를  조회시 나이 많은 순으로 2분을 조회하시오(instr)
+select name,
+		instr(name, 'b')
+        from fn_select_userinfo
+        where age >= 40
+        order by age desc
+        limit 2;
+        
+select * from fn_select_userinfo;
+delete from fn_select_userinfo where no >= 7;
 -- +------+-----------------+
 -- | name | instr(name,'b') |
 -- +------+-----------------+
@@ -569,6 +586,10 @@ select * from fn_select_userinfo2;
 
 
 -- 9. [upgrade] 유저의 이름과 이름의  첫번째 글자 , 마지막글자 를 조회하시오.
+select name,
+	 concat( left(name, 1)  ,'*', right( name, 1) )
+from fn_select_userinfo;
+
 -- +------+------+
 -- | name | test |
 -- +------+------+
@@ -585,6 +606,8 @@ select * from fn_select_userinfo2;
 
 -- 10. 테이블 select_userinfo복사해서 한개더 만들기
 -- mysql> select * from select_userinfo2;
+select *
+from fn_select_userinfo2;
 -- +----+-------+-----+---------------+
 -- | no | name  | age | email         |
 -- +----+-------+-----+---------------+
@@ -597,7 +620,9 @@ select * from fn_select_userinfo2;
 -- +----+-------+-----+---------------+
 -- 6 rows in set (0.00 sec)
 
-
+select name,
+	 concat( left(name, 1)  ,repeat('*', length(name)-2), right( name, 1) )
+from fn_select_userinfo2;
 -- +-------+-------+
 -- | name  | test  |
 -- +-------+-------+
