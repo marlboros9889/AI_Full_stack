@@ -6,7 +6,8 @@
  
  
  <%
- 		
+        request.setCharacterEncoding("UTF-8");
+ 
  		String bname  = request.getParameter("bname");
  		String bpass  = request.getParameter("bpass");
  		String btitle = request.getParameter("btitle");

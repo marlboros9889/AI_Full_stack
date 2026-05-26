@@ -1,0 +1,50 @@
+-- mysql>
+-- mysql> desc users;
+-- +----------+--------------+------+-----+-------------------+-------------------+
+-- | Field    | Type         | Null | Key | Default           | Extra             |
+-- +----------+--------------+------+-----+-------------------+-------------------+
+-- | uno      | int          | NO   | PRI | NULL              | auto_increment    |
+-- | nickname | varchar(20)  | NO   |     | NULL              |                   |
+-- | bpass    | varchar(50)  | NO   |     | NULL              |                   |
+-- | email    | varchar(100) | NO   |     | NULL              |                   |
+-- | mobile   | varchar(50)  | NO   |     | NULL              |                   |
+-- | udate    | timestamp    | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+-- | bip      | varchar(50)  | NO   |     | NULL              |                   |
+-- +----------+--------------+------+-----+-------------------+-------------------+
+-- 7 rows in set (0.00 sec)
+
+-- mysql>
+-- mysql>
+
+use mbasic;
+
+show databases;
+show tables;
+select * from users;
+drop table users;
+
+create table users(
+	uno int not null auto_increment   primary key,
+    nickname varchar(20) not null,
+    bpass varchar(50) not null,
+    email varchar(100) not null,
+    mobile varchar(50) not null,
+    udate timestamp not null default current_timestamp,
+    bip varchar(50) not null
+);
+
+DESCRIBE users;
+
+insert into users (nickname, bpass, email, mobile, bip )
+values ('aaa','1111','aaa@gmail.com','010-1111-1111', '127.0.0.1' );
+
+insert into users (nickname, bpass, email, mobile, bip )
+values ('bbb','2222','bbb@gmail.com','010-2222-2222', '127.0.0.1' ); 
+
+-- select( login,,,,)
+select count(*) from users where bpass='1111' and email='aaa@gmail.com';
+select *        from users where bpass='2222' and email='bbb@gamil.com';
+
+select * from users;
+    
+
