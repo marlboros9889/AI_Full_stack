@@ -5,11 +5,16 @@
 2. 속성(Attribute)    - 열, 컬럼
 3. 관계(Relationship) - 외래키
 
-ex) emp(deptno)     dept(deptno)  ★
+ex) dept(deptno :★ PK)┼----∈emp(deptno)
+    deptno(★ PK)            empno(★ PK)
+                             deptno(☆ FK) 
 
-풀이1) EMP 와  dept 는   1  :  다
-풀이2) 부모테이블 : deptno      /  자식테이블 : deptno
-풀이3) 실선 
+
+풀이1) dept 와  emp 는   1  :  다
+        한부서는 여려명의 사원이 소속
+풀이2) 부모테이블 : dept      /  자식테이블 : emp
+        dept 테이블이 존재해야, 사원을 해당 부서에 배치
+풀이3) 점선(비식별 관계) 
 
 
 
@@ -134,3 +139,62 @@ ex4) 과목 과 학생  →   다 : 다
 학번(std_id) 
 과목코드(course_id)
 --------------------------------------------------------------------------------------------------
+
+
+■4. FOREIGN KEY
+    => 외래키(참조키)
+    => 다른테이블의 기본키를 참조하는 키
+    => 중복가능 / NULL 허용함
+    => 참조되고있는테이블의 데이터 값 이외의 값은 삽입할수 없음.
+    => insert할때 잘못된 데이터 삽이 안되록하는 것
+    => 레코드 삭제나 테이블삭제를 할때는 반드시 FOREIGN KEY가
+       지정된 레코드나 테이블을 삭제한후에 참조대상을 삭제할수 있다.
+
+
+    방법
+        [ CONSTRAINT 별칭 ] REFERENCES 테이블이름(필드명)
+
+
+(1) 부모테이블 t1
+create table t1 (no int not null auto_increment primary key, name varchar(100));
+
+(2) 자식테이블 t2
+create table t2(
+    ino int not null   primary key,
+    foreign key(ino) references t1(no)
+);   -- 외래키(ino ) 참고테이블 t1(no필드)
+
+(3) t1에서 no는 1, 2
+    insert into t1( no, name ) values(1, 'first');
+    insert into t1( no, name ) values(2,'second');
+
+(4) 다음에서 오류나는 코드는 ?
+    insert into t2( ino ) values(1);
+    insert into t2( ino ) values(3);
+Error Code: 1452. Cannot add or update a child row: a foreign key constraint fails (`mysql`.`t2`, CONSTRAINT `t2_ibfk_1` FOREIGN KEY (`ino`) REFERENCES `t1` (`no`))
+
+(1) ~ (4) 부모에 없는값 insert 못함
+--------------------------------------------------------------------------------------------------------------------------------------------------
+(5) 부모테이블 t3
+create table t3(no int not null auto_increment primary key, name varchar(100));
+
+(6) 자식테이블 t4
+create table t4(
+    ino int not null   primary key,
+    foreign key(ino) references t3(no) no delete cascade  on update cascade
+);  
+
+(7) 
+    insert into t3( no, name ) values(1, 'first');
+    insert into t3( no, name ) values(2,'second');
+    insert into t4(ino) values (2);
+
+(8) 부모수정시 자식값들도 수정, 부모삭제시 자식값들도 삭제 확인
+    update t3 set no=20  where no=2;    
+    select * from t3;
+    select * from t4;
+    
+    delete from t3  where no=20;
+    select * from t3;
+    select * from t4;
+    
