@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context allowCasualMultipartParsing="true" docBase="C:\Program Files\Jang_adam\AI_Full_stack\track005_jsp\apache-tomcat-9.0.100\wtpwebapps\spring-breeze-erp-v1" path="/spring-breeze-erp-v1" reloadable="true" source="org.eclipse.jst.jee.server:spring-breeze-erp-v1">
+
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>WEB-INF/tomcat-web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+       <!-- 케시문제 해결 -->
+   <Resources cacheMaxSize="100000" cachingAllowed="true"/>
+</Context>

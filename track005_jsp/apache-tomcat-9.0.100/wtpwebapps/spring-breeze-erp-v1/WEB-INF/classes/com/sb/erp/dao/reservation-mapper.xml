@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sb.erp.dao.ReservationMapper">
+
+    <select id="selectReservationList" parameterType="map" resultType="com.sb.erp.dto.ReservationDto">
+        SELECT
+            rv.rev_id,
+            rv.res_id,
+            rv.com_id,
+            rv.emp_id,
+            rv.quantity,
+            rv.status,
+            rv.req_date,
+            rv.remark,
+            rv.updated_at,
+            r.res_name,
+            r.res_code,
+            e.emp_name,
+            d.dept_name
+        FROM reservation rv
+        JOIN resource r ON rv.res_id = r.res_id
+        JOIN employee e ON rv.emp_id = e.emp_id
+        JOIN department d ON e.dept_id = d.dept_id
+        WHERE rv.com_id = #{comId}
+        <if test="empId != null">
+            AND rv.emp_id = #{empId}
+        </if>
+        <if test="status != null and status != ''">
+            AND rv.status = #{status}
+        </if>
+        ORDER BY rv.rev_id DESC
+        LIMIT #{startRow}, #{pageSize}
+    </select>
+
+    <select id="selectReservationCount" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM reservation rv
+        WHERE rv.com_id = #{comId}
+        <if test="empId != null">
+            AND rv.emp_id = #{empId}
+        </if>
+        <if test="status != null and status != ''">
+            AND rv.status = #{status}
+        </if>
+    </select>
+
+    <select id="selectReservationDetail" parameterType="map" resultType="com.sb.erp.dto.ReservationDto">
+        SELECT
+            rv.rev_id,
+            rv.res_id,
+            rv.com_id,
+            rv.emp_id,
+            rv.quantity,
+            rv.status,
+            rv.req_date,
+            rv.remark,
+            rv.updated_at,
+            r.res_name,
+            r.res_code,
+            e.emp_name,
+            d.dept_name
+        FROM reservation rv
+        JOIN resource r ON rv.res_id = r.res_id
+        JOIN employee e ON rv.emp_id = e.emp_id
+        JOIN department d ON e.dept_id = d.dept_id
+        WHERE rv.com_id = #{comId}
+          AND rv.rev_id = #{revId}
+    </select>
+
+    <insert id="insertReservation" parameterType="com.sb.erp.dto.ReservationDto">
+        INSERT INTO reservation (res_id, com_id, emp_id, quantity, status, req_date, remark, updated_at)
+        VALUES (#{resId}, #{comId}, #{empId}, #{quantity}, 'WAI', NOW(), #{remark}, NOW())
+    </insert>
+
+    <update id="updateReservation" parameterType="com.sb.erp.dto.ReservationDto">
+        UPDATE reservation
+        SET res_id = #{resId},
+            quantity = #{quantity},
+            remark = #{remark},
+            updated_at = NOW()
+        WHERE com_id = #{comId}
+          AND rev_id = #{revId}
+          AND status = 'WAI'
+    </update>
+
+    <delete id="deleteReservation" parameterType="map">
+        DELETE FROM reservation
+        WHERE com_id = #{comId}
+          AND rev_id = #{revId}
+          AND status = 'WAI'
+    </delete>
+
+    <update id="updateStatus" parameterType="com.sb.erp.dto.ReservationDto">
+        UPDATE reservation
+        SET status = #{status},
+            remark = #{remark},
+            updated_at = NOW()
+        WHERE rev_id = #{revId}
+    </update>
+
+    <select id="countByStatus" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM reservation
+        WHERE com_id = #{comId}
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+    </select>
+
+    <select id="countReservationsByResourceId" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM reservation
+        WHERE com_id = #{comId}
+          AND res_id = #{resId}
+    </select>
+
+</mapper>

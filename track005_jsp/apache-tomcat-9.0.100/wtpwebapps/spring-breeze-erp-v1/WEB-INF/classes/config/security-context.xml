@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+   <!-- 암호화 : BCrypt -->
+   <!-- 로그인 비밀번호 비교에 사용하는 암호화 방식 -->
+   <bean id="passwordEncoder" 
+         class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+   <!-- 로그인성공 --> 
+   <!-- 로그인 성공 후 이동 경로와 초기 비밀번호 정책을 처리하는 핸들러 -->
+   <bean id="successHandler"
+         class="com.sb.erp.security.LoginSuccessHandler"/>
+   <!-- 로그인실패-권한x --> 
+   <!-- 권한이 없는 사용자가 보호된 URL에 접근했을 때 실행되는 핸들러 -->
+   <bean id="deniedHandler"
+         class="com.sb.erp.security.DeniedHandler"/>
+   <!-- 유저정보  -->
+   <!-- DB에서 사용자와 권한 정보를 읽어오는 UserDetailsService -->
+   <bean id="customUserDetailsService"
+         class="com.sb.erp.security.CustomUserDetailsService"/>
+
+   <security:http>
+   	  <!-- cyj : 추후 접근 권한 변경 -->
+      <!-- <security:intercept-url  pattern="/security/all"     access="permitAll" /> -->
+      <!-- <security:intercept-url  pattern="/security/member"  access="hasRole('ROLE_MEMBER')" /> -->
+
+      <!-- 로그인/비밀번호 재설정은 비로그인 상태에서도 접근 가능 -->
+      <security:intercept-url  pattern="/auth/login" access="permitAll" />
+      <security:intercept-url  pattern="/auth/resetPass" access="permitAll" />
+      <!-- <security:intercept-url  pattern="/auth/**"    access="isAuthenticated()" /> -->
+	
+      <!-- KJY -->
+      <security:intercept-url  pattern="/appr/**" access="permitAll"/>
+      <!-- KJY -->
+
+   	  <security:intercept-url  pattern="/board/**"    access="permitAll" />
+   	  
+   	  
+   	  <!-- JYT-->
+   	  <security:intercept-url pattern="/admin/**" access="hasAnyAuthority('ROLE_ADMIN','ADMIN','ROOT')"/>
+   	  <security:intercept-url pattern="/resv/insert" access="hasAnyAuthority('ROLE_ADMIN','ADMIN','ROOT')"/>
+   	  <security:intercept-url pattern="/resv/update" access="hasAnyAuthority('ROLE_ADMIN','ADMIN','ROOT')"/>
+   	  <security:intercept-url pattern="/resv/delete" access="hasAnyAuthority('ROLE_ADMIN','ADMIN','ROOT')"/>
+   	 
+   	  <security:intercept-url pattern="/resv/**" access="isAuthenticated()"/>
+   	  <security:intercept-url pattern="/reservation/**" access="isAuthenticated()"/>
+   	   <!-- JYT -->
+   	  
+   	  <security:intercept-url pattern="/error/**" access="permitAll"/>
+   	  
+   	  <security:intercept-url pattern="/index" access="isAuthenticated()"/>
+   	  <security:intercept-url pattern="/com/**" access="isAuthenticated()"/>
+   	  <security:intercept-url pattern="/dept/**" access="isAuthenticated()"/>
+   	  <!-- cyj -->
+   	  
+	  <!-- 폼 로그인과 로그아웃 진입점 -->
+	  <security:form-login
+	  	  login-page="/auth/login"
+	  	  login-processing-url="/auth/login"
+	  	  authentication-success-handler-ref="successHandler"
+	  	  authentication-failure-url="/auth/fail"
+	  />
+	  
+	  <security:logout 
+	      logout-url="/auth/logout"
+	      logout-success-url="/auth/login"
+	      invalidate-session="true"/>
+	  <!-- cyj : 추후 접근 권한 변경 -->
+   </security:http>
+
+   <!-- 인증 시 customUserDetailsService 와 BCrypt 인코더를 함께 사용 -->
+   <security:authentication-manager>
+      <security:authentication-provider   user-service-ref="customUserDetailsService">
+         <security:password-encoder      ref="passwordEncoder"/>
+      </security:authentication-provider>
+   </security:authentication-manager>
+</beans>
+
+   <!-- 유저정보  
+   1. permitAll : 모두 다 접근가능
+   2. hasRole('ROLE_MEMBER')  : ROLE_MEMBER 권한
+   3. isAuthenticated()       : 인증된 사용자  (로그인)
+   ※ 구체적인 패턴을 위에, 포괄패턴은 아래
+   -->
