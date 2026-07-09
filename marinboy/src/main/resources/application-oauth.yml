@@ -1,0 +1,49 @@
+spring:
+  config:
+    activate:
+      on-profile: oauth
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            # Google Cloud Console에서 발급받은 OAuth Client 값을 환경 변수로 주입합니다.
+            client-id: ${GOOGLE_CLIENT_ID:google-client-id-required}
+            client-secret: ${GOOGLE_CLIENT_SECRET:google-client-secret-required}
+            client-name: Google
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - profile
+              - email
+          naver:
+            # 네이버 개발자 센터에서 발급받은 Client ID/Secret입니다.
+            client-id: ${NAVER_CLIENT_ID:naver-client-id-required}
+            client-secret: ${NAVER_CLIENT_SECRET:naver-client-secret-required}
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - name
+              - email
+          kakao:
+            # 카카오 개발자 센터에서 발급받은 REST API 키와 Client Secret입니다.
+            client-id: ${KAKAO_CLIENT_ID:kakao-client-id-required}
+            client-secret: ${KAKAO_CLIENT_SECRET:kakao-client-secret-required}
+            client-name: Kakao
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - profile_nickname
+              - account_email
+        provider:
+          naver:
+            authorization-uri: https://nid.naver.com/oauth2.0/authorize
+            token-uri: https://nid.naver.com/oauth2.0/token
+            user-info-uri: https://openapi.naver.com/v1/nid/me
+            user-name-attribute: response
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id

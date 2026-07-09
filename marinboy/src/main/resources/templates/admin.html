@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${projectName}">마린 헤어 스튜디오 관리자</title>
+    <style>
+        /* 디자인은 나중에 교체하기 쉽도록 관리자 기능 배치에 필요한 최소 스타일만 둡니다. */
+        body { margin: 0; font-family: "Malgun Gothic", sans-serif; color: #222; background: #f6f6f6; }
+        .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0; }
+        .hero, .panel { margin-bottom: 20px; padding: 24px; border: 1px solid #ddd; border-radius: 16px; background: #fff; }
+        .metrics { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+        .metric { padding: 12px 16px; border: 1px solid #ddd; border-radius: 12px; background: #fafafa; }
+        .grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: start; }
+        .stack { display: grid; gap: 12px; }
+        .reservation-card, .service-row, .holiday-card { padding: 16px; border: 1px solid #ddd; border-radius: 12px; background: #fff; }
+        .alert-card { padding: 16px; border: 1px solid #f0c36d; border-radius: 12px; background: #fff8e5; }
+        .reservation-top, .holiday-card { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+        .reservation-name { margin: 0; font-size: 18px; }
+        .sub { margin-top: 6px; color: #666; font-size: 14px; }
+        .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #eee; }
+        .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .field { display: grid; gap: 8px; }
+        .holiday-row { display: grid; grid-template-columns: 150px 1fr auto; gap: 10px; align-items: end; }
+        .service-form { display: grid; grid-template-columns: 1fr 120px 100px; gap: 10px; align-items: end; }
+        .service-form-wide { grid-template-columns: 1fr auto; }
+        .service-row { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: start; }
+        .service-thumb { width: 96px; height: 96px; object-fit: cover; border-radius: 12px; background: #eee; }
+        .image-gallery { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .gallery-image { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; background: #eee; }
+        .top-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .rank-badge { display: inline-block; margin-bottom: 8px; padding: 6px 10px; border-radius: 999px; color: #fff; background: #333; }
+        input, select, textarea, button { font: inherit; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; }
+        textarea { min-height: 70px; resize: vertical; }
+        button { padding: 10px 14px; border: 0; border-radius: 10px; color: #fff; background: #333; cursor: pointer; }
+        .message { min-height: 20px; color: #666; }
+        .message.success { color: #137a3a; }
+        .message.error { color: #b00020; }
+        .empty { padding: 16px; border: 1px dashed #bbb; border-radius: 12px; color: #666; background: #fff; }
+        .is-hidden { display: none; }
+        @media (max-width: 900px) { .grid, .service-form, .service-form-wide, .service-row, .holiday-row, .top-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<main class="shell">
+    <!-- 원장이 현재 운영 상태를 빠르게 확인하는 관리자 상단 영역입니다. -->
+    <section class="hero">
+        <h1 th:text="${projectName}">마린 헤어 스튜디오 관리자</h1>
+        <p th:text="${description}">예약 상태, 시술 가격, 특정 휴무일을 관리합니다.</p>
+        <button type="button" id="logoutButton">로그아웃</button>
+        <div class="metrics">
+            <div class="metric">예약 수 <strong id="reservationCount" th:text="${reservationCount}">0</strong></div>
+            <div class="metric">시술 수 <strong th:text="${serviceCount}">0</strong></div>
+            <div class="metric">휴무일 수 <strong id="holidayCount" th:text="${holidayCount}">0</strong></div>
+        </div>
+    </section>
+
+    <section class="grid">
+        <section class="panel">
+            <!-- 원장이 예약 목록을 확인하고 상태를 변경하는 영역입니다. -->
+            <h2>예약 관리</h2>
+            <div id="reservationList" class="stack"></div>
+        </section>
+
+        <div class="stack">
+            <section class="panel">
+                <!-- 예약 전날 또는 당일 알림이 필요한 예약을 확인하는 영역입니다. -->
+                <h2>노쇼 방지 알림 대상</h2>
+                <div id="reminderTargetList" class="stack"></div>
+            </section>
+
+            <section class="panel">
+                <!-- 관리자가 지정한 추천 TOP3가 고객 화면에 어떻게 보이는지 확인하는 영역입니다. -->
+                <h2>이달의 헤어 TOP3</h2>
+                <div id="topServiceList" class="top-grid"></div>
+            </section>
+
+            <section class="panel">
+                <!-- 원장이 고객 화면에 표시되는 시술 메뉴를 등록, 수정, 삭제하는 영역입니다. -->
+                <h2>시술 메뉴 관리</h2>
+                <form id="serviceForm" class="stack">
+                    <input type="hidden" id="editingServiceId" name="editingServiceId">
+                    <div class="service-form">
+                        <div class="field">
+                            <label for="serviceName">시술명</label>
+                            <input id="serviceName" name="serviceName" type="text" placeholder="예: 레이어드 컷" required>
+                        </div>
+                        <div class="field">
+                            <label for="serviceCategory">카테고리</label>
+                            <input id="serviceCategory" name="serviceCategory" type="text" placeholder="컷" required>
+                        </div>
+                        <div class="field">
+                            <label for="serviceDuration">시간</label>
+                            <input id="serviceDuration" name="serviceDuration" type="number" min="10" step="10" placeholder="10분 단위" required>
+                        </div>
+                    </div>
+                    <div class="service-form">
+                        <div class="field">
+                            <label for="serviceDescription">시술 설명</label>
+                            <textarea id="serviceDescription" name="serviceDescription" required></textarea>
+                        </div>
+                        <div class="field">
+                            <label for="servicePrice">가격</label>
+                            <input id="servicePrice" name="servicePrice" type="number" min="1000" step="1000" placeholder="1,000원 단위" required>
+                        </div>
+                        <div class="field">
+                            <label for="serviceTopRank">TOP3 노출</label>
+                            <select id="serviceTopRank" name="serviceTopRank">
+                                <option value="">노출 안 함</option>
+                                <option value="1">TOP 1</option>
+                                <option value="2">TOP 2</option>
+                                <option value="3">TOP 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="service-form service-form-wide">
+                        <div class="field">
+                            <label for="serviceImageUrl">대표 이미지 URL</label>
+                            <input id="serviceImageUrl" name="serviceImageUrl" type="text" placeholder="https://example.com/hair-style.jpg 또는 업로드 후 자동 입력">
+                        </div>
+                        <button type="button" id="serviceImagePreviewButton">이미지 확인</button>
+                    </div>
+                    <div class="service-form service-form-wide">
+                        <div class="field">
+                            <label for="serviceImageFile">대표 이미지 파일</label>
+                            <input id="serviceImageFile" name="serviceImageFile" type="file" accept="image/png,image/jpeg,image/gif,image/webp">
+                        </div>
+                        <button type="submit">메뉴 저장</button>
+                    </div>
+                    <div class="field">
+                        <label for="serviceAdditionalImageUrls">추가 이미지 URL 최대 3장</label>
+                        <textarea id="serviceAdditionalImageUrls" name="serviceAdditionalImageUrls" placeholder="이미지 URL을 한 줄에 하나씩 입력"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="serviceAdditionalImageFiles">추가 이미지 파일 최대 3장</label>
+                        <input id="serviceAdditionalImageFiles" name="serviceAdditionalImageFiles" type="file" accept="image/png,image/jpeg,image/gif,image/webp" multiple>
+                    </div>
+                    <button type="button" id="serviceFormResetButton">새 메뉴 입력</button>
+                    <div id="serviceMessage" class="message"></div>
+                </form>
+                <div id="serviceManagementList" class="stack"></div>
+            </section>
+
+            <section class="panel">
+                <!-- 원장이 특정 날짜를 예약 불가 휴무일로 등록하는 영역입니다. -->
+                <h2>휴무일 관리</h2>
+                <form id="holidayForm" class="stack">
+                    <div class="holiday-row">
+                        <div class="field">
+                            <label for="holidayDate">휴무 날짜</label>
+                            <input id="holidayDate" name="holidayDate" type="date" required>
+                        </div>
+                        <div class="field">
+                            <label for="holidayReason">휴무 사유</label>
+                            <input id="holidayReason" name="holidayReason" type="text" placeholder="예: 원장 교육 참석">
+                        </div>
+                        <button type="submit">휴무 등록</button>
+                    </div>
+                    <div id="holidayMessage" class="message"></div>
+                </form>
+                <div id="holidayList" class="stack"></div>
+            </section>
+        </div>
+    </section>
+</main>
+
+<script>
+    // 관리자 화면에서 사용하는 주요 요소입니다.
+    const reservationList = document.getElementById("reservationList");
+    const reservationCount = document.getElementById("reservationCount");
+    const serviceForm = document.getElementById("serviceForm");
+    const serviceManagementList = document.getElementById("serviceManagementList");
+    const topServiceList = document.getElementById("topServiceList");
+    const reminderTargetList = document.getElementById("reminderTargetList");
+    const serviceMessage = document.getElementById("serviceMessage");
+    const holidayForm = document.getElementById("holidayForm");
+    const holidayList = document.getElementById("holidayList");
+    const holidayCount = document.getElementById("holidayCount");
+    const holidayMessage = document.getElementById("holidayMessage");
+
+    const statusLabelMap = {
+        REQUESTED: "요청",
+        CONFIRMED: "확정",
+        CANCELED: "취소",
+        COMPLETED: "완료",
+        NO_SHOW: "노쇼"
+    };
+
+    function setMessage(target, text, type) {
+        // 관리자 조작 결과를 한 줄 메시지로 표시합니다.
+        target.textContent = text;
+        target.className = "message " + (type || "");
+    }
+
+    async function readError(response) {
+        // API 오류 응답에서 관리자에게 보여줄 메시지를 꺼냅니다.
+        try {
+            const body = await response.json();
+            return body.message || "요청을 처리하는 중 문제가 발생했습니다.";
+        } catch (error) {
+            return "요청을 처리하는 중 문제가 발생했습니다.";
+        }
+    }
+
+    function formatPrice(price) {
+        // 가격 입력값과 표시값을 한국어 원화 형식으로 맞춥니다.
+        return new Intl.NumberFormat("ko-KR").format(price) + "원";
+    }
+
+    function formatDateTime(value) {
+        // 예약 일시를 관리자 카드에서 읽기 쉽게 변환합니다.
+        return new Intl.DateTimeFormat("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+        }).format(new Date(value));
+    }
+
+    function nextBookableDate() {
+        // 휴무일 등록 폼의 기본 날짜를 내일부터 잡고 일요일은 건너뜁니다.
+        const date = new Date();
+        date.setDate(date.getDate() + 1);
+        while (date.getDay() === 0) {
+            date.setDate(date.getDate() + 1);
+        }
+        return date.toISOString().slice(0, 10);
+    }
+
+    function renderReservations(reservations) {
+        // 예약 목록과 예약 수를 최신 상태로 다시 그립니다.
+        reservationCount.textContent = String(reservations.length);
+
+        if (!reservations.length) {
+            reservationList.innerHTML = '<div class="empty">아직 등록된 예약이 없습니다.</div>';
+            return;
+        }
+
+        reservationList.innerHTML = reservations.map(reservation => `
+            <article class="reservation-card">
+                <div class="reservation-top">
+                    <div>
+                        <h3 class="reservation-name">${reservation.customerName} - ${reservation.serviceName}</h3>
+                        <div class="sub">${formatDateTime(reservation.reservationDateTime)} / ${reservation.durationMinutes}분</div>
+                    </div>
+                    <span class="badge">${statusLabelMap[reservation.status] || reservation.status}</span>
+                </div>
+                <div class="sub">${reservation.customerPhone} - ${reservation.customerEmail}</div>
+                <div class="sub">노쇼 방지 안내 동의: ${reservation.noShowPolicyAgreed ? "동의" : "미동의"}</div>
+                <div class="sub">메모: ${reservation.memo ? reservation.memo : "없음"}</div>
+                <div class="actions">
+                    ${reservation.status === "REQUESTED" ? `
+                        <button data-id="${reservation.id}" data-status="CONFIRMED">확정</button>
+                        <button data-id="${reservation.id}" data-status="CANCELED">취소</button>
+                    ` : ""}
+                    ${reservation.status === "CONFIRMED" ? `
+                        <button data-id="${reservation.id}" data-status="COMPLETED">완료</button>
+                        <button data-id="${reservation.id}" data-status="NO_SHOW">노쇼 처리</button>
+                    ` : ""}
+                </div>
+            </article>
+        `).join("");
+
+        reservationList.querySelectorAll("button[data-id]").forEach(button => {
+            button.addEventListener("click", async () => {
+                // 선택한 예약의 상태를 관리자 요청값으로 변경합니다.
+                const response = await fetch(`/api/reservations/${button.dataset.id}/status`, {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ status: button.dataset.status })
+                });
+
+                if (!response.ok) {
+                    alert(await readError(response));
+                    return;
+                }
+
+                await loadReservations();
+                await loadReminderTargets();
+            });
+        });
+    }
+
+    function renderReminderTargets(targets) {
+        // 예약 전날 또는 당일 안내가 필요한 고객 목록을 표시합니다.
+        if (!targets.length) {
+            reminderTargetList.innerHTML = '<div class="empty">현재 알림 대상 예약이 없습니다.</div>';
+            return;
+        }
+
+        reminderTargetList.innerHTML = targets.map(target => `
+            <div class="alert-card">
+                <strong>${target.customerName} - ${target.serviceName}</strong>
+                <div class="sub">${formatDateTime(target.reservationDateTime)} / ${target.customerPhone}</div>
+                <div class="sub">${target.message}</div>
+            </div>
+        `).join("");
+    }
+
+    function fillServiceForm(service) {
+        // 선택한 시술 메뉴를 수정 폼에 채웁니다.
+        serviceForm.editingServiceId.value = service ? service.id : "";
+        serviceForm.serviceName.value = service ? service.name : "";
+        serviceForm.serviceCategory.value = service ? service.category : "";
+        serviceForm.serviceDuration.value = service ? service.durationMinutes : "";
+        serviceForm.servicePrice.value = service ? service.price : "";
+        serviceForm.serviceDescription.value = service ? service.description : "";
+        serviceForm.serviceImageUrl.value = service ? service.imageUrl : "";
+        serviceForm.serviceImageFile.value = "";
+        serviceForm.serviceAdditionalImageUrls.value = service && service.additionalImageUrls
+            ? service.additionalImageUrls.join("\n")
+            : "";
+        serviceForm.serviceAdditionalImageFiles.value = "";
+        serviceForm.serviceTopRank.value = service && service.topRank ? service.topRank : "";
+    }
+
+    function renderTopServices(services) {
+        // 원장이 지정한 TOP3를 관리 화면에서도 미리 볼 수 있게 표시합니다.
+        const topServices = services
+            .filter(service => service.topRank)
+            .sort((left, right) => left.topRank - right.topRank);
+
+        if (!topServices.length) {
+            topServiceList.innerHTML = '<div class="empty">아직 등록된 이달의 추천 메뉴가 없습니다.</div>';
+            return;
+        }
+
+        topServiceList.innerHTML = topServices.map(service => `
+            <article class="service-row">
+                <img class="service-thumb" src="${service.imageUrl}" alt="${service.name} 추천 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">
+                <div>
+                    <span class="rank-badge">TOP ${service.topRank}</span>
+                    <strong>${service.name}</strong>
+                    <div class="sub">${service.category} / ${service.durationMinutes}분 / ${formatPrice(service.price)}</div>
+                </div>
+            </article>
+        `).join("");
+    }
+
+    function renderServices(services) {
+        // 시술별 전체 정보를 수정하거나 삭제할 수 있는 관리 목록을 생성합니다.
+        if (!services.length) {
+            serviceManagementList.innerHTML = '<div class="empty">등록된 시술 메뉴가 없습니다.</div>';
+            return;
+        }
+
+        serviceManagementList.innerHTML = services.map(service => `
+            <div class="service-row">
+                <img class="service-thumb" src="${service.imageUrl}" alt="${service.name} 대표 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">
+                <div>
+                    <strong>${service.name}</strong>
+                    <div class="sub">${service.category} / ${service.durationMinutes}분 / 현재 ${formatPrice(service.price)}</div>
+                    <div class="sub">TOP3 노출: ${service.topRank ? "TOP " + service.topRank : "노출 안 함"}</div>
+                    <div class="sub">${service.description}</div>
+                    <div class="sub">이미지: ${service.imageUrl}</div>
+                    ${renderImageGallery(service.additionalImageUrls)}
+                    <div class="actions">
+                        <button type="button" data-service-edit="${service.id}">수정</button>
+                        <button type="button" data-service-delete="${service.id}">삭제</button>
+                    </div>
+                </div>
+            </div>
+        `).join("");
+
+        serviceManagementList.querySelectorAll("button[data-service-edit]").forEach(button => {
+            button.addEventListener("click", async () => {
+                // 선택한 시술을 폼에 불러와 수정할 수 있게 합니다.
+                const response = await fetch("/api/services");
+                const services = await response.json();
+                fillServiceForm(services.find(service => String(service.id) === button.dataset.serviceEdit));
+            });
+        });
+
+        serviceManagementList.querySelectorAll("button[data-service-delete]").forEach(button => {
+            button.addEventListener("click", async () => {
+                // 예약 이력이 없는 시술 메뉴를 삭제합니다.
+                const response = await fetch(`/api/services/${button.dataset.serviceDelete}`, { method: "DELETE" });
+                if (!response.ok) {
+                    setMessage(serviceMessage, await readError(response), "error");
+                    return;
+                }
+
+                setMessage(serviceMessage, "시술 메뉴가 삭제되었습니다.", "success");
+                await loadServices();
+            });
+        });
+    }
+
+    function renderHolidays(holidays) {
+        // 휴무일 목록과 삭제 버튼을 최신 상태로 다시 그립니다.
+        holidayCount.textContent = String(holidays.length);
+
+        if (!holidays.length) {
+            holidayList.innerHTML = '<div class="empty">등록된 특정 휴무일이 없습니다.</div>';
+            return;
+        }
+
+        holidayList.innerHTML = holidays.map(holiday => `
+            <div class="holiday-card">
+                <div>
+                    <strong>${holiday.holidayDate}</strong>
+                    <div class="sub">${holiday.reason ? holiday.reason : "사유 없음"}</div>
+                </div>
+                <button type="button" data-holiday-date="${holiday.holidayDate}">삭제</button>
+            </div>
+        `).join("");
+
+        holidayList.querySelectorAll("button[data-holiday-date]").forEach(button => {
+            button.addEventListener("click", async () => {
+                // 등록된 휴무일을 삭제해 다시 예약 가능한 날짜로 되돌립니다.
+                const response = await fetch(`/api/holidays/${button.dataset.holidayDate}`, {
+                    method: "DELETE"
+                });
+
+                if (!response.ok) {
+                    setMessage(holidayMessage, await readError(response), "error");
+                    return;
+                }
+
+                setMessage(holidayMessage, "휴무일이 삭제되었습니다.", "success");
+                await loadHolidays();
+            });
+        });
+    }
+
+    async function loadReservations() {
+        // 관리자 예약 목록을 조회합니다.
+        const response = await fetch("/api/reservations");
+        const reservations = await response.json();
+        renderReservations(reservations);
+    }
+
+    async function loadReminderTargets() {
+        // 노쇼 방지를 위해 알림 안내가 필요한 예약을 조회합니다.
+        const response = await fetch("/api/reservations/reminder-targets");
+        const targets = await response.json();
+        renderReminderTargets(targets);
+    }
+
+    async function loadServices() {
+        // 관리자 메뉴 관리 목록에 사용할 시술 정보를 조회합니다.
+        const response = await fetch("/api/services");
+        const services = await response.json();
+        renderTopServices(services);
+        renderServices(services);
+    }
+
+    function renderImageGallery(imageUrls) {
+        // 메뉴별 추가 이미지를 관리자가 바로 확인할 수 있게 썸네일로 표시합니다.
+        if (!imageUrls || !imageUrls.length) {
+            return "";
+        }
+
+        return `
+            <div class="image-gallery">
+                ${imageUrls.map(imageUrl => `<img class="gallery-image" src="${imageUrl}" alt="시술 추가 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">`).join("")}
+            </div>
+        `;
+    }
+
+    async function uploadServiceImageIfSelected(form) {
+        // 이미지 파일이 선택된 경우 먼저 업로드하고, 없으면 입력된 URL을 그대로 사용합니다.
+        const selectedFile = form.serviceImageFile.files[0];
+        const typedUrl = form.serviceImageUrl.value.trim();
+
+        if (!selectedFile) {
+            if (!typedUrl) {
+                throw new Error("대표 이미지 URL을 입력하거나 이미지 파일을 선택해 주세요.");
+            }
+            return typedUrl;
+        }
+
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+        const response = await fetch("/api/service-images", {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(await readError(response));
+        }
+
+        const body = await response.json();
+        return body.imageUrl;
+    }
+
+    async function collectAdditionalImageUrls(form) {
+        // URL 입력과 다중 파일 업로드를 합쳐 최대 3장의 추가 이미지를 구성합니다.
+        const typedUrls = form.serviceAdditionalImageUrls.value
+            .split(/\r?\n/)
+            .map(url => url.trim())
+            .filter(Boolean);
+        const selectedFiles = Array.from(form.serviceAdditionalImageFiles.files);
+
+        if (typedUrls.length + selectedFiles.length > 3) {
+            throw new Error("추가 이미지는 URL과 파일을 합쳐 최대 3장까지만 등록할 수 있습니다.");
+        }
+
+        const uploadedUrls = [];
+        for (const file of selectedFiles) {
+            const formData = new FormData();
+            formData.append("file", file);
+            const response = await fetch("/api/service-images", {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error(await readError(response));
+            }
+
+            const body = await response.json();
+            uploadedUrls.push(body.imageUrl);
+        }
+
+        return [...typedUrls, ...uploadedUrls];
+    }
+
+    async function loadHolidays() {
+        // 등록된 특정 휴무일 목록을 조회합니다.
+        const response = await fetch("/api/holidays");
+        const holidays = await response.json();
+        renderHolidays(holidays);
+    }
+
+    holidayForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        // 특정 날짜를 휴무일로 등록하거나 사유를 갱신합니다.
+        setMessage(holidayMessage, "휴무일을 등록하는 중입니다...", "");
+
+        const response = await fetch("/api/holidays", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                holidayDate: event.target.holidayDate.value,
+                reason: event.target.holidayReason.value
+            })
+        });
+
+        if (!response.ok) {
+            setMessage(holidayMessage, await readError(response), "error");
+            return;
+        }
+
+        event.target.holidayReason.value = "";
+        setMessage(holidayMessage, "휴무일이 등록되었습니다.", "success");
+        await loadHolidays();
+    });
+
+    serviceForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        // 시술 메뉴를 새로 등록하거나 선택한 메뉴를 수정합니다.
+        setMessage(serviceMessage, "시술 메뉴를 저장하는 중입니다...", "");
+        const serviceId = event.target.editingServiceId.value;
+        let imageUrl;
+        let additionalImageUrls;
+        try {
+            imageUrl = await uploadServiceImageIfSelected(event.target);
+            additionalImageUrls = await collectAdditionalImageUrls(event.target);
+        } catch (error) {
+            setMessage(serviceMessage, error.message, "error");
+            return;
+        }
+
+        const payload = {
+            name: event.target.serviceName.value,
+            category: event.target.serviceCategory.value,
+            durationMinutes: Number(event.target.serviceDuration.value),
+            price: Number(event.target.servicePrice.value),
+            description: event.target.serviceDescription.value,
+            imageUrl,
+            additionalImageUrls,
+            topRank: event.target.serviceTopRank.value ? Number(event.target.serviceTopRank.value) : null
+        };
+        const response = await fetch(serviceId ? `/api/services/${serviceId}` : "/api/services", {
+            method: serviceId ? "PUT" : "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            setMessage(serviceMessage, await readError(response), "error");
+            return;
+        }
+
+        fillServiceForm(null);
+        setMessage(serviceMessage, "시술 메뉴가 저장되었습니다.", "success");
+        await loadServices();
+    });
+
+    document.getElementById("serviceFormResetButton").addEventListener("click", () => {
+        // 수정 중이던 메뉴 선택을 해제하고 새 메뉴 입력 상태로 되돌립니다.
+        fillServiceForm(null);
+        setMessage(serviceMessage, "새 메뉴를 입력할 수 있습니다.", "");
+    });
+
+    document.getElementById("serviceImagePreviewButton").addEventListener("click", () => {
+        // 입력한 이미지 URL이 고객 화면에서 열릴 수 있는지 새 창으로 빠르게 확인합니다.
+        const imageUrl = serviceForm.serviceImageUrl.value.trim();
+        if (!imageUrl) {
+            setMessage(serviceMessage, "먼저 이미지 URL을 입력해 주세요.", "error");
+            return;
+        }
+        window.open(imageUrl, "_blank", "noopener,noreferrer");
+    });
+
+    // 관리자 화면이 열리면 운영에 필요한 데이터를 한 번에 불러옵니다.
+    document.getElementById("holidayDate").value = nextBookableDate();
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        // 현재 관리자 세션을 종료하고 로그인 화면으로 이동합니다.
+        await fetch("/api/auth/logout", { method: "POST" });
+        location.href = "/login";
+    });
+    loadReservations();
+    loadReminderTargets();
+    loadServices();
+    loadHolidays();
+</script>
+</body>
+</html>
