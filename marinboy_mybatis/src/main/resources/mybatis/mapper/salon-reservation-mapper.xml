@@ -166,7 +166,12 @@
 
     <update id="updateReservationStatus">
         UPDATE MB_RESERVATION
-        SET STATUS = #{status}, MEMO = CASE WHEN #{rejectionReason} IS NULL THEN MEMO ELSE '[거절] ' || #{rejectionReason} END, UPDATED_AT = SYSTIMESTAMP
+        SET STATUS = #{status},
+            MEMO = CASE
+                WHEN #{rejectionReason,jdbcType=VARCHAR} IS NULL THEN MEMO
+                ELSE '[거절] ' || #{rejectionReason,jdbcType=VARCHAR}
+            END,
+            UPDATED_AT = SYSTIMESTAMP
         WHERE ID = #{reservationId}
     </update>
 </mapper>

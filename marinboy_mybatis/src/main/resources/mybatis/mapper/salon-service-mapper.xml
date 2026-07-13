@@ -33,6 +33,7 @@
                DESCRIPTION,
                TOP_RANK
         FROM MB_SERVICE_ITEM
+        WHERE CATEGORY &lt;&gt; 'DELETED'
         ORDER BY NVL(TOP_RANK, 99), ID
     </select>
 
@@ -59,5 +60,14 @@
     <update id="updateService">
         UPDATE MB_SERVICE_ITEM SET NAME=#{name}, CATEGORY=#{category}, DURATION_MINUTES=#{durationMinutes}, PRICE=#{price}, DESCRIPTION=#{description}, UPDATED_AT=SYSTIMESTAMP WHERE ID=#{id}
     </update>
-    <delete id="deleteService">DELETE FROM MB_SERVICE_ITEM WHERE ID=#{id}</delete>
+    <!-- 예약 이력의 외래키를 보존하면서 고객/관리자 목록에서 제외합니다. -->
+    <delete id="deleteService">
+        UPDATE MB_SERVICE_ITEM
+        SET NAME = '[삭제] ' || NAME,
+            CATEGORY = 'DELETED',
+            TOP_RANK = NULL,
+            UPDATED_AT = SYSTIMESTAMP
+        WHERE ID = #{id}
+          AND CATEGORY &lt;&gt; 'DELETED'
+    </delete>
 </mapper>
