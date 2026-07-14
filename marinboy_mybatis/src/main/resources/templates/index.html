@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 시술 소개, 예약 가능 시간 조회와 고객 예약 신청을 제공하는 메인 화면입니다. -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -287,14 +288,16 @@
 
         .monthly-gallery {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+            grid-template-columns: 1fr;
+            gap: 12px;
             margin-top: 12px;
         }
 
+        .monthly-gallery[hidden] { display: none; }
+
         .monthly-gallery img {
             width: 100%;
-            height: 92px;
+            height: 280px;
             border: 2px solid transparent;
             border-radius: 16px;
             object-fit: cover;
@@ -328,7 +331,9 @@
 
         .image-modal-card {
             position: relative;
-            width: min(860px, 100%);
+            width: min(1280px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
             padding: 16px;
             border: 1px solid rgba(255, 231, 181, 0.62);
             border-radius: 30px;
@@ -345,6 +350,33 @@
             background: #f1d4dc;
         }
 
+        .image-modal-gallery { position: relative; }
+
+        .image-modal-gallery img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            height: auto;
+            object-fit: contain;
+            border: 0;
+        }
+
+        .image-modal-navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .image-modal-navigation button { min-width: 110px; }
+
+        .image-page { font-weight: 800; color: var(--ink); }
+
+        @media (max-width: 720px) {
+            .image-modal { padding: 12px; }
+            .image-modal-gallery img { aspect-ratio: 4 / 3; }
+        }
+
         .image-modal-caption {
             margin: 12px 48px 0 4px;
             color: var(--muted);
@@ -354,7 +386,8 @@
         .image-modal-close {
             position: absolute;
             right: 18px;
-            bottom: 14px;
+            top: 18px;
+            z-index: 2;
             min-height: 38px;
             padding: 0 14px;
             border: 1px solid var(--line);
@@ -414,21 +447,33 @@
         .service-content { padding: 18px; }
 
         .image-gallery {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 8px;
             margin-top: 12px;
-            overflow-x: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--line);
         }
 
+        .image-gallery[hidden] { display: none; }
+
         .gallery-image {
-            width: 76px;
-            height: 76px;
+            width: 100%;
+            height: 120px;
             object-fit: cover;
             border: 1px solid var(--line);
             border-radius: 16px;
             background: #f1d4dc;
-            flex: 0 0 auto;
+            cursor: zoom-in;
         }
+
+        .image-gallery.featured-gallery {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .featured-gallery .gallery-image { height: 280px; }
+
+        .gallery-toggle { margin-top: 12px; width: 100%; }
 
         .service-top {
             display: flex;
@@ -590,7 +635,7 @@
             .hero-photo.side { height: 180px; }
             .monthly-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .monthly-main-image { height: 220px; }
-            .monthly-gallery img { height: 88px; }
+            .monthly-gallery img { height: 240px; }
             .grid,
             .split,
             .top-grid,
@@ -602,7 +647,7 @@
         @media (max-width: 560px) {
             .monthly-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .monthly-main-image { height: 170px; }
-            .monthly-gallery img { height: 68px; }
+            .monthly-gallery img { height: 200px; }
             .monthly-content { padding: 12px; }
             .monthly-content h3 { font-size: 16px; }
             .image-modal { padding: 14px; }
@@ -637,8 +682,8 @@
         <!-- 고객의 시선을 먼저 잡기 위해 실제 스타일 이미지로 이달의 헤어를 가장 위에 배치합니다. -->
         <div class="section-heading">
             <div>
-                <p class="section-kicker">Monthly Hair Collection</p>
-                <h2>이달의 헤어</h2>
+                <p class="section-kicker">Monthly Hair Top 5</p>
+                <h2>이달의 TOP5 헤어</h2>
             </div>
             <p class="sub">상담 전 마음에 드는 무드를 먼저 고르고, 아래 메뉴에서 예약을 이어갈 수 있습니다.</p>
         </div>
@@ -695,6 +740,18 @@
                 </div>
             </article>
         </div>
+    </section>
+
+    <section id="monthlyNailSection" class="panel">
+        <!-- 네일 카테고리에서 이달의 TOP5로 등록한 메뉴만 일반 시술 메뉴와 분리해 보여줍니다. -->
+        <div class="section-heading">
+            <div>
+                <p class="section-kicker">Monthly Nail Top 5</p>
+                <h2>이달의 TOP5 네일</h2>
+            </div>
+            <p class="sub">마음에 드는 디자인을 선택하면 해당 메뉴의 이미지 묶음과 예약 화면을 확인할 수 있습니다.</p>
+        </div>
+        <div id="monthlyNailList" class="service-grid"></div>
     </section>
 
     <section class="panel">
@@ -770,9 +827,14 @@
 </main>
 
 <div id="imageModal" class="image-modal" aria-hidden="true">
-    <!-- 작은 스타일 이미지를 클릭했을 때만 크게 보여주는 확대 보기 영역입니다. -->
-    <div class="image-modal-card" role="dialog" aria-modal="true" aria-label="이달의 헤어 이미지 크게 보기">
-        <img id="imageModalPhoto" src="" alt="">
+    <!-- 상세 이미지 한 장을 클릭하면 같은 메뉴의 이미지 전체를 큰 카드로 보여줍니다. -->
+    <div class="image-modal-card" role="dialog" aria-modal="true" aria-label="메뉴 상세 이미지 전체 보기">
+        <div id="imageModalGallery" class="image-modal-gallery"><img id="imageModalCurrent" src="" alt=""></div>
+        <div class="image-modal-navigation">
+            <button type="button" id="imageModalPrev">이전</button>
+            <span id="imageModalPage" class="image-page"></span>
+            <button type="button" id="imageModalNext">다음</button>
+        </div>
         <p id="imageModalCaption" class="image-modal-caption"></p>
         <button type="button" id="imageModalClose" class="image-modal-close">닫기</button>
     </div>
@@ -781,6 +843,7 @@
 <script>
     // 고객 예약 화면에서 사용하는 주요 요소입니다.
     const serviceList = document.getElementById("serviceList");
+    const monthlyNailList = document.getElementById("monthlyNailList");
     const serviceSelect = document.getElementById("serviceId");
     const categoryFilter = document.getElementById("categoryFilter");
     const reservationDateInput = document.getElementById("reservationDate");
@@ -793,47 +856,91 @@
     const formMessage = document.getElementById("formMessage");
     const submitButton = document.getElementById("submitButton");
     const imageModal = document.getElementById("imageModal");
-    const imageModalPhoto = document.getElementById("imageModalPhoto");
+    const imageModalGallery = document.getElementById("imageModalGallery");
+    const imageModalCurrent = document.getElementById("imageModalCurrent");
+    const imageModalPrev = document.getElementById("imageModalPrev");
+    const imageModalNext = document.getElementById("imageModalNext");
+    const imageModalPage = document.getElementById("imageModalPage");
     const imageModalCaption = document.getElementById("imageModalCaption");
     const imageModalClose = document.getElementById("imageModalClose");
     let allServices = [];
+    let modalImages = [];
+    let modalImageIndex = 0;
 
-    function openImageModal(imageSrc, imageAlt) {
-        // 작은 카드 이미지를 눌렀을 때만 큰 이미지로 확인할 수 있게 모달을 엽니다.
-        imageModalPhoto.src = imageSrc;
-        imageModalPhoto.alt = imageAlt;
-        imageModalCaption.textContent = imageAlt;
+    function openSiblingGallery(clickedImage) {
+        // 클릭한 한 장뿐 아니라 같은 메뉴 묶음에 속한 상세 이미지를 모두 큰 카드로 표시합니다.
+        const sourceGallery = clickedImage.closest(".monthly-gallery, .image-gallery");
+        const images = [...sourceGallery.querySelectorAll("img")];
+        const menuCard = clickedImage.closest(".monthly-card, .service-card");
+        const menuName = menuCard?.querySelector("h3, .service-name")?.textContent || "메뉴";
+        showImagesInModal(images, menuName, clickedImage);
+    }
+
+    function openCardGallery(card) {
+        // 대표 이미지 클릭 시 하단을 펼치지 않고 대표·상세 이미지를 모달에서 바로 보여줍니다.
+        const representative = card.querySelector(".monthly-main-image, .service-image");
+        const details = [...card.querySelectorAll(".monthly-gallery img, .image-gallery img")];
+        const menuName = card.querySelector("h3, .service-name")?.textContent || "메뉴";
+        showImagesInModal([representative, ...details].filter(Boolean), menuName, representative);
+    }
+
+    function showImagesInModal(images, menuName, selectedImage) {
+        modalImages = images.map(image => ({src: image.dataset.largeSrc || image.src, alt: image.alt}));
+        modalImageIndex = Math.max(0, images.indexOf(selectedImage));
+        imageModalCaption.textContent = `${menuName} 상세 이미지 전체`;
+        renderModalImage();
         imageModal.classList.add("is-open");
         imageModal.setAttribute("aria-hidden", "false");
+    }
+
+    function renderModalImage() {
+        // 이미지 묶음 중 현재 페이지 한 장만 표시하고 처음·마지막에서 이동 버튼을 막습니다.
+        const current = modalImages[modalImageIndex];
+        if (!current) return;
+        imageModalCurrent.src = current.src;
+        imageModalCurrent.alt = current.alt;
+        imageModalPage.textContent = `${modalImageIndex + 1} / ${modalImages.length}`;
+        imageModalPrev.disabled = modalImageIndex === 0;
+        imageModalNext.disabled = modalImageIndex === modalImages.length - 1;
     }
 
     function closeImageModal() {
         // 모달을 닫을 때 이전 이미지 경로를 비워 다음 클릭 때 새 이미지가 명확히 로드되게 합니다.
         imageModal.classList.remove("is-open");
         imageModal.setAttribute("aria-hidden", "true");
-        imageModalPhoto.src = "";
-        imageModalPhoto.alt = "";
+        imageModalCurrent.src = "";
+        imageModalCurrent.alt = "";
+        imageModalPage.textContent = "";
+        modalImages = [];
         imageModalCaption.textContent = "";
     }
 
     function bindMonthlyHairGallery() {
-        // 이달의 헤어 이미지는 기본 화면에서는 작게 두고, 클릭했을 때만 크게 보여줍니다.
+        // 대표 이미지를 누르면 하단을 펼치지 않고 이미지 묶음 전체를 확대 모달로 엽니다.
         document.querySelectorAll(".monthly-card").forEach((card) => {
             const mainImage = card.querySelector(".monthly-main-image");
-            const thumbnails = card.querySelectorAll(".monthly-gallery img");
+            const gallery = card.querySelector(".monthly-gallery");
+            const thumbnails = gallery.querySelectorAll("img");
             const serviceId = Number(card.dataset.serviceId);
             const title = card.querySelector("h3");
 
-            mainImage.addEventListener("click", () => {
-                selectServiceAndMove(serviceId);
-            });
-            title.addEventListener("click", () => selectServiceAndMove(serviceId));
+            gallery.hidden = true;
+            const reservationButton = document.createElement("button");
+            reservationButton.type = "button";
+            reservationButton.className = "gallery-toggle";
+            reservationButton.textContent = "바로 예약하러 가기";
+            reservationButton.hidden = false;
+            reservationButton.addEventListener("click", () => selectServiceAndMove(serviceId));
+            gallery.insertAdjacentElement("afterend", reservationButton);
+
+            mainImage.addEventListener("click", () => openCardGallery(card));
+            title.addEventListener("click", () => openCardGallery(card));
 
             thumbnails.forEach((thumbnail) => {
                 thumbnail.addEventListener("click", () => {
                     mainImage.src = thumbnail.dataset.largeSrc;
                     mainImage.alt = thumbnail.alt;
-                    openImageModal(thumbnail.dataset.largeSrc, thumbnail.alt);
+                    openSiblingGallery(thumbnail);
 
                     // 고객이 어떤 이미지를 크게 보고 있는지 알 수 있게 선택 표시를 이동합니다.
                     thumbnails.forEach((item) => item.classList.remove("is-selected"));
@@ -844,6 +951,8 @@
     }
 
     imageModalClose.addEventListener("click", closeImageModal);
+    imageModalPrev.addEventListener("click", () => { if (modalImageIndex > 0) { modalImageIndex--; renderModalImage(); } });
+    imageModalNext.addEventListener("click", () => { if (modalImageIndex < modalImages.length - 1) { modalImageIndex++; renderModalImage(); } });
     imageModal.addEventListener("click", (event) => {
         // 이미지 바깥 어두운 배경을 눌러도 확대 보기를 닫을 수 있게 합니다.
         if (event.target === imageModal) {
@@ -854,6 +963,14 @@
         // ESC 키로도 확대 보기를 닫아 사용자가 답답하지 않게 합니다.
         if (event.key === "Escape" && imageModal.classList.contains("is-open")) {
             closeImageModal();
+        }
+        if (event.key === "ArrowLeft" && modalImageIndex > 0) {
+            modalImageIndex--;
+            renderModalImage();
+        }
+        if (event.key === "ArrowRight" && modalImageIndex < modalImages.length - 1) {
+            modalImageIndex++;
+            renderModalImage();
         }
     });
 
@@ -910,19 +1027,20 @@
     }
 
     function renderServices(services) {
-        // 시술 목록과 예약 폼 선택지를 같은 데이터로 채웁니다.
+        // 이달의 TOP5 네일은 별도 영역에 표시하고 일반 시술 목록에서는 제외합니다.
+        const regularServices = services.filter(service => !isMonthlyNail(service));
         const selectedCategory = categoryFilter.value || "전체";
         const filteredServices = selectedCategory === "전체"
-            ? services
-            : services.filter(service => service.category === selectedCategory);
+            ? regularServices
+            : regularServices.filter(service => service.category === selectedCategory);
 
         serviceSelect.innerHTML = filteredServices.map(service =>
             `<option value="${service.id}">${service.name} / ${service.durationMinutes}분 / ${formatPrice(service.price)}</option>`
         ).join("");
 
         serviceList.innerHTML = filteredServices.map(service => `
-            <article class="service-card" role="button" tabindex="0" data-service-id="${service.id}" onclick="selectServiceAndMove(${service.id})">
-                <img class="service-image" src="${service.imageUrl}" alt="${service.name} 시술 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">
+            <article class="service-card" data-service-id="${service.id}">
+                <img class="service-image" src="${service.imageUrl}" alt="${service.name} 시술 이미지" loading="lazy" onclick="openCardGallery(this.closest('.service-card'))" onerror="this.classList.add('is-hidden');">
                 <div class="service-content">
                     <div class="service-top">
                         <h3 class="service-name">${service.name}</h3>
@@ -931,7 +1049,8 @@
                     <div class="sub">카테고리: ${service.category}</div>
                     <div class="sub">${service.description}</div>
                     <div class="sub"><strong>${formatPrice(service.price)}</strong></div>
-                    ${renderImageGallery(service.additionalImageUrls)}
+                    ${renderImageGallery(service.id, service.name, service.additionalImageUrls)}
+                    <button type="button" class="gallery-toggle" onclick="selectServiceAndMove(${service.id})">바로 예약하러 가기</button>
                 </div>
             </article>
         `).join("");
@@ -945,15 +1064,41 @@
         loadAvailableSlots();
     }
 
-    function renderImageGallery(imageUrls) {
-        // 대표 이미지 외 참고 이미지를 작은 갤러리로 보여줘 고객이 결과 예시를 더 확인하게 합니다.
+    function isMonthlyNail(service) {
+        // 네일 카테고리이면서 메뉴명에 이달의 TOP5가 포함된 항목을 월간 네일로 구분합니다.
+        return service.category === "네일" && /이달의\s*top\s*5/i.test(service.name);
+    }
+
+    function renderMonthlyNailTop5(services) {
+        // 등록 순서대로 최대 5개 메뉴만 월간 네일 컬렉션에 노출합니다.
+        const nailTop5 = services.filter(isMonthlyNail).slice(0, 5);
+        if (!nailTop5.length) {
+            monthlyNailList.innerHTML = '<div class="empty">관리자 화면에서 네일 카테고리에 이달의 TOP5 메뉴를 등록해 주세요.</div>';
+            return;
+        }
+        monthlyNailList.innerHTML = nailTop5.map((service, index) => `
+            <article class="service-card" data-service-id="${service.id}">
+                <img class="service-image" src="${service.imageUrl}" alt="${service.name} 대표 이미지" loading="lazy" onclick="openCardGallery(this.closest('.service-card'))" onerror="this.classList.add('is-hidden');">
+                <div class="service-content">
+                    <span class="rank-badge">TOP ${index + 1}</span>
+                    <h3 class="service-name">${service.name}</h3>
+                    <div class="sub">${service.durationMinutes}분 / <strong>${formatPrice(service.price)}</strong></div>
+                    ${renderImageGallery(service.id, service.name, service.additionalImageUrls)}
+                    <button type="button" class="gallery-toggle" onclick="selectServiceAndMove(${service.id})">바로 예약하러 가기</button>
+                </div>
+            </article>
+        `).join("");
+    }
+
+    function renderImageGallery(serviceId, serviceName, imageUrls) {
+        // 상세 이미지는 화면에서 숨겨 두고 대표 이미지 클릭 시 확대 모달의 페이징 자료로 사용합니다.
         if (!imageUrls || !imageUrls.length) {
             return "";
         }
 
         return `
-            <div class="image-gallery">
-                ${imageUrls.map(imageUrl => `<img class="gallery-image" src="${imageUrl}" alt="시술 상세 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">`).join("")}
+            <div id="gallery-${serviceId}" class="image-gallery featured-gallery" hidden>
+                ${imageUrls.map((imageUrl, index) => `<img class="gallery-image" src="${imageUrl}" alt="${serviceName} 상세 이미지 ${index + 1}" loading="lazy" onclick="openSiblingGallery(this)" onerror="this.classList.add('is-hidden');">`).join("")}
             </div>
         `;
     }
@@ -984,7 +1129,7 @@
 
     function renderCategories(services) {
         // 컷, 펌, 염색, 클리닉 등 카테고리 선택지를 생성합니다.
-        const categories = ["전체", ...new Set(services.map(service => service.category))];
+        const categories = ["전체", ...new Set(services.filter(service => !isMonthlyNail(service)).map(service => service.category))];
         categoryFilter.innerHTML = categories.map(category =>
             `<option value="${category}">${category}</option>`
         ).join("");
@@ -1018,6 +1163,7 @@
         const response = await fetch("/api/services");
         allServices = await response.json();
         renderCategories(allServices);
+        renderMonthlyNailTop5(allServices);
         renderServices(allServices);
     }
 
@@ -1115,16 +1261,9 @@
             return;
         }
 
-        const keepName = event.target.customerName.value;
-        const keepEmail = event.target.customerEmail.value;
-        // 로그인 고객의 DB 연락처는 유지해 예약 직후 이전 시술 이력을 바로 갱신합니다.
-        event.target.customerName.value = keepName;
-        event.target.customerEmail.value = keepEmail;
-        event.target.noShowPolicyAgreed.checked = false;
-        event.target.memo.value = "";
-        setMessage(formMessage, "예약 요청이 등록되었습니다.", "success");
-        await loadAvailableSlots();
-        await loadCustomerHistory();
+        // 완료 사실을 알림으로 보여준 뒤 메인 초기 화면을 다시 표시합니다.
+        alert("예약요청이 등록되었습니다.");
+        window.location.href = "/";
     });
 
     serviceSelect.addEventListener("change", loadAvailableSlots);

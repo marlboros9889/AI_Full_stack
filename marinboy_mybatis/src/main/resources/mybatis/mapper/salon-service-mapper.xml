@@ -52,14 +52,33 @@
         FROM MB_SERVICE_ITEM
         WHERE ID = #{serviceId}
     </select>
+    <!-- 메뉴와 이미지를 같은 ID로 연결하기 위해 저장 전에 다음 메뉴 ID를 조회합니다. -->
+    <select id="findNextServiceId" resultType="long">
+        SELECT NVL(MAX(ID), 0) + 1 FROM MB_SERVICE_ITEM
+    </select>
     <insert id="insertService">
         INSERT INTO MB_SERVICE_ITEM (ID, NAME, CATEGORY, DURATION_MINUTES, PRICE, DESCRIPTION)
-        SELECT NVL(MAX(ID), 0) + 1, #{name}, #{category}, #{durationMinutes}, #{price}, #{description}
-        FROM MB_SERVICE_ITEM
+        VALUES (#{id}, #{name}, #{category}, #{durationMinutes}, #{price}, #{description})
     </insert>
     <update id="updateService">
         UPDATE MB_SERVICE_ITEM SET NAME=#{name}, CATEGORY=#{category}, DURATION_MINUTES=#{durationMinutes}, PRICE=#{price}, DESCRIPTION=#{description}, UPDATED_AT=SYSTIMESTAMP WHERE ID=#{id}
     </update>
+    <!-- 대표 이미지는 메뉴별 한 장만 유지합니다. -->
+    <delete id="deleteRepresentativeImage">
+        DELETE FROM MB_SERVICE_IMAGE WHERE SERVICE_ID=#{serviceId} AND IMAGE_TYPE='REPRESENTATIVE'
+    </delete>
+    <insert id="insertRepresentativeImage">
+        INSERT INTO MB_SERVICE_IMAGE (ID, SERVICE_ID, IMAGE_URL, IMAGE_TYPE, SORT_ORDER)
+        SELECT NVL(MAX(ID), 0) + 1, #{serviceId}, #{imageUrl}, 'REPRESENTATIVE', 1 FROM MB_SERVICE_IMAGE
+    </insert>
+    <!-- 메뉴별 4~5장의 상세 이미지 묶음을 순서대로 저장합니다. -->
+    <delete id="deleteDetailImages">
+        DELETE FROM MB_SERVICE_IMAGE WHERE SERVICE_ID=#{serviceId} AND IMAGE_TYPE='DETAIL'
+    </delete>
+    <insert id="insertDetailImage">
+        INSERT INTO MB_SERVICE_IMAGE (ID, SERVICE_ID, IMAGE_URL, IMAGE_TYPE, SORT_ORDER)
+        SELECT NVL(MAX(ID), 0) + 1, #{serviceId}, #{imageUrl}, 'DETAIL', #{sortOrder} FROM MB_SERVICE_IMAGE
+    </insert>
     <!-- 예약 이력의 외래키를 보존하면서 고객/관리자 목록에서 제외합니다. -->
     <delete id="deleteService">
         UPDATE MB_SERVICE_ITEM

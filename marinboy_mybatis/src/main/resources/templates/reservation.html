@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- 로그인 고객이 시술·날짜·시간을 선택해 예약을 신청하는 전용 화면입니다. -->
 <html lang="ko">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -33,5 +34,25 @@ function updateSameDay(){let today=localDate(new Date()),same=$('date').value===
 async function loadSlots(){selectedDateTime='';$('timeText').value='';updateSameDay();let r=await fetch(`/api/services/${$('serviceId').value}/available-slots?date=${$('date').value}`),d=await r.json(),list=d.availableSlots||[];$('slots').innerHTML=list.length?list.map(x=>`<button type="button" class="btn btn-outline-secondary slot" data-value="${x}">${x.slice(11,16)}</button>`).join(''):'<span>예약 가능한 시간이 없습니다.</span>';$('slots').querySelectorAll('.slot').forEach(b=>b.onclick=()=>{selectedDateTime=b.dataset.value;$('timeText').value=b.textContent;document.querySelectorAll('.slot').forEach(x=>x.classList.remove('active'));b.classList.add('active')});$('submit').disabled=!list.length}
 async function loadHistory(phone){let r=await fetch(`/api/customers/history?customerPhone=${encodeURIComponent(phone)}`),rows=await r.json();$('history').innerHTML=rows.length?rows.map(x=>`<div class="history-item"><b>${x.serviceName}</b><span class="badge float-end">${x.status}</span><br><small>${x.reservationDateTime.replace('T',' ')}</small></div>`).join(''):'이전 시술 내역이 없습니다.'}
 async function init(){let services=await(await fetch('/api/services')).json();$('serviceId').innerHTML=services.map(x=>`<option value="${x.id}">${x.name} · ${x.durationMinutes}분 · ${Number(x.price).toLocaleString()}원</option>`).join('');$('serviceId').value=query.get('serviceId')||services[0].id;$('date').min=localDate(new Date());$('date').value=initialDate();let me=await fetch('/api/auth/me');if(me.status===204){location='/login';return}let u=await me.json();$('name').value=u.displayName||u.name||'';$('email').value=u.email||'';$('phone').value=u.phone||'';await Promise.all([loadSlots(),loadHistory(u.phone)])}
-$('serviceId').onchange=loadSlots;$('date').onchange=loadSlots;$('form').onsubmit=async e=>{e.preventDefault();if(!selectedDateTime)return alert('예약 시간을 선택하세요.');if($('date').value===localDate(new Date())&&!$('sameDay').checked)return alert('당일 예약 안내에 동의해 주세요.');$('submit').disabled=true;let body={serviceId:+$('serviceId').value,customerName:$('name').value,customerEmail:$('email').value,customerPhone:$('phone').value,reservationDateTime:selectedDateTime,noShowPolicyAgreed:$('policy').checked,memo:$('memo').value};let r=await fetch('/api/reservations',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let error=r.ok?'':await r.json().catch(()=>({message:'예약에 실패했습니다.'}));$('message').className=`fw-bold mt-3 ${r.ok?'text-success':'text-danger'}`;$('message').textContent=r.ok?'예약 요청이 등록되었습니다.':error.message||'예약에 실패했습니다.';if(r.ok){await loadSlots();await loadHistory($('phone').value)}else $('submit').disabled=false};init();
+$('serviceId').onchange=loadSlots;
+$('date').onchange=loadSlots;
+$('form').onsubmit=async event=>{
+  event.preventDefault();
+  if(!selectedDateTime)return alert('예약 시간을 선택하세요.');
+  if($('date').value===localDate(new Date())&&!$('sameDay').checked)return alert('당일 예약 안내에 동의해 주세요.');
+  $('submit').disabled=true;
+  const body={serviceId:+$('serviceId').value,customerName:$('name').value,customerEmail:$('email').value,customerPhone:$('phone').value,reservationDateTime:selectedDateTime,noShowPolicyAgreed:$('policy').checked,memo:$('memo').value};
+  const response=await fetch('/api/reservations',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!response.ok){
+    const error=await response.json().catch(()=>({message:'예약에 실패했습니다.'}));
+    $('message').className='fw-bold mt-3 text-danger';
+    $('message').textContent=error.message||'예약에 실패했습니다.';
+    $('submit').disabled=false;
+    return;
+  }
+  // 예약 완료를 알린 뒤 고객이 처음 보던 메인 화면으로 반드시 이동합니다.
+  alert('예약요청이 등록되었습니다.');
+  window.location.replace('/');
+};
+init();
 </script></body></html>

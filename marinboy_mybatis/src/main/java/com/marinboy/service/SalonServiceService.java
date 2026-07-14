@@ -2,10 +2,17 @@ package com.marinboy.service;
 
 import com.marinboy.dao.SalonServiceDao;
 import com.marinboy.dto.ServiceDto;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 // 고객 화면에 표시할 시술 메뉴와 이미지 데이터를 조립하는 서비스입니다.
 @Service
@@ -41,10 +48,59 @@ public class SalonServiceService {
         return salonServiceDao.findDurationMinutesById(serviceId);
     }
 
-    public void saveService(Long id, String name, String category, int durationMinutes, int price, String description) {
+    @Transactional
+    public Long saveService(Long id, String name, String category, int durationMinutes, int price, String description) {
         if (name == null || name.isBlank() || category == null || category.isBlank() || durationMinutes < 10 || price <= 0) throw new IllegalArgumentException("시술명, 카테고리, 시간, 가격을 확인하세요.");
-        if (id == null) salonServiceDao.insertService(name, category, durationMinutes, price, description == null ? "" : description);
+        if (id == null) {
+            id = salonServiceDao.findNextServiceId();
+            salonServiceDao.insertService(id, name, category, durationMinutes, price, description == null ? "" : description);
+        }
         else if (salonServiceDao.updateService(id, name, category, durationMinutes, price, description == null ? "" : description) == 0) throw new IllegalArgumentException("시술 메뉴가 없습니다.");
+        return id;
+    }
+
+    /** 메뉴 저장과 대표 이미지 교체를 하나의 트랜잭션으로 처리합니다. */
+    @Transactional
+    public void saveService(Long id, String name, String category, int durationMinutes, int price, String description, MultipartFile image, MultipartFile[] galleryImages) {
+        Long serviceId = saveService(id, name, category, durationMinutes, price, description);
+        if (image != null && !image.isEmpty()) {
+            String imageUrl = saveImageFile(image);
+            salonServiceDao.deleteRepresentativeImage(serviceId);
+            salonServiceDao.insertRepresentativeImage(serviceId, imageUrl);
+        }
+        // 상세 이미지가 전달된 경우에만 기존 묶음을 새 묶음으로 교체합니다.
+        if (galleryImages != null && galleryImages.length > 0) {
+            List<MultipartFile> files = List.of(galleryImages).stream().filter(file -> !file.isEmpty()).toList();
+            if (files.size() > 5) throw new IllegalArgumentException("메뉴별 상세 이미지는 최대 5장까지 등록할 수 있습니다.");
+            if (!files.isEmpty()) {
+                salonServiceDao.deleteDetailImages(serviceId);
+                for (int index = 0; index < files.size(); index++) {
+                    salonServiceDao.insertDetailImage(serviceId, saveImageFile(files.get(index)), index + 1);
+                }
+            }
+        }
+    }
+
+    private String saveImageFile(MultipartFile image) {
+        String contentType = image.getContentType();
+        if (contentType == null || !Set.of("image/jpeg", "image/png", "image/gif", "image/webp").contains(contentType)) {
+            throw new IllegalArgumentException("JPG, PNG, GIF, WEBP 이미지 파일만 등록할 수 있습니다.");
+        }
+        String extension = switch (contentType) {
+            case "image/png" -> ".png";
+            case "image/gif" -> ".gif";
+            case "image/webp" -> ".webp";
+            default -> ".jpg";
+        };
+        try {
+            Path directory = Paths.get("uploads", "services").toAbsolutePath().normalize();
+            Files.createDirectories(directory);
+            String fileName = UUID.randomUUID() + extension;
+            image.transferTo(directory.resolve(fileName));
+            return "/uploads/services/" + fileName;
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("이미지 파일 저장에 실패했습니다.", exception);
+        }
     }
     public void deleteService(Long id) { if (salonServiceDao.deleteService(id) == 0) throw new IllegalArgumentException("시술 메뉴가 없습니다."); }
 

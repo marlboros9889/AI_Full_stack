@@ -33,6 +33,7 @@ public class SalonReservationApiController {
 
     @GetMapping("/api/services")
     public List<ServiceDto> services() {
+        // 예약 화면의 시술 선택 목록을 반환합니다.
         return serviceService.getServices();
     }
 
@@ -40,11 +41,13 @@ public class SalonReservationApiController {
     public ReservationDto availableSlots(
             @PathVariable Long serviceId,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        // 영업시간, 휴무일, 시술 시간과 기존 예약을 반영한 시간만 반환합니다.
         return reservationService.getAvailableSlots(serviceId, date);
     }
 
     @PostMapping("/api/reservations")
     public ResponseEntity<Void> createReservation(@RequestBody ReservationDto request) {
+        // 중복 시간과 필수 동의 여부를 검증한 후 예약을 저장합니다.
         reservationService.createReservation(request);
         return ResponseEntity.noContent().build();
     }
@@ -56,6 +59,7 @@ public class SalonReservationApiController {
 
     @GetMapping("/api/customers/my-reservations")
     public ResponseEntity<List<ReservationDto>> myReservations(HttpSession session) {
+        // 로그인 고객의 전화번호를 기준으로 진행 중인 예약을 조회합니다.
         Object loginUser = session.getAttribute(SecurityConstants.LOGIN_USER);
         if (!(loginUser instanceof UserDto user) || user.getPhone() == null || user.getPhone().isBlank()) {
             return ResponseEntity.status(401).build();
@@ -65,6 +69,7 @@ public class SalonReservationApiController {
 
     @GetMapping("/api/auth/me")
     public ResponseEntity<UserDto> me(HttpSession session) {
+        // 예약 폼 자동 입력에 사용할 로그인 사용자 정보를 반환합니다.
         Object loginUser = session.getAttribute(SecurityConstants.LOGIN_USER);
         return loginUser instanceof UserDto user
                 ? ResponseEntity.ok(user)
@@ -73,6 +78,7 @@ public class SalonReservationApiController {
 
     @PostMapping("/api/auth/logout")
     public ResponseEntity<Void> logout(HttpSession session) {
+        // 세션을 폐기해 저장된 로그인 정보를 제거합니다.
         session.invalidate();
         return ResponseEntity.noContent().build();
     }

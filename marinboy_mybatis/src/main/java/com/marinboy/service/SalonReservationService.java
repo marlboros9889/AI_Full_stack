@@ -27,6 +27,7 @@ public class SalonReservationService {
     }
 
     public ReservationDto getAvailableSlots(Long serviceId, LocalDate date) {
+        // 당일 예약 준비 시간을 확보하기 위해 현재 시각에서 30분 이후부터 허용합니다.
         LocalDateTime minimumTime = LocalDateTime.now().plusMinutes(30);
         if (date.isBefore(LocalDate.now())) {
             return availableSlots(List.of());
@@ -43,6 +44,7 @@ public class SalonReservationService {
 
         List<LocalDateTime> slots = new ArrayList<>();
         LocalTime cursor = OPEN_TIME;
+        // 30분 간격으로 영업 종료 전에 시술을 마칠 수 있는 시간만 검사합니다.
         while (!cursor.plusMinutes(durationMinutes).isAfter(CLOSE_TIME)) {
             LocalDateTime reservationDateTime = LocalDateTime.of(date, cursor);
             if (!reservationDateTime.isBefore(minimumTime)
@@ -56,6 +58,7 @@ public class SalonReservationService {
 
     @Transactional
     public void createReservation(ReservationDto request) {
+        // 저장 직전에 다시 검증하여 화면 조회 이후 생긴 중복 예약도 차단합니다.
         if (request.getReservationDateTime() == null
                 || request.getReservationDateTime().isBefore(LocalDateTime.now().plusMinutes(30))) {
             throw new IllegalArgumentException("예약은 현재 시간보다 최소 30분 이후부터 가능합니다.");
@@ -72,6 +75,7 @@ public class SalonReservationService {
         }
 
         Long customerId = salonReservationDao.findCustomerIdByPhone(request.getCustomerPhone());
+        // 등록되지 않은 고객이면 입력받은 연락처로 고객을 생성한 후 예약과 연결합니다.
         if (customerId == null) {
             salonReservationDao.insertCustomer(
                     "customer_" + System.currentTimeMillis(),
@@ -106,6 +110,7 @@ public class SalonReservationService {
     }
 
     public List<ReservationDto> getCustomerActiveReservations(String customerPhone) {
+        // 고객 화면에는 접수 대기 또는 승인 상태인 예약만 표시합니다.
         return salonReservationDao.findCustomerHistory(customerPhone)
                 .stream()
                 .filter(reservation -> List.of("REQUESTED", "CONFIRMED").contains(reservation.getStatus()))
@@ -139,6 +144,7 @@ public class SalonReservationService {
 
     @Transactional
     public void updateReservationStatus(Long reservationId, String status) {
+        // 현재 상태에서 허용된 다음 상태로만 변경해 잘못된 처리 순서를 막습니다.
         ReservationDto reservation = requireReservation(reservationId);
         boolean allowed = "REQUESTED".equals(reservation.getStatus())
                 ? List.of("CONFIRMED", "REJECTED", "CANCELED").contains(status)
@@ -157,6 +163,7 @@ public class SalonReservationService {
 
     @Transactional
     public void rejectReservation(Long reservationId, String reason) {
+        // 거절은 진행 중인 예약에만 허용하며 사유를 필수로 기록합니다.
         ReservationDto reservation = requireReservation(reservationId);
         if (!List.of("REQUESTED", "CONFIRMED").contains(reservation.getStatus())) {
             throw new IllegalArgumentException("대기 또는 승인 상태의 예약만 거절할 수 있습니다.");
