@@ -1,6 +1,0 @@
-////////////////////////////////////////////////////////////
-interface InterA2{  void   hi(); }
-interface InterB2{  void   hi(String name); }
-interface InterC2{  String hi(); }
-interface InterD2{  String   hi(int num , String name); }   
-////////////////////////////////////////////////////////////
