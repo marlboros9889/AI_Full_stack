@@ -1,0 +1,19 @@
+구분	화면/기능	권한	CRUD	HTTP	URL	요청 데이터	응답/처리	검증/예외	관련 파일
+인증	로그인 화면	전체	Read	GET	/login	없음	로그인 페이지 표시	세션이 없어도 접근 가능	AuthController.java, login.html
+인증	로그인 처리	전체	Create	POST	/api/auth/login	username, password	세션에 SessionUser 저장 후 role 반환	아이디/비밀번호 오류 시 400	AuthController.java, AuthService.java
+인증	로그아웃	로그인 사용자	Delete	POST	/api/auth/logout	세션 쿠키	세션 무효화	로그인 세션 필요	AuthController.java
+인증	현재 로그인 확인	전체	Read	GET	/api/auth/me	세션 쿠키	로그인 상태면 사용자 정보, 아니면 204	세션이 없어도 접근 가능	AuthController.java
+공통	서버 상태 확인	전체	Read	GET	/api/health	없음	status, project 반환	세션이 없어도 접근 가능	SalonReservationApiController.java
+공통	DB 시간 확인	전체	Read	GET	/api/db-time	없음	DB 현재 시간 반환	Oracle 연결 검증용	DatabaseVerificationService.java
+고객	고객 예약 화면	고객	Read	GET	/	세션 쿠키	고객용 예약 화면 표시	비로그인 시 /login 이동	SalonPageController.java, index.html
+고객	시술 목록 조회	고객	Read	GET	/api/services	세션 쿠키	시술명, 카테고리, 소요시간, 가격 반환	비로그인 시 401	SalonReservationApiController.java, SalonReservationService.java
+고객	예약 가능 시간 조회	고객	Read	GET	/api/services/{serviceId}/available-slots	serviceId, date	예약 가능한 LocalDateTime 목록 반환	일요일/휴무일/중복 시간 제외	SalonReservationApiController.java, SalonReservationService.java
+고객	예약 신청	고객	Create	POST	/api/reservations	serviceId, customerName, customerEmail, customerPhone, reservationDateTime, noShowPolicyAgreed, memo	REQUESTED 상태 예약 생성	영업시간, 30분 단위, 휴무일, 중복, 노쇼 이력, 동의 여부 검증	CreateReservationRequest.java, SalonReservationService.java
+관리자	관리자 화면	관리자	Read	GET	/admin	세션 쿠키	관리자용 예약/가격/휴무 관리 화면 표시	고객/비로그인 접근 시 /login 이동	SalonPageController.java, admin.html
+관리자	전체 예약 조회	관리자	Read	GET	/api/reservations	세션 쿠키	예약 목록 시간순 반환	관리자 화면에서 상태별 확인	SalonReservationApiController.java, SalonReservationService.java
+관리자	예약 상태 변경	관리자	Update	PATCH	/api/reservations/{reservationId}/status	status	예약 상태 변경 결과 반환	REQUESTED는 CONFIRMED/CANCELED만 가능, CONFIRMED는 COMPLETED/NO_SHOW만 가능	ReservationStatusUpdateRequest.java, SalonReservationService.java
+관리자	시술 가격 수정	관리자	Update	PATCH	/api/services/{serviceId}/price	price	수정된 시술 정보 반환	가격은 0보다 커야 함	ServicePriceUpdateRequest.java, SalonReservationService.java
+관리자	휴무일 목록 조회	관리자	Read	GET	/api/holidays	세션 쿠키	휴무일 목록 반환	관리자 권한 필요	SalonReservationApiController.java, SalonReservationService.java
+관리자	휴무일 등록/수정	관리자	Create/Update	POST	/api/holidays	holidayDate, reason	휴무일 저장 결과 반환	해당 날짜 예약 가능 시간 0개 처리	HolidayRequest.java, SalonReservationService.java
+관리자	휴무일 삭제	관리자	Delete	DELETE	/api/holidays/{holidayDate}	holidayDate	204 No Content	삭제 후 다시 예약 가능	SalonReservationApiController.java, SalonReservationService.java
+관리자	노쇼 방지 알림 대상 조회	관리자	Read	GET	/api/reservations/reminder-targets	세션 쿠키	2일 이내 REQUESTED/CONFIRMED 예약 목록 반환	실제 문자 발송 전 관리자 확인용	NoShowAlertResponse.java, SalonReservationService.java

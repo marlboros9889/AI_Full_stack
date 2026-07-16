@@ -1,0 +1,29 @@
+spring:
+  config:
+    activate:
+      on-profile: oracle
+  datasource:
+    # Oracle XE 기본 연결값입니다. 필요하면 환경 변수로 덮어쓸 수 있습니다.
+    url: ${ORACLE_URL:jdbc:oracle:thin:@localhost:1521:xe}
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: ${ORACLE_USERNAME:scott}
+    password: ${ORACLE_PASSWORD:tiger}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    # 이미 만들어진 Oracle 스키마를 유지합니다.
+    hibernate:
+      ddl-auto: none
+    # H2용 샘플 데이터 스크립트가 Oracle에 실행되지 않게 합니다.
+    defer-datasource-initialization: false
+  sql:
+    init:
+      mode: never
+
+app:
+  db:
+    # Oracle에서 현재 DB 시간을 확인할 때 사용하는 전용 쿼리입니다.
+    validation-query: SELECT SYSDATE FROM DUAL
+    # DB 검증 API가 반환하는 데이터베이스 종류 표시값입니다.
+    vendor: ORACLE

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마린 헤어 스튜디오 로그인</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+KR:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pure: #ffffff;
+            --accent-gold-coral: #d4a373;
+            --accent-soft: #f7eee7;
+            --line-soft: #eadbce;
+            --text-dark: #1a1a1a;
+            --text-muted: #6f625a;
+            --font-serif: 'Noto Serif KR', serif;
+            --font-luxury: 'Cormorant Garamond', serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: var(--font-serif);
+            background:
+                    radial-gradient(circle at 15% 10%, rgba(212, 163, 115, 0.16), transparent 28%),
+                    linear-gradient(135deg, #fffaf6 0%, var(--bg-pure) 48%, #f8eee6 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .luxury-italic {
+            font-family: var(--font-luxury);
+            font-style: italic;
+            font-weight: 300;
+            color: var(--accent-gold-coral);
+        }
+
+        .shell {
+            width: min(1080px, calc(100% - 32px));
+            min-height: 100vh;
+            margin: 0 auto;
+            display: grid;
+            place-items: center;
+            padding: 56px 0;
+        }
+
+        .panel {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 163, 115, 0.35);
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: 0 28px 80px rgba(96, 70, 48, 0.16);
+        }
+
+        .brand {
+            position: relative;
+            min-height: 620px;
+            padding: 54px;
+            background:
+                    linear-gradient(180deg, rgba(26, 26, 26, 0.12), rgba(26, 26, 26, 0.52)),
+                    linear-gradient(135deg, #f7eee7, #d4a373);
+            color: #fff;
+        }
+
+        .brand::after {
+            content: "";
+            position: absolute;
+            inset: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 24px;
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            margin: 0 0 150px;
+            letter-spacing: 0.18em;
+            font-size: 13px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .brand-title {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-family: var(--font-luxury);
+            font-size: clamp(64px, 8vw, 118px);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 0.88;
+        }
+
+        .brand-copy {
+            position: relative;
+            z-index: 1;
+            width: min(430px, 100%);
+            margin: 28px 0 0;
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .login-content {
+            padding: 48px 42px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 34px;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+        }
+
+        .hint, .message {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .social-area {
+            margin: 30px 0 24px;
+            padding: 22px;
+            border: 1px solid var(--line-soft);
+            border-radius: 22px;
+            background: linear-gradient(180deg, #fffaf7, #fff);
+        }
+
+        .social-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 14px;
+            font-weight: 400;
+        }
+
+        .social-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .social-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 12px 16px;
+            border: 1px solid var(--line-soft);
+            border-radius: 999px;
+            color: var(--text-dark);
+            text-align: center;
+            text-decoration: none;
+            background: #fff;
+            transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .social-button:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-gold-coral);
+            box-shadow: 0 12px 24px rgba(212, 163, 115, 0.18);
+        }
+
+        .social-button.google::before,
+        .social-button.naver::before,
+        .social-button.kakao::before {
+            display: inline-grid;
+            place-items: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .social-button.google::before { content: "G"; color: #4285f4; background: #f6f9ff; }
+        .social-button.naver::before { content: "N"; color: #fff; background: #03c75a; }
+        .social-button.kakao::before { content: "K"; color: #371d1e; background: #fee500; }
+
+        .stack { display: grid; gap: 14px; }
+        .field { display: grid; gap: 8px; }
+        label { color: var(--text-muted); font-size: 14px; }
+        input, button { font: inherit; }
+        input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid var(--line-soft);
+            border-radius: 14px;
+            background: #fff;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent-gold-coral);
+            box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.12);
+        }
+
+        button {
+            padding: 14px 18px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--text-dark);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .message.error { color: #b00020; }
+
+        @media (max-width: 860px) {
+            .panel { grid-template-columns: 1fr; }
+            .brand { min-height: 360px; padding: 38px; }
+            .eyebrow { margin-bottom: 86px; }
+            .login-content { padding: 34px 24px; }
+        }
+    </style>
+</head>
+<body>
+<main class="shell">
+    <section class="panel">
+        <div class="brand">
+            <p class="eyebrow">Marin Hair Studio</p>
+            <h1 class="brand-title">Reserve<br>your mood</h1>
+            <p class="brand-copy">고객의 시간과 원장의 하루가 자연스럽게 이어지도록 예약, 이력, 알림을 한 화면에서 관리합니다.</p>
+        </div>
+        <div class="login-content">
+            <h1>로그인</h1>
+            <p class="hint">소셜 계정으로 빠르게 예약을 시작하거나, 데모 계정으로 관리자 기능을 확인할 수 있습니다.</p>
+            <div class="social-area">
+                <div class="social-title">
+                    <strong>소셜 로그인</strong>
+                    <span class="luxury-italic">Kakao · Google · Naver</span>
+                </div>
+                <div id="socialLoginList" class="social-list"></div>
+                <p id="socialLoginHint" class="hint">원하는 계정으로 계속 진행하세요.</p>
+            </div>
+            <form id="loginForm" class="stack">
+                <div class="field">
+                    <label for="username">아이디</label>
+                    <input id="username" name="username" type="text" autocomplete="username" required>
+                </div>
+                <div class="field">
+                    <label for="password">비밀번호</label>
+                    <input id="password" name="password" type="password" autocomplete="current-password" required>
+                </div>
+                <button type="submit">데모 계정 로그인</button>
+                <p class="hint">고객: customer / customer123 · 관리자: admin / admin123</p>
+                <div id="loginMessage" class="message"></div>
+            </form>
+        </div>
+    </section>
+</main>
+
+<script>
+    const loginMessage = document.getElementById("loginMessage");
+    const socialLoginList = document.getElementById("socialLoginList");
+    const socialLoginHint = document.getElementById("socialLoginHint");
+
+    async function loadSocialProviders() {
+        // 서버에 등록된 소셜 제공자 버튼을 로그인 화면에 표시합니다.
+        const response = await fetch("/api/auth/social-providers");
+        if (!response.ok) {
+            socialLoginHint.textContent = "소셜 로그인 정보를 불러오지 못했습니다.";
+            return;
+        }
+
+        const providers = await response.json();
+        if (providers.length === 0) {
+            socialLoginHint.textContent = "소셜 로그인 설정을 확인해 주세요.";
+            return;
+        }
+
+        socialLoginHint.textContent = "원하는 계정으로 로그인하세요.";
+        socialLoginList.innerHTML = providers.map((provider) => `
+            <a class="social-button ${provider.registrationId}" href="${provider.authorizationUrl}">
+                ${provider.displayName} 계정으로 계속하기
+            </a>
+        `).join("");
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        // 로그인 성공 시 세션이 유지되고 역할에 맞는 화면으로 이동합니다.
+        loginMessage.textContent = "로그인 중입니다...";
+        loginMessage.className = "message";
+
+        const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                username: event.target.username.value,
+                password: event.target.password.value
+            })
+        });
+
+        if (!response.ok) {
+            const body = await response.json();
+            loginMessage.textContent = body.message || "로그인에 실패했습니다.";
+            loginMessage.className = "message error";
+            return;
+        }
+
+        const user = await response.json();
+        location.href = user.role === "ADMIN" ? "/admin" : "/";
+    });
+
+    loadSocialProviders();
+</script>
+</body>
+</html>

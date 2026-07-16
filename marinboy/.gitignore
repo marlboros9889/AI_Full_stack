@@ -1,0 +1,13 @@
+target/
+*.log
+.idea/
+.settings/
+.project
+.classpath
+.factorypath
+.DS_Store
+.metadata/
+Servers/
+uploads/
+
+/.metadata/

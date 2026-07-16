@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${projectName}">마린 헤어 스튜디오</title>
+    <style>
+        /* 디자인은 나중에 교체하기 쉽도록 화면 구조에 필요한 최소 스타일만 둡니다. */
+        body { margin: 0; font-family: "Malgun Gothic", sans-serif; color: #222; background: #fafafa; }
+        .shell { width: min(1080px, calc(100% - 32px)); margin: 0 auto; padding: 32px 0; }
+        .hero, .panel { margin-bottom: 20px; padding: 24px; border: 1px solid #ddd; border-radius: 16px; background: #fff; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .stack { display: grid; gap: 12px; }
+        .service-card { overflow: hidden; border: 1px solid #ddd; border-radius: 12px; background: #fff; }
+        .service-image { width: 100%; height: 180px; object-fit: cover; display: block; background: #eee; }
+        .service-content { padding: 16px; }
+        .image-gallery { display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; }
+        .gallery-image { width: 76px; height: 76px; object-fit: cover; border-radius: 10px; background: #eee; flex: 0 0 auto; }
+        .service-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+        .service-name { margin: 0; font-size: 18px; }
+        .top-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .rank-badge { display: inline-block; margin-bottom: 8px; padding: 6px 10px; border-radius: 999px; color: #fff; background: #333; }
+        .sub { margin-top: 6px; color: #666; font-size: 14px; }
+        .field { display: grid; gap: 8px; }
+        .check-field { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+        .check-field input { width: auto; margin-top: 4px; }
+        .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        input, select, textarea, button { font: inherit; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; box-sizing: border-box; }
+        textarea { min-height: 90px; resize: vertical; }
+        button { padding: 12px 16px; border: 0; border-radius: 10px; color: #fff; background: #333; cursor: pointer; }
+        button:disabled { cursor: not-allowed; opacity: 0.55; }
+        .slot-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+        .slot-chip { padding: 8px 10px; border-radius: 999px; background: #eee; }
+        .history-card { padding: 14px; border: 1px solid #d8e2d8; border-radius: 12px; background: #f7fbf7; }
+        .message { min-height: 20px; color: #666; }
+        .message.success { color: #137a3a; }
+        .message.error { color: #b00020; }
+        .empty { padding: 16px; border: 1px dashed #bbb; border-radius: 12px; color: #666; background: #fff; }
+        .is-hidden { display: none; }
+        @media (max-width: 860px) { .grid, .split, .top-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<main class="shell">
+    <!-- 고객에게 서비스 소개와 예약 진입 정보를 보여주는 영역입니다. -->
+    <section class="hero">
+        <p th:text="${headline}">1인 미용실 예약</p>
+        <h1 th:text="${projectName}">마린 헤어 스튜디오</h1>
+        <p th:text="${description}">원하는 시술과 날짜를 선택해 예약을 요청할 수 있습니다.</p>
+        <p>등록된 시술 수: <strong th:text="${serviceCount}">0</strong></p>
+        <button type="button" id="logoutButton">로그아웃</button>
+    </section>
+
+    <section class="panel">
+        <!-- 로그인 후 고객에게 가장 먼저 추천할 이달의 헤어 TOP3 영역입니다. -->
+        <h2>이달의 헤어 TOP3</h2>
+        <div id="topServiceList" class="top-grid"></div>
+    </section>
+
+    <section class="grid">
+        <section class="panel">
+            <!-- 고객이 예약 가능한 시술 정보를 확인하는 영역입니다. -->
+            <h2>시술 안내</h2>
+            <div class="field">
+                <label for="categoryFilter">카테고리 선택</label>
+                <select id="categoryFilter"></select>
+            </div>
+            <div id="serviceList" class="stack"></div>
+        </section>
+
+        <section class="panel">
+            <!-- 고객이 실제 예약 요청을 등록하는 영역입니다. -->
+            <h2>예약 요청</h2>
+            <form id="reservationForm" class="stack">
+                <div class="field">
+                    <label for="serviceId">시술 선택</label>
+                    <select id="serviceId" name="serviceId" required></select>
+                </div>
+                <div class="split">
+                    <div class="field">
+                        <label for="reservationDate">예약 날짜</label>
+                        <input id="reservationDate" name="reservationDate" type="date" required>
+                    </div>
+                    <div class="field">
+                        <label for="reservationTime">예약 가능 시간</label>
+                        <select id="reservationTime" name="reservationTime" required></select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>예약 가능 시간 미리보기</label>
+                    <div id="slotPreview" class="slot-wrap"></div>
+                </div>
+                <div class="split">
+                    <div class="field">
+                        <label for="customerName">고객명</label>
+                        <input id="customerName" name="customerName" type="text" required>
+                    </div>
+                    <div class="field">
+                        <label for="customerPhone">연락처</label>
+                        <input id="customerPhone" name="customerPhone" type="text" placeholder="010-0000-0000" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="customerEmail">이메일</label>
+                    <input id="customerEmail" name="customerEmail" type="email" required>
+                </div>
+                <div class="field">
+                    <label for="memo">요청 메모</label>
+                    <textarea id="memo" name="memo" placeholder="원하는 스타일, 주의사항, 상담 메모"></textarea>
+                </div>
+                <label class="check-field" for="noShowPolicyAgreed">
+                    <input id="noShowPolicyAgreed" name="noShowPolicyAgreed" type="checkbox" required>
+                    <span>예약 시간 10분 이상 지각 또는 무단 불참 시 다음 예약이 제한될 수 있다는 안내에 동의합니다.</span>
+                </label>
+                <button id="submitButton" type="submit">예약 요청 등록</button>
+                <div id="formMessage" class="message"></div>
+            </form>
+            <section class="stack" style="margin-top: 20px;">
+                <h3>이전 시술 이력</h3>
+                <div id="customerHistoryList" class="stack">
+                    <div class="empty">연락처를 입력하면 이전 시술 이력을 확인할 수 있습니다.</div>
+                </div>
+            </section>
+        </section>
+    </section>
+</main>
+
+<script>
+    // 고객 예약 화면에서 사용하는 주요 요소입니다.
+    const serviceList = document.getElementById("serviceList");
+    const topServiceList = document.getElementById("topServiceList");
+    const serviceSelect = document.getElementById("serviceId");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const reservationDateInput = document.getElementById("reservationDate");
+    const reservationTimeSelect = document.getElementById("reservationTime");
+    const slotPreview = document.getElementById("slotPreview");
+    const customerNameInput = document.getElementById("customerName");
+    const customerEmailInput = document.getElementById("customerEmail");
+    const customerPhoneInput = document.getElementById("customerPhone");
+    const customerHistoryList = document.getElementById("customerHistoryList");
+    const formMessage = document.getElementById("formMessage");
+    const submitButton = document.getElementById("submitButton");
+    let allServices = [];
+
+    function setMessage(target, text, type) {
+        // 고객에게 예약 처리 결과를 한 줄 메시지로 보여줍니다.
+        target.textContent = text;
+        target.className = "message " + (type || "");
+    }
+
+    async function readError(response) {
+        // API 오류 응답에서 고객이 읽을 수 있는 메시지를 꺼냅니다.
+        try {
+            const body = await response.json();
+            return body.message || "요청을 처리하는 중 문제가 발생했습니다.";
+        } catch (error) {
+            return "요청을 처리하는 중 문제가 발생했습니다.";
+        }
+    }
+
+    function formatPrice(price) {
+        // 금액을 한국어 원화 표기로 변환합니다.
+        return new Intl.NumberFormat("ko-KR").format(price) + "원";
+    }
+
+    function formatTimeFromIso(value) {
+        // ISO 날짜시간 문자열에서 고객에게 보여줄 시간만 잘라냅니다.
+        return value.slice(11, 16);
+    }
+
+    function formatDateTime(value) {
+        // 이전 시술 이력을 고객이 읽기 쉬운 날짜와 시간으로 표시합니다.
+        return new Intl.DateTimeFormat("ko-KR", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit"
+        }).format(new Date(value));
+    }
+
+    function nextBookableDate() {
+        // 기본 선택 날짜를 내일부터 잡고 일요일은 건너뜁니다.
+        const date = new Date();
+        date.setDate(date.getDate() + 1);
+        while (date.getDay() === 0) {
+            date.setDate(date.getDate() + 1);
+        }
+        return date.toISOString().slice(0, 10);
+    }
+
+    function renderServices(services) {
+        // 시술 목록과 예약 폼 선택지를 같은 데이터로 채웁니다.
+        const selectedCategory = categoryFilter.value || "전체";
+        const filteredServices = selectedCategory === "전체"
+            ? services
+            : services.filter(service => service.category === selectedCategory);
+
+        serviceSelect.innerHTML = filteredServices.map(service =>
+            `<option value="${service.id}">${service.name} / ${service.durationMinutes}분 / ${formatPrice(service.price)}</option>`
+        ).join("");
+
+        serviceList.innerHTML = filteredServices.map(service => `
+            <article class="service-card">
+                <img class="service-image" src="${service.imageUrl}" alt="${service.name} 시술 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">
+                <div class="service-content">
+                    <div class="service-top">
+                        <h3 class="service-name">${service.name}</h3>
+                        <strong>${service.durationMinutes}분</strong>
+                    </div>
+                    <div class="sub">카테고리: ${service.category}</div>
+                    <div class="sub">${service.description}</div>
+                    <div class="sub"><strong>${formatPrice(service.price)}</strong></div>
+                    ${renderImageGallery(service.additionalImageUrls)}
+                </div>
+            </article>
+        `).join("");
+
+        if (!filteredServices.length) {
+            serviceList.innerHTML = '<div class="empty">선택한 카테고리에 등록된 시술이 없습니다.</div>';
+            submitButton.disabled = true;
+            return;
+        }
+
+        loadAvailableSlots();
+    }
+
+    function renderImageGallery(imageUrls) {
+        // 대표 이미지 외 참고 이미지를 작은 갤러리로 보여줘 고객이 결과 예시를 더 확인하게 합니다.
+        if (!imageUrls || !imageUrls.length) {
+            return "";
+        }
+
+        return `
+            <div class="image-gallery">
+                ${imageUrls.map(imageUrl => `<img class="gallery-image" src="${imageUrl}" alt="시술 상세 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">`).join("")}
+            </div>
+        `;
+    }
+
+    function renderTopServices(services) {
+        // 원장이 지정한 추천 TOP3를 로그인 직후 바로 확인할 수 있게 보여줍니다.
+        const topServices = services
+            .filter(service => service.topRank)
+            .sort((left, right) => left.topRank - right.topRank);
+
+        if (!topServices.length) {
+            topServiceList.innerHTML = '<div class="empty">아직 등록된 이달의 추천 메뉴가 없습니다.</div>';
+            return;
+        }
+
+        topServiceList.innerHTML = topServices.map(service => `
+            <article class="service-card">
+                <img class="service-image" src="${service.imageUrl}" alt="${service.name} 추천 이미지" loading="lazy" onerror="this.classList.add('is-hidden');">
+                <div class="service-content">
+                    <span class="rank-badge">TOP ${service.topRank}</span>
+                    <h3 class="service-name">${service.name}</h3>
+                    <div class="sub">${service.category} / ${service.durationMinutes}분</div>
+                    <div class="sub"><strong>${formatPrice(service.price)}</strong></div>
+                </div>
+            </article>
+        `).join("");
+    }
+
+    function renderCategories(services) {
+        // 컷, 펌, 염색, 클리닉 등 카테고리 선택지를 생성합니다.
+        const categories = ["전체", ...new Set(services.map(service => service.category))];
+        categoryFilter.innerHTML = categories.map(category =>
+            `<option value="${category}">${category}</option>`
+        ).join("");
+    }
+
+    function renderAvailableSlots(slots) {
+        // 선택한 날짜가 휴무일이거나 빈 시간이 없으면 예약 버튼을 막습니다.
+        if (!slots.length) {
+            reservationTimeSelect.innerHTML = '<option value="">예약 가능 시간 없음</option>';
+            slotPreview.innerHTML = '<div class="empty">선택한 날짜에 예약 가능한 시간이 없습니다.</div>';
+            submitButton.disabled = true;
+            return;
+        }
+
+        reservationTimeSelect.innerHTML = slots.map(slot =>
+            `<option value="${formatTimeFromIso(slot)}">${formatTimeFromIso(slot)}</option>`
+        ).join("");
+        slotPreview.innerHTML = slots.map(slot =>
+            `<span class="slot-chip">${formatTimeFromIso(slot)}</span>`
+        ).join("");
+        submitButton.disabled = false;
+    }
+
+    async function loadServices() {
+        // 백엔드에서 고객에게 보여줄 시술 목록을 조회합니다.
+        const response = await fetch("/api/services");
+        allServices = await response.json();
+        renderCategories(allServices);
+        renderTopServices(allServices);
+        renderServices(allServices);
+    }
+
+    async function loadAvailableSlots() {
+        // 선택한 시술과 날짜 기준의 예약 가능 시간을 조회합니다.
+        if (!serviceSelect.value || !reservationDateInput.value) {
+            return;
+        }
+
+        const response = await fetch(`/api/services/${serviceSelect.value}/available-slots?date=${reservationDateInput.value}`);
+        const body = await response.json();
+        renderAvailableSlots(body.availableSlots || []);
+    }
+
+    function renderCustomerHistory(history) {
+        // 같은 고객의 과거 시술 이력을 카드 형태로 보여줍니다.
+        if (!history.length) {
+            customerHistoryList.innerHTML = '<div class="empty">아직 저장된 이전 시술 이력이 없습니다.</div>';
+            return;
+        }
+
+        customerHistoryList.innerHTML = history.map(item => `
+            <div class="history-card">
+                <strong>${item.serviceName}</strong>
+                <div class="sub">${item.serviceCategory} / ${formatDateTime(item.reservationDateTime)} / ${item.status}</div>
+                <div class="sub">메모: ${item.memo ? item.memo : "없음"}</div>
+            </div>
+        `).join("");
+    }
+
+    async function loadCustomerHistory() {
+        // 소셜 로그인 고객은 세션 기준, 일반 고객은 연락처 기준으로 이전 시술을 조회합니다.
+        const phone = customerPhoneInput.value.trim();
+        if (!phone) {
+            customerHistoryList.innerHTML = '<div class="empty">연락처를 입력하면 이전 시술 이력을 확인할 수 있습니다.</div>';
+            return;
+        }
+
+        const response = await fetch(`/api/customers/history?customerPhone=${encodeURIComponent(phone)}`);
+        if (!response.ok) {
+            customerHistoryList.innerHTML = '<div class="empty">이전 시술 이력을 불러오지 못했습니다.</div>';
+            return;
+        }
+        renderCustomerHistory(await response.json());
+    }
+
+    async function loadCurrentUser() {
+        // 소셜 로그인에서 받은 이름과 이메일은 예약 폼에 자동으로 채웁니다.
+        const response = await fetch("/api/auth/me");
+        if (response.status === 204 || !response.ok) {
+            return;
+        }
+
+        const user = await response.json();
+        if (user.displayName) {
+            customerNameInput.value = user.displayName;
+        }
+        if (user.email) {
+            customerEmailInput.value = user.email;
+        }
+    }
+
+    document.getElementById("reservationForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        // 고객 입력값을 예약 생성 API로 전송합니다.
+        setMessage(formMessage, "예약 요청을 등록하는 중입니다...", "");
+
+        const payload = {
+            serviceId: Number(event.target.serviceId.value),
+            customerName: event.target.customerName.value,
+            customerEmail: event.target.customerEmail.value,
+            customerPhone: event.target.customerPhone.value,
+            reservationDateTime: `${event.target.reservationDate.value}T${event.target.reservationTime.value}`,
+            noShowPolicyAgreed: event.target.noShowPolicyAgreed.checked,
+            memo: event.target.memo.value
+        };
+
+        const response = await fetch("/api/reservations", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            setMessage(formMessage, await readError(response), "error");
+            return;
+        }
+
+        const keepName = event.target.customerName.value;
+        const keepEmail = event.target.customerEmail.value;
+        event.target.customerPhone.value = "";
+        event.target.customerName.value = keepName;
+        event.target.customerEmail.value = keepEmail;
+        event.target.noShowPolicyAgreed.checked = false;
+        event.target.memo.value = "";
+        setMessage(formMessage, "예약 요청이 등록되었습니다.", "success");
+        await loadAvailableSlots();
+        await loadCustomerHistory();
+    });
+
+    serviceSelect.addEventListener("change", loadAvailableSlots);
+    categoryFilter.addEventListener("change", () => renderServices(allServices));
+    reservationDateInput.addEventListener("change", loadAvailableSlots);
+    customerPhoneInput.addEventListener("blur", loadCustomerHistory);
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+        // 현재 세션을 종료하고 로그인 화면으로 이동합니다.
+        await fetch("/api/auth/logout", { method: "POST" });
+        location.href = "/login";
+    });
+
+    // 고객 화면이 열리면 예약에 필요한 최소 데이터를 불러옵니다.
+    reservationDateInput.value = nextBookableDate();
+    loadCurrentUser();
+    loadServices().then(loadAvailableSlots);
+</script>
+</body>
+</html>

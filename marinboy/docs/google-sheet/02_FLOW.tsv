@@ -1,0 +1,23 @@
+흐름ID	단계	사용자	화면	동작	시스템 처리	다음 상태/결과
+LOGIN-01	1	고객/관리자	/login	아이디와 비밀번호 입력	AuthService가 고정 계정 검증	성공 시 세션 생성
+LOGIN-01	2	고객/관리자	/login	로그인 성공	세션에 username, displayName, role 저장	고객은 /, 관리자는 /admin 이동
+LOGIN-01	3	비로그인 사용자	/ 또는 /admin	직접 접근 시도	AuthInterceptor가 세션 없음 확인	/login으로 이동
+LOGIN-01	4	고객	/admin	관리자 화면 접근 시도	AuthInterceptor가 role=CUSTOMER 확인	/login으로 이동
+RESV-01	1	고객	/	시술 카테고리 선택	프론트에서 컷/펌/염색/클리닉 필터 적용	해당 카테고리 시술만 표시
+RESV-01	2	고객	/	시술 선택	/api/services/{id}/available-slots 호출	예약 가능한 날짜/시간 목록 표시
+RESV-01	3	고객	/	날짜 선택	일요일, 휴무일, 이미 예약된 시간 제외	선택 가능한 시간만 노출
+RESV-01	4	고객	/	고객정보와 노쇼 안내 동의 입력	Bean Validation과 비즈니스 규칙 검증	검증 성공 시 예약 신청 가능
+RESV-01	5	고객	/	예약 신청 클릭	/api/reservations POST 호출	REQUESTED 상태로 예약 생성
+RESV-01	6	고객	/	같은 시간 재신청	기존 REQUESTED/CONFIRMED 예약과 시간 겹침 검사	409 에러와 중복 안내 메시지 표시
+ADMIN-01	1	관리자	/admin	예약 목록 확인	/api/reservations 호출	대기/확정/취소/완료/노쇼 상태별 목록 표시
+ADMIN-01	2	관리자	/admin	대기 예약 확정	REQUESTED -> CONFIRMED 전환 검증	예약 상태 확정
+ADMIN-01	3	관리자	/admin	대기 예약 취소	REQUESTED -> CANCELED 전환 검증	예약 상태 취소
+ADMIN-01	4	관리자	/admin	확정 예약 완료 처리	CONFIRMED -> COMPLETED 전환 검증	예약 상태 완료
+ADMIN-01	5	관리자	/admin	확정 예약 노쇼 처리	CONFIRMED -> NO_SHOW 전환 검증	동일 연락처 추후 예약 차단 기준 생성
+ADMIN-01	6	관리자	/admin	완료/취소/노쇼 상태 변경 시도	허용되지 않은 상태 전환 차단	409 에러 표시
+PRICE-01	1	관리자	/admin	가격 입력 변경	/api/services/{id}/price PATCH 호출	시술 가격 즉시 갱신
+HOLIDAY-01	1	관리자	/admin	휴무일과 사유 입력	/api/holidays POST 호출	휴무일 등록 또는 사유 갱신
+HOLIDAY-01	2	고객	/	휴무일 선택	available-slots 결과가 빈 배열	예약 버튼 비활성화
+HOLIDAY-01	3	관리자	/admin	휴무일 삭제	/api/holidays/{date} DELETE 호출	해당 날짜 예약 가능 상태 복구
+NOSHOW-01	1	관리자	/admin	알림 대상 확인	2일 이내 REQUESTED/CONFIRMED 예약 조회	예약 전 확인 연락 대상 표시
+NOSHOW-01	2	고객	/	노쇼 이력 연락처로 예약 신청	countByCustomerPhoneAndStatus 검사	관리자 문의 안내 후 예약 차단
