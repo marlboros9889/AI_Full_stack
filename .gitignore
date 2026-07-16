@@ -1,0 +1,13 @@
+/.metadata/
+**/target/
+**/bin/
+**/node_modules/
+**/.next/
+**/.idea/
+**/.vscode/
+**/Servers/
+**/uploads/
+**/*.log
+**/*.class
+**/*.jar
+**/application-oauth.properties
