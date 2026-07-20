@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import com.marinboy.dto.UserDto;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -24,12 +25,16 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
         if (authentication instanceof OAuth2AuthenticationToken oauthToken) {
             // OAuth2AuthenticationToken의 principal은 이미 OAuth2User 타입이므로 바로 사용자 속성을 꺼냅니다.
             OAuth2User oauth2User = oauthToken.getPrincipal();
-            SocialLoginUser loginUser = SocialLoginUser.from(
+            SocialLoginUser socialUser = SocialLoginUser.from(
                     oauthToken.getAuthorizedClientRegistrationId(),
                     oauth2User.getAttributes()
             );
 
-            // 이후 예약 신청 화면에서는 이 세션 값을 사용해 이름/이메일 재입력을 줄일 수 있습니다.
+            UserDto loginUser = new UserDto();
+            loginUser.setUsername(socialUser.provider().name().toLowerCase() + "_" + socialUser.socialId());
+            loginUser.setName(socialUser.name());
+            loginUser.setEmail(socialUser.email());
+            loginUser.setRole(socialUser.role());
             request.getSession(true).setAttribute(SecurityConstants.LOGIN_USER, loginUser);
         }
 

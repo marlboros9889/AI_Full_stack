@@ -127,6 +127,8 @@ public class SalonReservationService {
         ReservationDto current = salonReservationDao.findCustomerReservation(reservationId, customerPhone);
         if (current == null || !List.of("REQUESTED", "CONFIRMED").contains(current.getStatus()))
             throw new IllegalArgumentException("수정할 수 있는 예약이 없습니다.");
+        if (!current.getReservationDateTime().isAfter(LocalDateTime.now()))
+            throw new IllegalArgumentException("지난 예약은 수정할 수 없습니다.");
         if (request.getReservationDateTime() == null || request.getReservationDateTime().isBefore(LocalDateTime.now().plusMinutes(30)))
             throw new IllegalArgumentException("예약은 현재 시간보다 최소 30분 이후부터 가능합니다.");
         if (salonReservationDao.countHoliday(request.getReservationDateTime().toLocalDate()) > 0)
@@ -135,6 +137,18 @@ public class SalonReservationService {
             throw new IllegalArgumentException("이미 예약된 시간입니다. 다른 시간을 선택해 주세요.");
         if (salonReservationDao.updateCustomerReservation(reservationId, customerPhone, request.getServiceId(), request.getReservationDateTime(), request.getMemo()) == 0)
             throw new IllegalArgumentException("예약 수정에 실패했습니다.");
+    }
+
+    @Transactional
+    public void cancelCustomerReservation(Long reservationId, String customerPhone) {
+        ReservationDto current = salonReservationDao.findCustomerReservation(reservationId, customerPhone);
+        if (current == null || !"REQUESTED".equals(current.getStatus()))
+            throw new IllegalArgumentException("예약 대기 상태인 본인 예약만 취소할 수 있습니다.");
+        if (!current.getReservationDateTime().isAfter(LocalDateTime.now()))
+            throw new IllegalArgumentException("지난 예약은 취소할 수 없습니다.");
+        if (salonReservationDao.cancelCustomerReservation(reservationId, customerPhone) == 0) {
+            throw new IllegalArgumentException("예약 취소 처리 중 상태가 변경되었습니다. 새로고침 후 다시 확인해 주세요.");
+        }
     }
 
     public List<ReservationDto> getReservations() {

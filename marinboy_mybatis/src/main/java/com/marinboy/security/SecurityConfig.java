@@ -11,18 +11,19 @@ import org.springframework.security.web.access.intercept.RequestAuthorizationCon
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.http.HttpStatus;
 
 import com.marinboy.dto.UserDto;
 
-import java.util.Map;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -30,9 +31,18 @@ import java.util.List;
 /** 세션 기반 자체 로그인과 REST 요청을 사용할 수 있도록 Spring Security를 설정합니다. */
 @Configuration
 public class SecurityConfig {
+    private final SocialLoginSuccessHandler socialLoginSuccessHandler;
+
+    public SecurityConfig(SocialLoginSuccessHandler socialLoginSuccessHandler) {
+        this.socialLoginSuccessHandler = socialLoginSuccessHandler;
+    }
+
     // 관리자 및 DB 진단 경로는 세션의 관리자 역할을 확인한 뒤 접근을 허용합니다.
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            ClientRegistrationRepository clientRegistrationRepository
+    ) throws Exception {
         return http
                 // JSON·파일 업로드 API 호출 시 CSRF 토큰을 요구하지 않습니다.
                 .csrf(AbstractHttpConfigurer::disable)
@@ -48,24 +58,25 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/api/**")))
                 .oauth2Login(oauth -> oauth
                         .loginPage("/login")
-                        .successHandler((request, response, authentication) -> {
-                            OAuth2User oauthUser = (OAuth2User) authentication.getPrincipal();
-                            Map<String, Object> account = oauthUser.getAttribute("kakao_account");
-                            Map<String, Object> profile = account == null ? null : (Map<String, Object>) account.get("profile");
-
-                            UserDto user = new UserDto();
-                            user.setUsername("kakao_" + oauthUser.getName());
-                            user.setName(profile == null ? "카카오 사용자" : String.valueOf(profile.get("nickname")));
-                            user.setEmail(account == null ? null : (String) account.get("email"));
-                            user.setRole(SecurityConstants.ROLE_CUSTOMER);
-                            request.getSession().setAttribute(SecurityConstants.LOGIN_USER, user);
-                            response.sendRedirect("/");
-                        })
+                        .authorizationEndpoint(endpoint -> endpoint
+                                .authorizationRequestResolver(kakaoLoginAuthorizationRequestResolver(clientRegistrationRepository)))
+                        .successHandler(socialLoginSuccessHandler)
                         .failureHandler((request, response, exception) -> {
                             String message = URLEncoder.encode(exception.getMessage(), StandardCharsets.UTF_8);
                             response.sendRedirect("/login?oauthError=" + message);
                         }))
                 .build();
+    }
+
+    // 카카오 계정 세션이 남아 있어도 매번 카카오 계정 인증 화면을 표시합니다.
+    private OAuth2AuthorizationRequestResolver kakaoLoginAuthorizationRequestResolver(
+            ClientRegistrationRepository clientRegistrationRepository
+    ) {
+        DefaultOAuth2AuthorizationRequestResolver resolver =
+                new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository, "/oauth2/authorization");
+        resolver.setAuthorizationRequestCustomizer(customizer ->
+                customizer.additionalParameters(parameters -> parameters.put("prompt", "login")));
+        return resolver;
     }
 
     @Bean
