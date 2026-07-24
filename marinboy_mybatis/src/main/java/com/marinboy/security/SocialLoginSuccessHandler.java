@@ -32,10 +32,14 @@ public class SocialLoginSuccessHandler implements AuthenticationSuccessHandler {
 
             UserDto loginUser = new UserDto();
             loginUser.setUsername(socialUser.provider().name().toLowerCase() + "_" + socialUser.socialId());
-            loginUser.setName(socialUser.name());
+            loginUser.setName(socialUser.name() == null || socialUser.name().isBlank()
+                    ? "카카오 사용자" : socialUser.name());
             loginUser.setEmail(socialUser.email());
             loginUser.setRole(socialUser.role());
+            loginUser.setLoginProvider(oauthToken.getAuthorizedClientRegistrationId().toUpperCase());
             request.getSession(true).setAttribute(SecurityConstants.LOGIN_USER, loginUser);
+            request.getSession(true).setAttribute(SecurityConstants.LOGIN_PROVIDER,
+                    oauthToken.getAuthorizedClientRegistrationId().toUpperCase());
         }
 
         response.sendRedirect("/");

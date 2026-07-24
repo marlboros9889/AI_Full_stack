@@ -1,6 +1,5 @@
 # marinboy_mybatis
 
-기존 `marinboy` 예약관리 서비스를 `track007_boot_api` 스타일의 MyBatis 구조로 재설계 복원하는 프로젝트입니다.
 
 ## 목표 구조
 

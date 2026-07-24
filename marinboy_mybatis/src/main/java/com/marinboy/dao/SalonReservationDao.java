@@ -61,6 +61,8 @@ public interface SalonReservationDao {
     int updateCustomerReservation(@Param("reservationId") Long reservationId, @Param("customerPhone") String customerPhone,
             @Param("serviceId") Long serviceId, @Param("reservationDateTime") LocalDateTime reservationDateTime,
             @Param("memo") String memo);
+    int cancelCustomerReservation(@Param("reservationId") Long reservationId,
+            @Param("customerPhone") String customerPhone);
 
     // 관리자 화면에서 사용할 예약 목록을 조회합니다.
     List<ReservationDto> findAllReservations();
@@ -75,4 +77,11 @@ public interface SalonReservationDao {
 
     // 승인·거절·취소·완료 상태와 거절 사유를 예약에 반영합니다.
     int updateReservationStatus(@Param("reservationId") Long reservationId, @Param("status") String status, @Param("rejectionReason") String rejectionReason);
+
+    int countOldTerminalReservations();
+    int deleteOldTerminalReservations();
+    int countOldOrphanCustomers();
+    int deleteOldOrphanCustomers();
+    int countOldDeletedServices();
+    int deleteOldDeletedServices();
 }

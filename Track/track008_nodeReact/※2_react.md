@@ -270,7 +270,7 @@ step3) 본문영역 main.container 안에 콘텐츠 출력.
 사용자 액션 (버튼클릭, 로그인 요청 등)
              ↓
         [View  컴포넌트]   
-    _______________________________
+    _______________________________npx node
     - dispatch({type:LOG_IN_REQUEST , data})
     - 화면에서 액션발생    
 
@@ -308,3 +308,102 @@ step3) 본문영역 main.container 안에 콘텐츠 출력.
     - useSelector로 상태읽기
 
 ```
+
+6. roqkf ( reducer - saga - view )   (2) saga
+```
+front/
+├── sagas/                  # ✅ Redux-Saga 폴더
+│   ├── index.js            # 루트 사가
+│   ├── user.js             # 사용자 관련 사가
+│   └── user.test.js  
+```
+1) 제너레이터 함수
+```js
+function* g1(){
+  let i=0;
+  while(true){
+    yield i++;
+  }
+}
+
+const gen1 = g1( );
+console.log(gen1.next().value);   // gen1.next()  호출
+```
+
+
+```js
+function* g2(){
+  consol.log("first")
+  yield 1; //첫번쨰 반환
+
+  consol.log("second")
+  yield 2;
+
+  consol.log("third")
+  yield 3;
+}
+
+const gen2 = g2( );
+console.log(gen2.next().value);
+console.log(gen2.next().value);
+console.log(gen2.next().value);  
+```
+
+2) saga 기본함수
+- all, fork, call, put, takeLatest
+1. all  - 여러 saga를 동시에 실행
+2. fork - [비동기]로 saga를 실행
+3. call - api를 호출하고 결과를 기다림 (blocking) > 동기 
+4. put  -  redux 액션을 dispatch
+5. takeLatest - 특정액션을 감지하고 가장 마지막 액션만 처리
+
+
+
+7. 개발 ( reducer - saga - view ) (3) store
+```
+front/
+├── store/                  # ✅ Redux 스토어 설정 폴더
+│   ├── configureStore.js   # Redux 스토어 설정
+│   └── configureStore.test.js # 스토어 테스트 코드
+
+```
+
+8. 
+```
+front/
+├── pages/                  # ✅ Next.js 라우팅 기반 페이지 폴더
+│   ├── _app.js             # 전체 앱의 공통 설정 (Redux Provider, 글로벌 스타일 등)
+│   ├── index.js            # 메인 페이지
+│   ├── login.js            # 로그인 페이지
+│   ├── signup.js           # 회원가입 페이지
+│   └── users.js            # 사용자 목록 또는 정보 페이지 
+```
+1. `UseSelector` → Redux Store 에서 사용자 상태 가져오기
+  - 상태조회: Store에 저장된 전역상태(State) react에서 가져오기
+  - useSelect( (state) => state.user  )
+
+2. `useEffect` → 로그인 여부 확인 및 사용자 목록 불러오기
+  - 생명주기 및 부수효과처리
+  - 부품 제일 처음 나올떄, 사라질떄, 특정상태 변경시
+ 
+3. `dispatch` → 액션발생 (로그인, 사용자삭제....)
+  - 알림: 스토어한테 어떠한 액션 발생 알리기
+  - store.dispatch({type: LOG_IN_REQUEST});
+
+실습0) back - app.js
+```js
+app.use( express.json() ) //json
+app.use( express.urlencoded({ extendedLtrud }) )  //form 데이터 처리
+app.use( cors({
+    origin : 'http://localhost:3000',  //프론트엔드 주소를 명시  
+    credentials: true        // 쿠키/세션 허용
+}) );
+
+```
+
+실습1) front - pages -[ _app.js ] 
+
+
+
+● 
+■

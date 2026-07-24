@@ -5,6 +5,7 @@ public final class SecurityConstants {
 
     // 로그인 성공 후 세션에 저장할 사용자 정보의 키입니다.
     public static final String LOGIN_USER = "LOGIN_USER";
+    public static final String LOGIN_PROVIDER = "LOGIN_PROVIDER";
 
     // 관리자 권한을 의미하는 문자열입니다.
     public static final String ROLE_ADMIN = "ADMIN";

@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- 로그인 고객이 시술·날짜·시간을 선택해 예약을 신청하는 전용 화면입니다. -->
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>마린보이 예약하기</title>
@@ -15,13 +15,15 @@
   .btn,.slot{border-radius:999px;font-weight:700;letter-spacing:.04em;transition:transform .2s,box-shadow .2s}
   .btn:hover,.slot:hover{transform:translateY(-2px)}
   .btn-gold{background:linear-gradient(135deg,#53664c,#718268);box-shadow:0 12px 28px #53664c35}
-  .slot{border-color:#7f927055;color:#53664c;background:#fffef9}
+  #slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.7rem}
+  .slot{border-color:#7f927055;color:#53664c;background:#fffef9;min-height:54px;font-size:1rem;margin:0}
   .slot.active{background:#53664c;box-shadow:0 8px 20px #53664c30}
+  @media(max-width:768px){#slots{grid-template-columns:repeat(2,minmax(0,1fr))}}
   </style>
 </head>
-<body><main class="container wrap py-4 py-md-5">
+<body><th:block th:replace="~{fragments/layout :: header}"></th:block><main class="container wrap py-4 py-md-5">
   <a href="/" class="text-dark fw-bold text-decoration-none">← 시술 목록으로 돌아가기</a>
-  <section class="hero p-4 p-md-5 my-3"><p class="kicker mb-2">MARINBOY PRIVATE SALON</p><h1>나만의 예약 시간</h1><p class="mb-0 opacity-75">날짜를 먼저 고른 뒤 예약 가능한 시간을 선택해 주세요.</p></section>
+  <section class="hero p-4 p-md-5 my-3"><p class="kicker mb-2">MARINBOY PRIVATE SALON</p><h1>오늘 가능한 시간부터</h1><p class="mb-0 opacity-75">선택한 시술의 소요시간·휴무일·기존 예약을 서버에서 계산해 예약 가능한 시간만 보여드립니다.</p></section>
   <section class="card"><div class="row g-0">
     <aside class="col-lg-4 p-4 border-end"><h2 class="h4">예약 전 필수 확인</h2><div class="warning p-3 mt-3"><strong>⚠ 노쇼·당일 취소 주의</strong><br><b>무단 불참, 10분 이상 지각, 당일 취소 시 이후 예약이 제한될 수 있습니다.</b><br><small>예약은 고객과 매장의 소중한 약속입니다.</small></div></aside>
     <div class="col-lg-8 p-4"><form id="form">
@@ -35,15 +37,13 @@
       <button id="submit" class="btn btn-gold w-100 py-3 fw-bold">예약 요청하기</button><p id="message" class="fw-bold mt-3"></p>
     </form></div>
   </div></section>
-  <section class="card mt-4"><div class="card-body p-4"><p class="kicker text-dark mb-1">CUSTOMER HISTORY</p><h2 class="h4">이전 시술 내역</h2><div id="history" class="text-muted">로그인 고객의 시술 이력을 불러오는 중입니다.</div></div></section>
-</main><script>
+</main><th:block th:replace="~{fragments/layout :: footer}"></th:block><script>
 const $=id=>document.getElementById(id), query=new URLSearchParams(location.search);let selectedDateTime='';
 const localDate=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-function initialDate(){let d=new Date();if(d.getHours()>=16)d.setDate(d.getDate()+1);while(d.getDay()===0)d.setDate(d.getDate()+1);return localDate(d)}
+function initialDate(){let d=new Date();while(d.getDay()===0)d.setDate(d.getDate()+1);return localDate(d)}
 function updateSameDay(){let today=localDate(new Date()),same=$('date').value===today;$('sameDayBox').classList.toggle('d-none',!same);$('sameDay').required=same;if(!same)$('sameDay').checked=false}
 async function loadSlots(){selectedDateTime='';$('timeText').value='';updateSameDay();let r=await fetch(`/api/services/${$('serviceId').value}/available-slots?date=${$('date').value}`),d=await r.json(),list=d.availableSlots||[];$('slots').innerHTML=list.length?list.map(x=>`<button type="button" class="btn btn-outline-secondary slot" data-value="${x}">${x.slice(11,16)}</button>`).join(''):'<span>예약 가능한 시간이 없습니다.</span>';$('slots').querySelectorAll('.slot').forEach(b=>b.onclick=()=>{selectedDateTime=b.dataset.value;$('timeText').value=b.textContent;document.querySelectorAll('.slot').forEach(x=>x.classList.remove('active'));b.classList.add('active')});$('submit').disabled=!list.length}
-async function loadHistory(phone){let r=await fetch(`/api/customers/history?customerPhone=${encodeURIComponent(phone)}`),rows=await r.json();$('history').innerHTML=rows.length?rows.map(x=>`<div class="history-item"><b>${x.serviceName}</b><span class="badge float-end">${x.status}</span><br><small>${x.reservationDateTime.replace('T',' ')}</small></div>`).join(''):'이전 시술 내역이 없습니다.'}
-async function init(){let services=await(await fetch('/api/services')).json();$('serviceId').innerHTML=services.map(x=>`<option value="${x.id}">${x.name} · ${x.durationMinutes}분 · ${Number(x.price).toLocaleString()}원</option>`).join('');$('serviceId').value=query.get('serviceId')||services[0].id;$('date').min=localDate(new Date());$('date').value=query.get('date')||initialDate();let me=await fetch('/api/auth/me');if(me.status===204){location='/login';return}let u=await me.json();$('name').value=u.displayName||u.name||'';$('email').value=u.email||'';$('phone').value=u.phone||'';await Promise.all([loadSlots(),loadHistory(u.phone)]);let requestedTime=query.get('time');if(requestedTime){let button=[...$('slots').querySelectorAll('.slot')].find(item=>item.textContent.trim()===requestedTime);if(button)button.click()}}
+async function init(){let services=await(await fetch('/api/services')).json();$('serviceId').innerHTML=services.map(x=>`<option value="${x.id}">${x.name} · ${x.durationMinutes}분 · ${Number(x.price).toLocaleString()}원</option>`).join('');$('serviceId').value=query.get('serviceId')||services[0].id;$('date').min=localDate(new Date());$('date').max=localDate(new Date(Date.now()+7*24*60*60*1000));$('date').value=query.get('date')||initialDate();let me=await fetch('/api/auth/me');if(me.status===204){location='/login';return}let u=await me.json();$('name').value=u.displayName||u.name||'';$('email').value=u.email||'';$('phone').value=u.phone||'';$('name').readOnly=true;$('phone').readOnly=true;await loadSlots();let requestedTime=query.get('time');if(requestedTime){let button=[...$('slots').querySelectorAll('.slot')].find(item=>item.textContent.trim()===requestedTime);if(button)button.click()}}
 $('serviceId').onchange=loadSlots;
 $('date').onchange=loadSlots;
 $('form').onsubmit=async event=>{

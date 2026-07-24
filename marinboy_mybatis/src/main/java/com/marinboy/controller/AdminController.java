@@ -59,5 +59,7 @@ public class AdminController {
         @PatchMapping(value="/api/admin/services/{id}", consumes="multipart/form-data") ResponseEntity<Void> updateService(@org.springframework.web.bind.annotation.PathVariable Long id, @RequestParam String name, @RequestParam String category, @RequestParam int durationMinutes, @RequestParam int price, @RequestParam(defaultValue="") String description, @RequestParam(required=false) MultipartFile image, @RequestParam(required=false) MultipartFile[] galleryImages, HttpSession s) { requireAdmin(s); salonService.saveService(id, name, category, durationMinutes, price, description, image, galleryImages); return ResponseEntity.noContent().build(); }
         // 예약 이력은 보존하면서 선택한 시술을 메뉴 목록에서 제외합니다.
         @DeleteMapping("/api/admin/services/{id}") ResponseEntity<Void> deleteService(@org.springframework.web.bind.annotation.PathVariable Long id, HttpSession s) { requireAdmin(s); salonService.deleteService(id); return ResponseEntity.noContent().build(); }
+        @GetMapping("/api/admin/data-retention") Object retentionSummary(HttpSession s) { requireAdmin(s); return service.getRetentionSummary(); }
+        @DeleteMapping("/api/admin/data-retention") Object cleanupOldData(@RequestParam String confirmation, HttpSession s) { requireAdmin(s); return service.cleanupOldData(confirmation); }
     }
 }

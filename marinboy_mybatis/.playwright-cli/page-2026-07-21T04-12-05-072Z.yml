@@ -1,0 +1,91 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - navigation "주요 메뉴" [ref=f3e3]:
+      - link "MARINBOY SALON" [ref=f3e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f3e5]:
+        - link "서비스" [ref=f3e6] [cursor=pointer]:
+          - /url: "#serviceMenuSection"
+        - link "예약하기" [ref=f3e7] [cursor=pointer]:
+          - /url: /reservation
+        - link "내 예약" [ref=f3e8] [cursor=pointer]:
+          - /url: /reservation
+  - main [ref=f3e9]:
+    - generic [ref=f3e10]:
+      - generic [ref=f3e11]:
+        - paragraph [ref=f3e12]: 1인 뷰티/헤어샵 예약
+        - heading "마린 헤어 스튜디오 Natural Hair & Beauty" [level=1] [ref=f3e13]
+        - paragraph [ref=f3e14]: 자연의 아름다움을 담은 헤어 & 뷰티.오롯이 나를 위한 편안한 시간을 예약하세요.
+        - paragraph [ref=f3e15]:
+          - text: "등록된 시술 수:"
+          - strong [ref=f3e16]: "17"
+        - generic [ref=f3e17]: private beauty reservation
+        - generic [ref=f3e18]:
+          - link "예약 요청하기" [ref=f3e19] [cursor=pointer]:
+            - /url: /reservation
+          - link "이달의 헤어 보기" [ref=f3e20] [cursor=pointer]:
+            - /url: "#monthlyHairSection"
+          - link "로그인" [ref=f3e21] [cursor=pointer]:
+            - /url: /login
+      - generic "마린 헤어 대표 스타일 이미지" [ref=f3e22]:
+        - img "롱레이어드 대표 스타일" [ref=f3e23]
+        - img "숏단발 보브 대표 스타일" [ref=f3e24]
+    - generic [ref=f3e25]:
+      - generic [ref=f3e26]:
+        - generic [ref=f3e27]:
+          - paragraph [ref=f3e28]: Monthly Hair Top 5
+          - heading "이달의 TOP5 헤어" [level=2] [ref=f3e29]
+        - paragraph [ref=f3e30]: 상담 전 마음에 드는 무드를 먼저 고르고, 아래 메뉴에서 예약을 이어갈 수 있습니다.
+      - generic "예약이 많은 이달의 TOP5 헤어" [ref=f3e31]:
+        - article [ref=f3e32]:
+          - img "숏단발 보브 정면 스타일" [ref=f3e33]
+          - generic [ref=f3e34]:
+            - generic [ref=f3e35]: SHORT BOB
+            - heading "숏단발 · 보브" [level=3] [ref=f3e36] [cursor=pointer]
+            - paragraph [ref=f3e37]: 깔끔한 목선과 얼굴형 보정이 돋보이는 단발 스타일입니다.
+            - generic [ref=f3e38]:
+              - img "숏단발 보브 셀프 스타일" [ref=f3e39]
+              - img "숏단발 보브 측면 스타일" [ref=f3e40]
+        - article [ref=f3e41]:
+          - img "롱레이어드 자연 웨이브 스타일" [ref=f3e42]
+          - generic [ref=f3e43]:
+            - generic [ref=f3e44]: LONG LAYERED
+            - heading "롱레이어드" [level=3] [ref=f3e45] [cursor=pointer]
+            - paragraph [ref=f3e46]: 가볍게 흐르는 층과 볼륨감으로 여성스러운 무드를 살립니다.
+            - generic [ref=f3e47]:
+              - img "롱레이어드 차분한 스타일" [ref=f3e48]
+              - img "롱레이어드 C컬 스타일" [ref=f3e49]
+        - article [ref=f3e50]:
+          - img "레이어드컷 긴머리 스타일" [ref=f3e51]
+          - generic [ref=f3e52]:
+            - generic [ref=f3e53]: LAYERED CUT
+            - heading "레이어드컷" [level=3] [ref=f3e54] [cursor=pointer]
+            - paragraph [ref=f3e55]: 앞머리와 옆라인의 흐름을 살려 얼굴이 작아 보이는 컷입니다.
+            - generic [ref=f3e56]:
+              - img "레이어드컷 살롱 스타일" [ref=f3e57]
+              - img "레이어드컷 애쉬 브라운 스타일" [ref=f3e58]
+        - article [ref=f3e59]:
+          - img "거지존 펌 정면 스타일" [ref=f3e60]
+          - generic [ref=f3e61]:
+            - generic [ref=f3e62]: MEDIUM PERM
+            - heading "거지존 · 다양한 펌" [level=3] [ref=f3e63] [cursor=pointer]
+            - paragraph [ref=f3e64]: 애매한 길이를 가장 예쁘게 넘길 수 있는 볼륨 펌 스타일입니다.
+            - generic [ref=f3e65]:
+              - img "거지존 레이어드 펌 스타일" [ref=f3e66]
+              - img "거지존 야외 펌 스타일" [ref=f3e67]
+    - generic [ref=f3e69]:
+      - generic [ref=f3e70]:
+        - paragraph [ref=f3e71]: Monthly Nail Top 5
+        - heading "이달의 TOP5 네일" [level=2] [ref=f3e72]
+      - paragraph [ref=f3e73]: 마음에 드는 디자인을 선택하면 해당 메뉴의 이미지 묶음과 예약 화면을 확인할 수 있습니다.
+    - generic [ref=f3e74]:
+      - generic [ref=f3e75]:
+        - generic [ref=f3e76]:
+          - paragraph [ref=f3e77]: Service Menu
+          - heading "시술 안내" [level=2] [ref=f3e78]
+        - generic [ref=f3e79]:
+          - generic [ref=f3e80]: 카테고리 선택
+          - combobox "카테고리 선택" [ref=f3e81]
+      - navigation "시술 메뉴 페이지" [ref=f3e82]:
+        - button "이전" [ref=f3e83] [cursor=pointer]
+        - button "다음" [ref=f3e84] [cursor=pointer]

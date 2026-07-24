@@ -1,0 +1,268 @@
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - navigation "주요 메뉴" [ref=f6e3]:
+      - link "MARINBOY SALON" [ref=f6e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f6e5]:
+        - link "서비스" [ref=f6e6] [cursor=pointer]:
+          - /url: "#serviceMenuSection"
+        - link "예약하기" [ref=f6e7] [cursor=pointer]:
+          - /url: /reservation
+        - link "내 예약" [ref=f6e8] [cursor=pointer]:
+          - /url: /reservation
+  - main [ref=f6e9]:
+    - generic [ref=f6e10]:
+      - generic [ref=f6e11]:
+        - paragraph [ref=f6e12]: 1인 뷰티/헤어샵 예약
+        - heading "마린 헤어 스튜디오 Natural Hair & Beauty" [level=1] [ref=f6e13]
+        - paragraph [ref=f6e14]: 자연의 아름다움을 담은 헤어 & 뷰티.오롯이 나를 위한 편안한 시간을 예약하세요.
+        - paragraph [ref=f6e15]:
+          - text: "등록된 시술 수:"
+          - strong [ref=f6e16]: "17"
+        - generic [ref=f6e17]: private beauty reservation
+        - generic [ref=f6e18]:
+          - link "예약 요청하기" [ref=f6e19] [cursor=pointer]:
+            - /url: /reservation
+          - link "이달의 헤어 보기" [ref=f6e20] [cursor=pointer]:
+            - /url: "#monthlyHairSection"
+          - button "내 정보" [ref=f6e21] [cursor=pointer]
+          - button "로그아웃" [ref=f6e22] [cursor=pointer]
+      - generic "마린 헤어 대표 스타일 이미지" [ref=f6e23]:
+        - img "롱레이어드 대표 스타일" [ref=f6e24]
+        - img "숏단발 보브 대표 스타일" [ref=f6e25]
+    - generic [ref=f6e26]:
+      - generic [ref=f6e27]:
+        - generic [ref=f6e28]:
+          - paragraph [ref=f6e29]: Monthly Hair Top 5
+          - heading "이달의 TOP5 헤어" [level=2] [ref=f6e30]
+        - paragraph [ref=f6e31]: 상담 전 마음에 드는 무드를 먼저 고르고, 아래 메뉴에서 예약을 이어갈 수 있습니다.
+      - generic "예약이 많은 이달의 TOP5 헤어" [ref=f6e32]:
+        - article [ref=f6e33]:
+          - img "시그니처 컷 대표 이미지" [ref=f6e34]
+          - generic [ref=f6e35]:
+            - generic [ref=f6e36]: TOP 1
+            - heading "시그니처 컷" [level=3] [ref=f6e37]
+            - generic [ref=f6e38]: 예약 2건 · 60분
+            - strong [ref=f6e40]: 35,000원
+            - button "바로 예약하러 가기" [ref=f6e41] [cursor=pointer]
+        - article [ref=f6e42]:
+          - img "롱 웨이브 펌 대표 이미지" [ref=f6e43]
+          - generic [ref=f6e44]:
+            - generic [ref=f6e45]: TOP 2
+            - heading "롱 웨이브 펌" [level=3] [ref=f6e46]
+            - generic [ref=f6e47]: 예약 2건 · 90분
+            - strong [ref=f6e49]: 60,000원
+            - button "바로 예약하러 가기" [ref=f6e50] [cursor=pointer]
+        - article [ref=f6e51]:
+          - img "웨이브 펌 대표 이미지" [ref=f6e52]
+          - generic [ref=f6e53]:
+            - generic [ref=f6e54]: TOP 3
+            - heading "웨이브 펌" [level=3] [ref=f6e55]
+            - generic [ref=f6e56]: 예약 1건 · 120분
+            - strong [ref=f6e58]: 65,000원
+            - button "바로 예약하러 가기" [ref=f6e59] [cursor=pointer]
+        - article [ref=f6e60]:
+          - img "보브컷 대표 이미지" [ref=f6e61]
+          - generic [ref=f6e62]:
+            - generic [ref=f6e63]: TOP 4
+            - heading "보브컷" [level=3] [ref=f6e64]
+            - generic [ref=f6e65]: 예약 0건 · 60분
+            - strong [ref=f6e67]: 50,000원
+            - button "바로 예약하러 가기" [ref=f6e68] [cursor=pointer]
+        - article [ref=f6e69]:
+          - img "레이어드 컷 대표 이미지" [ref=f6e70]
+          - generic [ref=f6e71]:
+            - generic [ref=f6e72]: TOP 5
+            - heading "레이어드 컷" [level=3] [ref=f6e73]
+            - generic [ref=f6e74]: 예약 0건 · 60분
+            - strong [ref=f6e76]: 55,000원
+            - button "바로 예약하러 가기" [ref=f6e77] [cursor=pointer]
+    - generic [ref=f6e78]:
+      - generic [ref=f6e79]:
+        - generic [ref=f6e80]:
+          - paragraph [ref=f6e81]: Monthly Nail Top 5
+          - heading "이달의 TOP5 네일" [level=2] [ref=f6e82]
+        - paragraph [ref=f6e83]: 마음에 드는 디자인을 선택하면 해당 메뉴의 이미지 묶음과 예약 화면을 확인할 수 있습니다.
+      - generic [ref=f6e84]:
+        - article [ref=f6e85]:
+          - img "이달의 top5 젤네일 대표 이미지" [ref=f6e86]
+          - generic [ref=f6e87]:
+            - generic [ref=f6e88]: TOP 1
+            - heading "이달의 top5 젤네일" [level=3] [ref=f6e89]
+            - generic [ref=f6e90]:
+              - text: 40분 /
+              - strong [ref=f6e91]: 45,000원
+            - button "바로 예약하러 가기" [ref=f6e92] [cursor=pointer]
+        - article [ref=f6e93]:
+          - img "이달의 top5 젤네일 대표 이미지" [ref=f6e94]
+          - generic [ref=f6e95]:
+            - generic [ref=f6e96]: TOP 2
+            - heading "이달의 top5 젤네일" [level=3] [ref=f6e97]
+            - generic [ref=f6e98]:
+              - text: 40분 /
+              - strong [ref=f6e99]: 45,000원
+            - button "바로 예약하러 가기" [ref=f6e100] [cursor=pointer]
+        - article [ref=f6e101]:
+          - img "이달의 top5 젤네일 대표 이미지" [ref=f6e102]
+          - generic [ref=f6e103]:
+            - generic [ref=f6e104]: TOP 3
+            - heading "이달의 top5 젤네일" [level=3] [ref=f6e105]
+            - generic [ref=f6e106]:
+              - text: 40분 /
+              - strong [ref=f6e107]: 45,000원
+            - button "바로 예약하러 가기" [ref=f6e108] [cursor=pointer]
+        - article [ref=f6e109]:
+          - img "이달의 top5 젤네일 대표 이미지" [ref=f6e110]
+          - generic [ref=f6e111]:
+            - generic [ref=f6e112]: TOP 4
+            - heading "이달의 top5 젤네일" [level=3] [ref=f6e113]
+            - generic [ref=f6e114]:
+              - text: 40분 /
+              - strong [ref=f6e115]: 45,000원
+            - button "바로 예약하러 가기" [ref=f6e116] [cursor=pointer]
+        - article [ref=f6e117]:
+          - img "이달의 top5 젤네일 대표 이미지" [ref=f6e118]
+          - generic [ref=f6e119]:
+            - generic [ref=f6e120]: TOP 5
+            - heading "이달의 top5 젤네일" [level=3] [ref=f6e121]
+            - generic [ref=f6e122]:
+              - text: 40분 /
+              - strong [ref=f6e123]: 45,000원
+            - button "바로 예약하러 가기" [ref=f6e124] [cursor=pointer]
+    - generic [ref=f6e125]:
+      - generic [ref=f6e126]:
+        - generic [ref=f6e127]:
+          - paragraph [ref=f6e128]: Service Menu
+          - heading "시술 안내" [level=2] [ref=f6e129]
+        - generic [ref=f6e130]:
+          - generic [ref=f6e131]: 카테고리 선택
+          - combobox "카테고리 선택" [ref=f6e132]:
+            - option "전체" [selected]
+            - option "컷"
+            - option "클리닉"
+            - option "네일"
+            - option "메이크업"
+            - option "웨딩"
+            - option "PERM"
+            - option "CUT"
+            - option "펌"
+            - option "펌"
+      - generic [ref=f6e133]:
+        - article [ref=f6e134]:
+          - img "시그니처 컷 시술 이미지" [ref=f6e135]
+          - generic [ref=f6e136]:
+            - generic [ref=f6e137]:
+              - heading "시그니처 컷" [level=3] [ref=f6e138]
+              - strong [ref=f6e139]: 60분
+            - generic [ref=f6e140]: "카테고리: 컷"
+            - generic [ref=f6e141]: 상담을 포함한 맞춤형 커트 시술입니다.
+            - strong [ref=f6e143]: 35,000원
+            - button "바로 예약하러 가기" [ref=f6e144] [cursor=pointer]
+        - article [ref=f6e145]:
+          - img "두피 클리닉 시술 이미지" [ref=f6e146]
+          - generic [ref=f6e147]:
+            - generic [ref=f6e148]:
+              - heading "두피 클리닉" [level=3] [ref=f6e149]
+              - strong [ref=f6e150]: 70분
+            - generic [ref=f6e151]: "카테고리: 클리닉"
+            - generic [ref=f6e152]: 두피 상태를 점검하고 진정 케어를 진행하는 클리닉입니다.
+            - strong [ref=f6e154]: 70,000원
+            - button "바로 예약하러 가기" [ref=f6e155] [cursor=pointer]
+        - article [ref=f6e156]:
+          - img "젤 네일 기본 시술 이미지" [ref=f6e157]
+          - generic [ref=f6e158]:
+            - generic [ref=f6e159]:
+              - heading "젤 네일 기본" [level=3] [ref=f6e160]
+              - strong [ref=f6e161]: 60분
+            - generic [ref=f6e162]: "카테고리: 네일"
+            - generic [ref=f6e163]: 손톱 케어와 기본 젤 컬러를 진행하는 네일 시술입니다.
+            - strong [ref=f6e165]: 40,000원
+            - button "바로 예약하러 가기" [ref=f6e166] [cursor=pointer]
+        - article [ref=f6e167]:
+          - img "꾸미기 화장 시술 이미지" [ref=f6e168]
+          - generic [ref=f6e169]:
+            - generic [ref=f6e170]:
+              - heading "꾸미기 화장" [level=3] [ref=f6e171]
+              - strong [ref=f6e172]: 80분
+            - generic [ref=f6e173]: "카테고리: 메이크업"
+            - generic [ref=f6e174]: 소개팅, 촬영, 중요한 약속 전 자연스럽게 완성하는 메이크업입니다.
+            - strong [ref=f6e176]: 110,000원
+            - button "바로 예약하러 가기" [ref=f6e177] [cursor=pointer]
+        - article [ref=f6e178]:
+          - img "신부 화장 시술 이미지" [ref=f6e179]
+          - generic [ref=f6e180]:
+            - generic [ref=f6e181]:
+              - heading "신부 화장" [level=3] [ref=f6e182]
+              - strong [ref=f6e183]: 150분
+            - generic [ref=f6e184]: "카테고리: 웨딩"
+            - generic [ref=f6e185]: 본식 또는 웨딩 촬영을 위한 신부 헤어와 메이크업 패키지입니다.
+            - strong [ref=f6e187]: 250,000원
+            - button "바로 예약하러 가기" [ref=f6e188] [cursor=pointer]
+        - article [ref=f6e189]:
+          - img "롱 웨이브 펌 시술 이미지" [ref=f6e190]
+          - generic [ref=f6e191]:
+            - generic [ref=f6e192]:
+              - heading "롱 웨이브 펌" [level=3] [ref=f6e193]
+              - strong [ref=f6e194]: 90분
+            - generic [ref=f6e195]: "카테고리: PERM"
+            - generic [ref=f6e196]: 고급러스러운 롱 웨이브 펌
+            - strong [ref=f6e198]: 60,000원
+            - button "바로 예약하러 가기" [ref=f6e199] [cursor=pointer]
+        - article [ref=f6e200]:
+          - img "보브컷 시술 이미지" [ref=f6e201]
+          - generic [ref=f6e202]:
+            - generic [ref=f6e203]:
+              - heading "보브컷" [level=3] [ref=f6e204]
+              - strong [ref=f6e205]: 60분
+            - generic [ref=f6e206]: "카테고리: CUT"
+            - generic [ref=f6e207]: 싱그러운 보브컷
+            - strong [ref=f6e209]: 50,000원
+            - button "바로 예약하러 가기" [ref=f6e210] [cursor=pointer]
+        - article [ref=f6e211]:
+          - img "레이어드 컷 시술 이미지" [ref=f6e212]
+          - generic [ref=f6e213]:
+            - generic [ref=f6e214]:
+              - heading "레이어드 컷" [level=3] [ref=f6e215]
+              - strong [ref=f6e216]: 60분
+            - generic [ref=f6e217]: "카테고리: 컷"
+            - generic [ref=f6e218]: 레이어드 컷
+            - strong [ref=f6e220]: 55,000원
+            - button "바로 예약하러 가기" [ref=f6e221] [cursor=pointer]
+        - article [ref=f6e222]:
+          - img "다양한 펌 시술 이미지" [ref=f6e223]
+          - generic [ref=f6e224]:
+            - generic [ref=f6e225]:
+              - heading "다양한 펌" [level=3] [ref=f6e226]
+              - strong [ref=f6e227]: 90분
+            - generic [ref=f6e228]: "카테고리: 펌"
+            - generic [ref=f6e229]: 다양한 연출이 가능한 펌
+            - strong [ref=f6e231]: 70,000원
+            - button "바로 예약하러 가기" [ref=f6e232] [cursor=pointer]
+        - article [ref=f6e233]:
+          - img "웨이브 펌 시술 이미지" [ref=f6e234]
+          - generic [ref=f6e235]:
+            - generic [ref=f6e236]:
+              - heading "웨이브 펌" [level=3] [ref=f6e237]
+              - strong [ref=f6e238]: 120분
+            - generic [ref=f6e239]: "카테고리: 펌"
+            - generic [ref=f6e240]: 웨이브 펌
+            - strong [ref=f6e242]: 65,000원
+            - button "바로 예약하러 가기" [ref=f6e243] [cursor=pointer]
+        - article [ref=f6e244]:
+          - generic [ref=f6e245]:
+            - generic [ref=f6e246]:
+              - heading "테스트" [level=3] [ref=f6e247]
+              - strong [ref=f6e248]: 40분
+            - generic [ref=f6e249]: "카테고리: 컷"
+            - generic [ref=f6e250]: 테스트
+            - strong [ref=f6e252]: 20,000원
+            - button "바로 예약하러 가기" [ref=f6e253] [cursor=pointer]
+        - article [ref=f6e254]:
+          - generic [ref=f6e255]:
+            - generic [ref=f6e256]:
+              - heading "테스트 1" [level=3] [ref=f6e257]
+              - strong [ref=f6e258]: 90분
+            - generic [ref=f6e259]: "카테고리: 펌"
+            - generic [ref=f6e260]: 테스트
+            - strong [ref=f6e262]: 80,000원
+            - button "바로 예약하러 가기" [ref=f6e263] [cursor=pointer]

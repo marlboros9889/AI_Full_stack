@@ -12,6 +12,7 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -78,6 +79,16 @@ public class SalonReservationApiController {
         if (!(loginUser instanceof UserDto user) || user.getPhone() == null || user.getPhone().isBlank())
             return ResponseEntity.status(401).build();
         reservationService.updateCustomerReservation(reservationId, user.getPhone(), request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/api/customers/my-reservations/{reservationId}")
+    public ResponseEntity<Void> cancelMyReservation(@PathVariable Long reservationId, HttpSession session) {
+        Object loginUser = session.getAttribute(SecurityConstants.LOGIN_USER);
+        if (!(loginUser instanceof UserDto user) || user.getPhone() == null || user.getPhone().isBlank()) {
+            return ResponseEntity.status(401).build();
+        }
+        reservationService.cancelCustomerReservation(reservationId, user.getPhone());
         return ResponseEntity.noContent().build();
     }
 

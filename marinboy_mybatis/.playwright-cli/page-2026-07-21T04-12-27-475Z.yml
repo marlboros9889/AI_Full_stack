@@ -1,0 +1,144 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - navigation [ref=f4e3]:
+      - link "MARINBOY SALON" [ref=f4e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f4e5]:
+        - link "메인" [ref=f4e6] [cursor=pointer]:
+          - /url: /
+        - link "예약" [ref=f4e7] [cursor=pointer]:
+          - /url: /reservation
+  - main [ref=f4e8]:
+    - link "← 시술 목록으로 돌아가기" [ref=f4e9] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f4e10]:
+      - paragraph [ref=f4e11]: MARINBOY PRIVATE SALON
+      - heading "오늘 가능한 시간부터" [level=1] [ref=f4e12]
+      - paragraph [ref=f4e13]: 선택한 시술의 소요시간·휴무일·기존 예약을 서버에서 계산해 예약 가능한 시간만 보여드립니다.
+    - generic [ref=f4e15]:
+      - complementary [ref=f4e16]:
+        - heading "예약 전 필수 확인" [level=2] [ref=f4e17]
+        - generic [ref=f4e18]:
+          - strong [ref=f4e19]: ⚠ 노쇼·당일 취소 주의
+          - text: 무단 불참, 10분 이상 지각, 당일 취소 시 이후 예약이 제한될 수 있습니다.예약은 고객과 매장의 소중한 약속입니다.
+      - generic [ref=f4e21]:
+        - generic [ref=f4e22]: 선택한 시술
+        - combobox [ref=f4e23]:
+          - option "시그니처 컷 · 60분 · 35,000원" [selected]
+          - option "두피 클리닉 · 70분 · 70,000원"
+          - option "젤 네일 기본 · 60분 · 40,000원"
+          - option "꾸미기 화장 · 80분 · 110,000원"
+          - option "신부 화장 · 150분 · 250,000원"
+          - option "롱 웨이브 펌 · 90분 · 60,000원"
+          - option "보브컷 · 60분 · 50,000원"
+          - option "레이어드 컷 · 60분 · 55,000원"
+          - option "다양한 펌 · 90분 · 70,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "웨이브 펌 · 120분 · 65,000원"
+          - option "테스트 · 40분 · 20,000원"
+          - option "테스트 1 · 90분 · 80,000원"
+        - generic [ref=f4e24]:
+          - generic [ref=f4e25]:
+            - generic [ref=f4e26]: 예약 날짜
+            - textbox [ref=f4e27]: 2026-07-21
+          - generic [ref=f4e28]:
+            - generic [ref=f4e29]: 선택 시간
+            - textbox "아래에서 시간을 선택하세요" [ref=f4e30]
+        - generic [ref=f4e31]:
+          - text: 예약 가능 시간
+          - generic [ref=f4e32]:
+            - button "14:00" [ref=f4e33] [cursor=pointer]
+            - button "14:30" [ref=f4e34] [cursor=pointer]
+            - button "15:00" [ref=f4e35] [cursor=pointer]
+            - button "15:30" [ref=f4e36] [cursor=pointer]
+            - button "16:00" [ref=f4e37] [cursor=pointer]
+            - button "16:30" [ref=f4e38] [cursor=pointer]
+            - button "17:00" [ref=f4e39] [cursor=pointer]
+            - button "17:30" [ref=f4e40] [cursor=pointer]
+            - button "18:00" [ref=f4e41] [cursor=pointer]
+        - generic [ref=f4e42]:
+          - checkbox "당일 예약은 최소 30분 전에 부탁드리며, 동일 시간 예약 시 접수 순서대로 진행됩니다. 동의합니다." [ref=f4e43]
+          - generic [ref=f4e44]: 당일 예약은 최소 30분 전에 부탁드리며, 동일 시간 예약 시 접수 순서대로 진행됩니다. 동의합니다.
+        - generic [ref=f4e45]:
+          - textbox "고객명" [ref=f4e47]: 고객 사용자
+          - textbox "연락처" [ref=f4e49]: 010-1111-2222
+        - textbox "이메일" [ref=f4e50]: customer@marinboy.test
+        - textbox "요청 사항" [ref=f4e51]
+        - generic [ref=f4e52]:
+          - checkbox "노쇼 및 취소 제한 안내를 확인하고 동의합니다." [ref=f4e53]
+          - generic [ref=f4e54]: 노쇼 및 취소 제한 안내를 확인하고 동의합니다.
+        - button "예약 요청하기" [ref=f4e55] [cursor=pointer]
+        - paragraph
+    - generic [ref=f4e57]:
+      - paragraph [ref=f4e58]: CUSTOMER HISTORY
+      - heading "이전 시술 내역" [level=2] [ref=f4e59]
+      - generic [ref=f4e60]:
+        - generic [ref=f4e61]:
+          - text: 롱 웨이브 펌
+          - generic [ref=f4e62]: 완료
+          - text: 2026-07-22 13:00:00
+        - generic [ref=f4e63]:
+          - text: 웨이브 펌
+          - generic [ref=f4e64]: 완료
+          - text: 2026-07-22 11:00:00
+        - generic [ref=f4e65]:
+          - text: 시그니처 컷
+          - generic [ref=f4e66]: 완료
+          - text: 2026-07-22 10:00:00
+        - generic [ref=f4e67]:
+          - text: 신부 화장
+          - generic [ref=f4e68]: 완료
+          - text: 2026-07-18 11:30:00
+        - generic [ref=f4e69]:
+          - text: 웨이브 펌
+          - generic [ref=f4e70]: 취소
+          - text: 2026-07-18 10:00:00
+        - generic [ref=f4e71]:
+          - text: 이달의 top5 젤네일
+          - generic [ref=f4e72]: 취소
+          - text: 2026-07-17 12:00:00
+        - generic [ref=f4e73]:
+          - text: 웨이브 펌
+          - generic [ref=f4e74]: 취소
+          - text: 2026-07-17 10:00:00
+        - generic [ref=f4e75]:
+          - text: 웨이브 펌
+          - generic [ref=f4e76]: 완료
+          - text: 2026-07-16 16:00:00
+        - generic [ref=f4e77]:
+          - text: 웨이브 펌
+          - generic [ref=f4e78]: 완료
+          - text: 2026-07-16 14:00:00
+        - generic [ref=f4e79]:
+          - text: 웨이브 펌
+          - generic [ref=f4e80]: 취소
+          - text: 2026-07-16 10:30:00
+        - generic [ref=f4e81]:
+          - text: 웨이브 펌
+          - generic [ref=f4e82]: 취소
+          - text: 2026-07-15 15:30:00
+        - generic [ref=f4e83]:
+          - text: 웨이브 펌
+          - generic [ref=f4e84]: 취소
+          - text: 2026-07-15 13:30:00
+        - generic [ref=f4e85]:
+          - text: 웨이브 펌
+          - generic [ref=f4e86]: 취소
+          - text: 2026-07-15 11:30:00
+        - generic [ref=f4e87]:
+          - text: 이달의 top5 젤네일
+          - generic [ref=f4e88]: 취소
+          - text: 2026-07-14 17:30:00
+        - generic [ref=f4e89]:
+          - text: 꾸미기 화장
+          - generic [ref=f4e90]: 취소
+          - text: 2026-07-14 16:00:00
+        - generic [ref=f4e91]:
+          - text: 웨이브 펌
+          - generic [ref=f4e92]: 완료
+          - text: 2026-06-13 18:06:46.598
+  - contentinfo [ref=f4e93]: MARINBOY SALON · Spring Boot / MyBatis Project

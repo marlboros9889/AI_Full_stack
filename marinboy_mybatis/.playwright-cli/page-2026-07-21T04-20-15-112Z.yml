@@ -1,0 +1,228 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - navigation [ref=f4e3]:
+      - link "MARINBOY SALON" [ref=f4e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f4e5]:
+        - link "메인" [ref=f4e6] [cursor=pointer]:
+          - /url: /
+        - link "예약" [ref=f4e7] [cursor=pointer]:
+          - /url: /reservation
+        - link "나의 예약" [ref=f4e8] [cursor=pointer]:
+          - /url: /my-reservations
+        - link "시술 이력" [ref=f4e9] [cursor=pointer]:
+          - /url: /treatment-history
+  - main [ref=f4e10]:
+    - generic [ref=f4e11]:
+      - generic [ref=f4e12]:
+        - heading "예약 운영 대시보드" [level=1] [ref=f4e13]
+        - paragraph [ref=f4e14]: 예약 상태·휴무일·시술 메뉴 관리
+      - link "← 메인 화면으로" [ref=f4e15] [cursor=pointer]:
+        - /url: /
+    - generic [ref=f4e16]:
+      - generic [ref=f4e19]:
+        - heading "전체 예약 현황" [level=2] [ref=f4e20]
+        - table [ref=f4e22]:
+          - rowgroup [ref=f4e23]:
+            - row [ref=f4e24]:
+              - columnheader "예약일시" [ref=f4e25]
+              - columnheader "고객 / 시술" [ref=f4e26]
+              - columnheader "상태" [ref=f4e27]
+              - columnheader "처리" [ref=f4e28]
+          - rowgroup [ref=f4e29]:
+            - row [ref=f4e30]:
+              - cell "2026-07-22 13:00:00" [ref=f4e31]
+              - cell "고객 사용자 롱 웨이브 펌" [ref=f4e32]: 고객 사용자롱 웨이브 펌
+              - cell "✓ 시술 완료" [ref=f4e33]
+              - cell [ref=f4e35]:
+                - generic [ref=f4e36]:
+                  - button "승인" [disabled]
+                  - button "거절" [disabled]
+                  - button "취소" [disabled]
+                  - button "✓ 시술 완료됨" [disabled]
+            - row [ref=f4e37]:
+              - cell "2026-07-22 11:00:00" [ref=f4e38]
+              - cell "고객 사용자 웨이브 펌" [ref=f4e39]: 고객 사용자웨이브 펌
+              - cell "✓ 시술 완료" [ref=f4e40]
+              - cell [ref=f4e42]:
+                - generic [ref=f4e43]:
+                  - button "승인" [disabled]
+                  - button "거절" [disabled]
+                  - button "취소" [disabled]
+                  - button "✓ 시술 완료됨" [disabled]
+            - row [ref=f4e44]:
+              - cell "2026-07-22 10:00:00" [ref=f4e45]
+              - cell "고객 사용자 시그니처 컷" [ref=f4e46]: 고객 사용자시그니처 컷
+              - cell "✓ 시술 완료" [ref=f4e47]
+              - cell [ref=f4e49]:
+                - generic [ref=f4e50]:
+                  - button "승인" [disabled]
+                  - button "거절" [disabled]
+                  - button "취소" [disabled]
+                  - button "✓ 시술 완료됨" [disabled]
+            - row [ref=f4e51]:
+              - cell "2026-07-18 17:46:36.435" [ref=f4e52]
+              - cell "오나은 신부 화장" [ref=f4e53]: 오나은신부 화장
+              - cell "예약 취소" [ref=f4e54]
+              - cell [ref=f4e56]:
+                - generic [ref=f4e57]:
+                  - button "승인" [disabled]
+                  - button "거절" [disabled]
+                  - button "취소" [disabled]
+                  - button "✓ 시술 완료" [disabled]
+            - row [ref=f4e58]:
+              - cell "2026-07-18 11:30:00" [ref=f4e59]
+              - cell "고객 사용자 신부 화장" [ref=f4e60]: 고객 사용자신부 화장
+              - cell "✓ 시술 완료" [ref=f4e61]
+              - cell [ref=f4e63]:
+                - generic [ref=f4e64]:
+                  - button "승인" [disabled]
+                  - button "거절" [disabled]
+                  - button "취소" [disabled]
+                  - button "✓ 시술 완료됨" [disabled]
+        - generic [ref=f4e65]:
+          - button "이전" [disabled]
+          - generic [ref=f4e66]: 1 / 10
+          - button "다음" [ref=f4e67] [cursor=pointer]
+      - complementary [ref=f4e68]:
+        - generic [ref=f4e70]:
+          - heading "휴무일 관리" [level=2] [ref=f4e71]
+          - generic [ref=f4e72]:
+            - textbox [ref=f4e73]
+            - textbox "휴무 사유" [ref=f4e74]
+            - button "저장" [ref=f4e75] [cursor=pointer]
+          - list [ref=f4e76]:
+            - listitem [ref=f4e77]:
+              - text: 2026-07-26
+              - button "삭제" [ref=f4e78] [cursor=pointer]
+            - listitem [ref=f4e79]:
+              - text: 2026-07-27
+              - button "삭제" [ref=f4e80] [cursor=pointer]
+            - listitem [ref=f4e81]:
+              - text: 2026-07-28
+              - button "삭제" [ref=f4e82] [cursor=pointer]
+      - generic [ref=f4e85]:
+        - heading "시술 메뉴 관리" [level=2] [ref=f4e86]
+        - generic [ref=f4e87]:
+          - textbox "시술명" [ref=f4e89]
+          - textbox "카테고리" [ref=f4e91]
+          - spinbutton "시간(분)" [ref=f4e93]
+          - spinbutton "가격" [ref=f4e95]
+          - textbox "설명" [ref=f4e97]
+          - generic [ref=f4e98]:
+            - generic [ref=f4e99]: 대표 이미지
+            - button "Choose File" [ref=f4e100] [cursor=pointer]
+          - generic [ref=f4e101]:
+            - generic [ref=f4e102]: 상세 이미지 묶음 (최대 5장)
+            - button "Choose File" [ref=f4e103] [cursor=pointer]
+            - text: 수정 시 선택하지 않으면 기존 이미지 묶음을 유지합니다.
+          - button "시술 저장" [ref=f4e105] [cursor=pointer]
+        - generic [ref=f4e106]:
+          - generic [ref=f4e108]:
+            - img "시그니처 컷" [ref=f4e109]
+            - text: 시그니처 컷
+            - generic [ref=f4e110]: 컷 · 60분 · 35,000원
+            - button "수정" [ref=f4e111] [cursor=pointer]
+            - button "삭제" [ref=f4e112] [cursor=pointer]
+          - generic [ref=f4e114]:
+            - img "두피 클리닉" [ref=f4e115]
+            - text: 두피 클리닉
+            - generic [ref=f4e116]: 클리닉 · 70분 · 70,000원
+            - button "수정" [ref=f4e117] [cursor=pointer]
+            - button "삭제" [ref=f4e118] [cursor=pointer]
+          - generic [ref=f4e120]:
+            - img "젤 네일 기본" [ref=f4e121]
+            - text: 젤 네일 기본
+            - generic [ref=f4e122]: 네일 · 60분 · 40,000원
+            - button "수정" [ref=f4e123] [cursor=pointer]
+            - button "삭제" [ref=f4e124] [cursor=pointer]
+          - generic [ref=f4e126]:
+            - img "꾸미기 화장" [ref=f4e127]
+            - text: 꾸미기 화장
+            - generic [ref=f4e128]: 메이크업 · 80분 · 110,000원
+            - button "수정" [ref=f4e129] [cursor=pointer]
+            - button "삭제" [ref=f4e130] [cursor=pointer]
+          - generic [ref=f4e132]:
+            - img "신부 화장" [ref=f4e133]
+            - text: 신부 화장
+            - generic [ref=f4e134]: 웨딩 · 150분 · 250,000원
+            - button "수정" [ref=f4e135] [cursor=pointer]
+            - button "삭제" [ref=f4e136] [cursor=pointer]
+          - generic [ref=f4e138]:
+            - img "롱 웨이브 펌" [ref=f4e139]
+            - text: 롱 웨이브 펌
+            - generic [ref=f4e140]: PERM · 90분 · 60,000원
+            - button "수정" [ref=f4e141] [cursor=pointer]
+            - button "삭제" [ref=f4e142] [cursor=pointer]
+          - generic [ref=f4e144]:
+            - img "보브컷" [ref=f4e145]
+            - text: 보브컷
+            - generic [ref=f4e146]: CUT · 60분 · 50,000원
+            - button "수정" [ref=f4e147] [cursor=pointer]
+            - button "삭제" [ref=f4e148] [cursor=pointer]
+          - generic [ref=f4e150]:
+            - img "레이어드 컷" [ref=f4e151]
+            - text: 레이어드 컷
+            - generic [ref=f4e152]: 컷 · 60분 · 55,000원
+            - button "수정" [ref=f4e153] [cursor=pointer]
+            - button "삭제" [ref=f4e154] [cursor=pointer]
+          - generic [ref=f4e156]:
+            - img "다양한 펌" [ref=f4e157]
+            - text: 다양한 펌
+            - generic [ref=f4e158]: 펌 · 90분 · 70,000원
+            - button "수정" [ref=f4e159] [cursor=pointer]
+            - button "삭제" [ref=f4e160] [cursor=pointer]
+          - generic [ref=f4e162]:
+            - img "이달의 top5 젤네일" [ref=f4e163]
+            - text: 이달의 top5 젤네일
+            - generic [ref=f4e164]: 네일 · 40분 · 45,000원
+            - button "수정" [ref=f4e165] [cursor=pointer]
+            - button "삭제" [ref=f4e166] [cursor=pointer]
+          - generic [ref=f4e168]:
+            - img "이달의 top5 젤네일" [ref=f4e169]
+            - text: 이달의 top5 젤네일
+            - generic [ref=f4e170]: 네일 · 40분 · 45,000원
+            - button "수정" [ref=f4e171] [cursor=pointer]
+            - button "삭제" [ref=f4e172] [cursor=pointer]
+          - generic [ref=f4e174]:
+            - img "이달의 top5 젤네일" [ref=f4e175]
+            - text: 이달의 top5 젤네일
+            - generic [ref=f4e176]: 네일 · 40분 · 45,000원
+            - button "수정" [ref=f4e177] [cursor=pointer]
+            - button "삭제" [ref=f4e178] [cursor=pointer]
+          - generic [ref=f4e180]:
+            - img "이달의 top5 젤네일" [ref=f4e181]
+            - text: 이달의 top5 젤네일
+            - generic [ref=f4e182]: 네일 · 40분 · 45,000원
+            - button "수정" [ref=f4e183] [cursor=pointer]
+            - button "삭제" [ref=f4e184] [cursor=pointer]
+          - generic [ref=f4e186]:
+            - img "이달의 top5 젤네일" [ref=f4e187]
+            - text: 이달의 top5 젤네일
+            - generic [ref=f4e188]: 네일 · 40분 · 45,000원
+            - button "수정" [ref=f4e189] [cursor=pointer]
+            - button "삭제" [ref=f4e190] [cursor=pointer]
+          - generic [ref=f4e192]:
+            - img "웨이브 펌" [ref=f4e193]
+            - text: 웨이브 펌
+            - generic [ref=f4e194]: 펌 · 120분 · 65,000원
+            - button "수정" [ref=f4e195] [cursor=pointer]
+            - button "삭제" [ref=f4e196] [cursor=pointer]
+          - generic [ref=f4e198]:
+            - text: 테스트
+            - generic [ref=f4e199]: 컷 · 40분 · 20,000원
+            - button "수정" [ref=f4e200] [cursor=pointer]
+            - button "삭제" [ref=f4e201] [cursor=pointer]
+          - generic [ref=f4e203]:
+            - text: 테스트 1
+            - generic [ref=f4e204]: 펌 · 90분 · 80,000원
+            - button "수정" [ref=f4e205] [cursor=pointer]
+            - button "삭제" [ref=f4e206] [cursor=pointer]
+      - generic [ref=f4e209]:
+        - heading "2년 이전 데이터 정리" [level=2] [ref=f4e210]
+        - paragraph [ref=f4e211]: 완료·취소·거절·노쇼 예약과 연결되지 않은 오래된 고객, 삭제 처리된 메뉴만 정리합니다. 진행 중 예약과 운영 중 메뉴는 제외됩니다.
+        - generic [ref=f4e212]: "정리 가능: 예약 0건 · 고객 0명 · 삭제 메뉴 0건"
+        - generic [ref=f4e213]:
+          - textbox "2년 이전 데이터 정리" [ref=f4e215]
+          - button "확인 후 정리" [ref=f4e217] [cursor=pointer]
+  - contentinfo [ref=f4e218]: MARINBOY SALON · Spring Boot / MyBatis Project

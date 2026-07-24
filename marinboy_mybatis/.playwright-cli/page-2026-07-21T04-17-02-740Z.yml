@@ -1,0 +1,117 @@
+- generic [active] [ref=f8e1]:
+  - banner [ref=f8e2]:
+    - navigation [ref=f8e3]:
+      - link "MARINBOY SALON" [ref=f8e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f8e5]:
+        - link "메인" [ref=f8e6] [cursor=pointer]:
+          - /url: /
+        - link "예약" [ref=f8e7] [cursor=pointer]:
+          - /url: /reservation
+        - link "나의 예약" [ref=f8e8] [cursor=pointer]:
+          - /url: /my-reservations
+        - link "시술 이력" [ref=f8e9] [cursor=pointer]:
+          - /url: /treatment-history
+  - main [ref=f8e10]:
+    - generic [ref=f8e11]:
+      - paragraph [ref=f8e12]: TREATMENT HISTORY
+      - heading "이전 시술 이력" [level=1] [ref=f8e13]
+      - paragraph [ref=f8e14]: 완료·취소된 시술을 한 줄로 합치지 않고 카드별로 확인합니다.
+    - generic [ref=f8e15]:
+      - article [ref=f8e16]:
+        - generic [ref=f8e17]:
+          - generic [ref=f8e18]: 롱 웨이브 펌
+          - generic [ref=f8e19]: 완료
+        - generic [ref=f8e20]: 2026-07-22 13:00:00
+        - text: PERM
+      - article [ref=f8e21]:
+        - generic [ref=f8e22]:
+          - generic [ref=f8e23]: 웨이브 펌
+          - generic [ref=f8e24]: 완료
+        - generic [ref=f8e25]: 2026-07-22 11:00:00
+        - text: 펌
+      - article [ref=f8e26]:
+        - generic [ref=f8e27]:
+          - generic [ref=f8e28]: 시그니처 컷
+          - generic [ref=f8e29]: 완료
+        - generic [ref=f8e30]: 2026-07-22 10:00:00
+        - text: 컷
+      - article [ref=f8e31]:
+        - generic [ref=f8e32]:
+          - generic [ref=f8e33]: 신부 화장
+          - generic [ref=f8e34]: 완료
+        - generic [ref=f8e35]: 2026-07-18 11:30:00
+        - text: 웨딩
+      - article [ref=f8e36]:
+        - generic [ref=f8e37]:
+          - generic [ref=f8e38]: 웨이브 펌
+          - generic [ref=f8e39]: 취소
+        - generic [ref=f8e40]: 2026-07-18 10:00:00
+        - text: 펌 · [거절] verification
+      - article [ref=f8e41]:
+        - generic [ref=f8e42]:
+          - generic [ref=f8e43]: 이달의 top5 젤네일
+          - generic [ref=f8e44]: 취소
+        - generic [ref=f8e45]: 2026-07-17 12:00:00
+        - text: 네일 · [거절] 노쇼
+      - article [ref=f8e46]:
+        - generic [ref=f8e47]:
+          - generic [ref=f8e48]: 웨이브 펌
+          - generic [ref=f8e49]: 취소
+        - generic [ref=f8e50]: 2026-07-17 10:00:00
+        - text: 펌 · FLOW_VERIFY_OK_0713
+      - article [ref=f8e51]:
+        - generic [ref=f8e52]:
+          - generic [ref=f8e53]: 웨이브 펌
+          - generic [ref=f8e54]: 완료
+        - generic [ref=f8e55]: 2026-07-16 16:00:00
+        - text: 펌
+      - article [ref=f8e56]:
+        - generic [ref=f8e57]:
+          - generic [ref=f8e58]: 웨이브 펌
+          - generic [ref=f8e59]: 완료
+        - generic [ref=f8e60]: 2026-07-16 14:00:00
+        - text: 펌
+      - article [ref=f8e61]:
+        - generic [ref=f8e62]:
+          - generic [ref=f8e63]: 웨이브 펌
+          - generic [ref=f8e64]: 취소
+        - generic [ref=f8e65]: 2026-07-16 10:30:00
+        - text: 펌 · [거절] 노쇼
+      - article [ref=f8e66]:
+        - generic [ref=f8e67]:
+          - generic [ref=f8e68]: 웨이브 펌
+          - generic [ref=f8e69]: 취소
+        - generic [ref=f8e70]: 2026-07-15 15:30:00
+        - text: 펌
+      - article [ref=f8e71]:
+        - generic [ref=f8e72]:
+          - generic [ref=f8e73]: 웨이브 펌
+          - generic [ref=f8e74]: 취소
+        - generic [ref=f8e75]: 2026-07-15 13:30:00
+        - text: 펌
+      - article [ref=f8e76]:
+        - generic [ref=f8e77]:
+          - generic [ref=f8e78]: 웨이브 펌
+          - generic [ref=f8e79]: 취소
+        - generic [ref=f8e80]: 2026-07-15 11:30:00
+        - text: 펌
+      - article [ref=f8e81]:
+        - generic [ref=f8e82]:
+          - generic [ref=f8e83]: 이달의 top5 젤네일
+          - generic [ref=f8e84]: 취소
+        - generic [ref=f8e85]: 2026-07-14 17:30:00
+        - text: 네일
+      - article [ref=f8e86]:
+        - generic [ref=f8e87]:
+          - generic [ref=f8e88]: 꾸미기 화장
+          - generic [ref=f8e89]: 취소
+        - generic [ref=f8e90]: 2026-07-14 16:00:00
+        - text: 메이크업
+      - article [ref=f8e91]:
+        - generic [ref=f8e92]:
+          - generic [ref=f8e93]: 웨이브 펌
+          - generic [ref=f8e94]: 완료
+        - generic [ref=f8e95]: 2026-06-13 18:06:46.598
+        - text: 펌 · Customer history sample
+  - contentinfo [ref=f8e96]: MARINBOY SALON · Spring Boot / MyBatis Project

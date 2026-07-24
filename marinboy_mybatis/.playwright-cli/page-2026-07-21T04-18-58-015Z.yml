@@ -1,0 +1,12 @@
+- main [ref=f2e2]:
+  - generic [ref=f2e4]:
+    - heading "마린보이 로그인" [level=1] [ref=f2e5]
+    - paragraph [ref=f2e6]: "고객: customer / customer123관리자: admin / admin123"
+    - generic [ref=f2e7]:
+      - textbox "아이디" [ref=f2e8]
+      - textbox "비밀번호" [ref=f2e9]
+      - button "로그인" [ref=f2e10] [cursor=pointer]
+    - generic [ref=f2e11]: 또는
+    - link "카카오로 로그인" [ref=f2e12] [cursor=pointer]:
+      - /url: /oauth2/authorization/kakao
+    - paragraph

@@ -20,6 +20,7 @@ public class UserDto {
     private String phone;
     // 고객과 관리자를 구분하는 권한 값입니다.
     private String role;
+    private String loginProvider;
 
     // MyBatis 매핑과 JSON 변환에 사용하는 getter/setter입니다.
     public Long getId() { return id; }
@@ -33,7 +34,11 @@ public class UserDto {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     // 별도 표시 이름이 없으면 사용자 실명을 반환합니다.
-    public String getDisplayName() { return displayName == null ? name : displayName; }
+    public String getDisplayName() {
+        if (isUsableName(displayName)) return displayName;
+        if (isUsableName(name)) return name;
+        return username == null || username.isBlank() ? "사용자" : username;
+    }
     public void setDisplayName(String displayName) { this.displayName = displayName; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
@@ -41,4 +46,10 @@ public class UserDto {
     public void setPhone(String phone) { this.phone = phone; }
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+    public String getLoginProvider() { return loginProvider; }
+    public void setLoginProvider(String loginProvider) { this.loginProvider = loginProvider; }
+
+    private boolean isUsableName(String value) {
+        return value != null && !value.isBlank() && !value.matches("\\?+");
+    }
 }

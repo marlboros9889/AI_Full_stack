@@ -1,6 +1,7 @@
 package com.marinboy.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.apache.ibatis.type.LocalDateTimeTypeHandler;
 import java.time.LocalDateTime;
 import java.util.List;
 

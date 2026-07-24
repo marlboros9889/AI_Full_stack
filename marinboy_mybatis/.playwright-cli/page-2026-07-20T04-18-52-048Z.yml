@@ -1,0 +1,69 @@
+- main [ref=f4e2]:
+  - generic [ref=f4e3]:
+    - generic [ref=f4e4]:
+      - heading "예약 운영 대시보드" [level=1] [ref=f4e5]
+      - paragraph [ref=f4e6]: 예약 상태·휴무일·시술 메뉴 관리
+    - link "고객 화면" [ref=f4e7] [cursor=pointer]:
+      - /url: /
+  - generic [ref=f4e8]:
+    - generic [ref=f4e11]:
+      - heading "전체 예약 현황" [level=2] [ref=f4e12]
+      - table [ref=f4e14]:
+        - rowgroup [ref=f4e15]:
+          - row [ref=f4e16]:
+            - columnheader "예약일시" [ref=f4e17]
+            - columnheader "고객 / 시술" [ref=f4e18]
+            - columnheader "상태" [ref=f4e19]
+            - columnheader "처리" [ref=f4e20]
+        - rowgroup [ref=f4e21]:
+          - row [ref=f4e22]:
+            - cell "2026-07-21 10:00" [ref=f4e23]
+            - cell "김고객 레이어드 컷" [ref=f4e24]: 김고객레이어드 컷
+            - cell "예약 승인" [ref=f4e25]
+            - cell [ref=f4e26]:
+              - generic [ref=f4e27]:
+                - button "승인" [disabled]
+                - button "거절" [ref=f4e28] [cursor=pointer]
+                - button "취소" [ref=f4e29] [cursor=pointer]
+                - button "시술 완료" [ref=f4e30] [cursor=pointer]
+          - row [ref=f4e31]:
+            - cell "2026-07-21 13:30" [ref=f4e32]
+            - cell "이마린 볼륨 펌" [ref=f4e33]: 이마린볼륨 펌
+            - cell "PENDING" [ref=f4e34]
+            - cell [ref=f4e35]:
+              - generic [ref=f4e36]:
+                - button "승인" [disabled]
+                - button "거절" [disabled]
+                - button "취소" [disabled]
+                - button "시술 완료" [disabled]
+      - generic [ref=f4e37]:
+        - button "이전" [disabled]
+        - generic [ref=f4e38]: 1 / 1
+        - button "다음" [disabled]
+    - complementary [ref=f4e39]:
+      - generic [ref=f4e41]:
+        - heading "휴무일 관리" [level=2] [ref=f4e42]
+        - generic [ref=f4e43]:
+          - textbox [ref=f4e44]
+          - textbox "휴무 사유" [ref=f4e45]
+          - button "저장" [ref=f4e46] [cursor=pointer]
+        - list [ref=f4e47]:
+          - listitem [ref=f4e48]:
+            - text: 2026-07-27
+            - button "삭제" [ref=f4e49] [cursor=pointer]
+    - generic [ref=f4e52]:
+      - heading "시술 메뉴 관리" [level=2] [ref=f4e53]
+      - generic [ref=f4e54]:
+        - textbox "시술명" [ref=f4e56]
+        - textbox "카테고리" [ref=f4e58]
+        - spinbutton "시간(분)" [ref=f4e60]
+        - spinbutton "가격" [ref=f4e62]
+        - textbox "설명" [ref=f4e64]
+        - generic [ref=f4e65]:
+          - generic [ref=f4e66]: 대표 이미지
+          - button "Choose File" [ref=f4e67] [cursor=pointer]
+        - generic [ref=f4e68]:
+          - generic [ref=f4e69]: 상세 이미지 묶음 (최대 5장)
+          - button "Choose File" [ref=f4e70] [cursor=pointer]
+          - text: 수정 시 선택하지 않으면 기존 이미지 묶음을 유지합니다.
+        - button "시술 저장" [ref=f4e72] [cursor=pointer]

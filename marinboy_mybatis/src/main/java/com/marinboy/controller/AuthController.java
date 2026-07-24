@@ -40,8 +40,10 @@ public class AuthController {
             UserDto user = authService.login(request.getUsername(), request.getPassword());
             // 화면에서 공통으로 사용할 표시 이름을 실제 고객명으로 설정합니다.
             user.setDisplayName(user.getName());
+            user.setLoginProvider("DATABASE");
             // 이후 요청에서 로그인 여부와 권한을 확인하도록 세션에 저장합니다.
             session.setAttribute(SecurityConstants.LOGIN_USER, user);
+            session.setAttribute(SecurityConstants.LOGIN_PROVIDER, "DATABASE");
             return ResponseEntity.ok(user);
         }
     }

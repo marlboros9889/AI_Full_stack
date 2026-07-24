@@ -1,0 +1,68 @@
+- generic [active] [ref=f3e1]:
+  - banner [ref=f3e2]:
+    - navigation [ref=f3e3]:
+      - link "MARINBOY SALON" [ref=f3e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f3e5]:
+        - link "메인" [ref=f3e6] [cursor=pointer]:
+          - /url: /
+        - link "예약" [ref=f3e7] [cursor=pointer]:
+          - /url: /reservation
+  - main [ref=f3e8]:
+    - link "← 시술 목록으로 돌아가기" [ref=f3e9] [cursor=pointer]:
+      - /url: /
+    - generic [ref=f3e10]:
+      - paragraph [ref=f3e11]: MARINBOY PRIVATE SALON
+      - heading "오늘 가능한 시간부터" [level=1] [ref=f3e12]
+      - paragraph [ref=f3e13]: 선택한 시술의 소요시간·휴무일·기존 예약을 서버에서 계산해 예약 가능한 시간만 보여드립니다.
+    - generic [ref=f3e15]:
+      - complementary [ref=f3e16]:
+        - heading "예약 전 필수 확인" [level=2] [ref=f3e17]
+        - generic [ref=f3e18]:
+          - strong [ref=f3e19]: ⚠ 노쇼·당일 취소 주의
+          - text: 무단 불참, 10분 이상 지각, 당일 취소 시 이후 예약이 제한될 수 있습니다.예약은 고객과 매장의 소중한 약속입니다.
+      - generic [ref=f3e21]:
+        - generic [ref=f3e22]: 선택한 시술
+        - combobox [ref=f3e23]:
+          - option "시그니처 컷 · 60분 · 35,000원" [selected]
+          - option "두피 클리닉 · 70분 · 70,000원"
+          - option "젤 네일 기본 · 60분 · 40,000원"
+          - option "꾸미기 화장 · 80분 · 110,000원"
+          - option "신부 화장 · 150분 · 250,000원"
+          - option "롱 웨이브 펌 · 90분 · 60,000원"
+          - option "보브컷 · 60분 · 50,000원"
+          - option "레이어드 컷 · 60분 · 55,000원"
+          - option "다양한 펌 · 90분 · 70,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "이달의 top5 젤네일 · 40분 · 45,000원"
+          - option "웨이브 펌 · 120분 · 65,000원"
+          - option "테스트 · 40분 · 20,000원"
+          - option "테스트 1 · 90분 · 8,000,000원"
+        - generic [ref=f3e24]:
+          - generic [ref=f3e25]:
+            - generic [ref=f3e26]: 예약 날짜
+            - textbox [ref=f3e27]: 2026-07-21
+          - generic [ref=f3e28]:
+            - generic [ref=f3e29]: 선택 시간
+            - textbox "아래에서 시간을 선택하세요" [ref=f3e30]
+        - generic [ref=f3e31]:
+          - text: 예약 가능 시간
+          - generic [ref=f3e32]: 날짜를 선택하면 표시됩니다.
+        - generic [ref=f3e33]:
+          - textbox "고객명" [ref=f3e35]
+          - textbox "연락처" [ref=f3e37]
+        - textbox "이메일" [ref=f3e38]
+        - textbox "요청 사항" [ref=f3e39]
+        - generic [ref=f3e40]:
+          - checkbox "노쇼 및 취소 제한 안내를 확인하고 동의합니다." [ref=f3e41]
+          - generic [ref=f3e42]: 노쇼 및 취소 제한 안내를 확인하고 동의합니다.
+        - button "예약 요청하기" [ref=f3e43] [cursor=pointer]
+        - paragraph
+    - generic [ref=f3e45]:
+      - paragraph [ref=f3e46]: CUSTOMER HISTORY
+      - heading "이전 시술 내역" [level=2] [ref=f3e47]
+      - generic [ref=f3e48]: 로그인 고객의 시술 이력을 불러오는 중입니다.
+  - contentinfo [ref=f3e49]: MARINBOY SALON · Spring Boot / MyBatis Project

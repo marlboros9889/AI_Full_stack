@@ -114,12 +114,13 @@ class MarinboyMybatisApplicationTests {
     @Test
     @Transactional
     void reservationCreateAndUpdateAreConnectedThroughMyBatis() {
-        LocalDate date = LocalDate.now().plusYears(2);
+        LocalDate date = LocalDate.now().plusDays(1);
         ReservationDto slots = salonReservationService.getAvailableSlots(1L, date);
-        while (slots.getAvailableSlots().isEmpty()) {
+        while (slots.getAvailableSlots().isEmpty() && date.isBefore(LocalDate.now().plusDays(7))) {
             date = date.plusDays(1);
             slots = salonReservationService.getAvailableSlots(1L, date);
         }
+        assertThat(slots.getAvailableSlots()).isNotEmpty();
 
         String phone = "010-9999-" + String.format("%04d", System.nanoTime() % 10000);
         ReservationDto request = new ReservationDto();
@@ -133,11 +134,15 @@ class MarinboyMybatisApplicationTests {
         salonReservationService.createReservation(request);
 
         ReservationDto created = salonReservationDao.findCustomerHistory(phone).get(0);
-        request.setReservationDateTime(slots.getAvailableSlots().get(1));
+        request.setReservationDateTime(slots.getAvailableSlots().get(0));
         request.setMemo("수정 연결 검증");
         salonReservationService.updateCustomerReservation(created.getId(), phone, request);
 
         assertThat(salonReservationDao.findCustomerReservation(created.getId(), phone).getMemo())
                 .isEqualTo("수정 연결 검증");
+
+        salonReservationService.cancelCustomerReservation(created.getId(), phone);
+        assertThat(salonReservationDao.findCustomerReservation(created.getId(), phone).getStatus())
+                .isEqualTo("CANCELED");
     }
 }

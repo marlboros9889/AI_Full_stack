@@ -1,0 +1,40 @@
+- main [ref=f1e2]:
+  - link "← 시술 목록으로 돌아가기" [ref=f1e3] [cursor=pointer]:
+    - /url: /
+  - generic [ref=f1e4]:
+    - paragraph [ref=f1e5]: MARINBOY PRIVATE SALON
+    - heading "나만의 예약 시간" [level=1] [ref=f1e6]
+    - paragraph [ref=f1e7]: 날짜를 먼저 고른 뒤 예약 가능한 시간을 선택해 주세요.
+  - generic [ref=f1e9]:
+    - complementary [ref=f1e10]:
+      - heading "예약 전 필수 확인" [level=2] [ref=f1e11]
+      - generic [ref=f1e12]:
+        - strong [ref=f1e13]: ⚠ 노쇼·당일 취소 주의
+        - text: 무단 불참, 10분 이상 지각, 당일 취소 시 이후 예약이 제한될 수 있습니다.예약은 고객과 매장의 소중한 약속입니다.
+    - generic [ref=f1e15]:
+      - generic [ref=f1e16]: 선택한 시술
+      - combobox [ref=f1e17]
+      - generic [ref=f1e18]:
+        - generic [ref=f1e19]:
+          - generic [ref=f1e20]: 예약 날짜
+          - textbox [ref=f1e21]
+        - generic [ref=f1e22]:
+          - generic [ref=f1e23]: 선택 시간
+          - textbox "아래에서 시간을 선택하세요" [ref=f1e24]
+      - generic [ref=f1e25]:
+        - text: 예약 가능 시간
+        - generic [ref=f1e26]: 날짜를 선택하면 표시됩니다.
+      - generic [ref=f1e27]:
+        - textbox "고객명" [ref=f1e29]
+        - textbox "연락처" [ref=f1e31]
+      - textbox "이메일" [ref=f1e32]
+      - textbox "요청 사항" [ref=f1e33]
+      - generic [ref=f1e34]:
+        - checkbox "노쇼 및 취소 제한 안내를 확인하고 동의합니다." [ref=f1e35]
+        - generic [ref=f1e36]: 노쇼 및 취소 제한 안내를 확인하고 동의합니다.
+      - button "예약 요청하기" [ref=f1e37] [cursor=pointer]
+      - paragraph
+  - generic [ref=f1e39]:
+    - paragraph [ref=f1e40]: CUSTOMER HISTORY
+    - heading "이전 시술 내역" [level=2] [ref=f1e41]
+    - generic [ref=f1e42]: 로그인 고객의 시술 이력을 불러오는 중입니다.

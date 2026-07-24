@@ -196,5 +196,68 @@ router.delete('/:id',  isAuthenticated,     async(req, res) => {
     }
 });
 
+// ==================== 이메일 중복 확인 ====================
+// get  : /user/check-email?email=xxx       이메일 중복 확인
+/**
+ * @swagger
+ * /user/check-email:
+ *   get:
+ *     summary: 이메일 중복 확인
+ *     description: 회원가입 시 이메일이 이미 사용 중인지 확인합니다.
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 중복 확인할 이메일 주소
+ *     responses:
+ *       200:
+ *         description: 사용 가능 / 이미 존재
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 available:
+ *                   type: boolean
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: 이메일이 제공되지 않음
+ */ 
+router.get('/check-email', async (req, res) => {
+    try {
+        const { email } = req.query;
+        if (!email) {
+            return res.status(400).json({ 
+                available: false, 
+                message: '이메일을 입력해주세요.' 
+            });
+        }
+
+        const existingUser = await findUserByEmail(email);
+        if (existingUser) {
+            return res.status(200).json({
+                available: false,
+                message: '이미 사용 중인 이메일입니다.'
+            });
+        } else {
+            return res.status(200).json({
+                available: true,
+                message: '사용 가능한 이메일입니다.'
+            });
+        }
+    } catch (err) {
+        console.error('CheckEmail', err);
+        res.status(500).json({ 
+            available: false, 
+            message: '이메일 중복 확인 중 오류가 발생했습니다.' 
+        });
+    }
+});
+
+
+
 //3. export
 module.exports = router;

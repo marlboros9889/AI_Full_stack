@@ -3,8 +3,8 @@ const  dbConfig = require('../config/db');  //user, password, connectString
 const  oracledb = require('oracledb');
 const  bcrypt    = require('bcrypt');   //## bcrypt
 // oracle 초기화
-oracledb.initOracleClient(); 
-const options = { outFormat: oracledb.OUT_FORMAT_OBJECT , autoCommit:true }; 
+// oracledb.initOracleClient(); 
+ const options = { outFormat: oracledb.OUT_FORMAT_OBJECT , autoCommit:true }; 
 
 //2. 각기능 sql
 // 1. create - insert

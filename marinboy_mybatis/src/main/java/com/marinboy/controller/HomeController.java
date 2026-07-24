@@ -30,4 +30,10 @@ public class HomeController {
     public String reservation() {
         return "reservation";
     }
+
+    @GetMapping("/my-reservations")
+    public String myReservations() { return "my-reservations"; }
+
+    @GetMapping("/treatment-history")
+    public String treatmentHistory() { return "treatment-history"; }
 }

@@ -6,12 +6,30 @@
  * - 현재는 user 리듀서만 포함 
 */
 
-import {combineReducers} from 'redux';  //여러개의 리듀서를 합치는 Redux 함수
-import user              from './user'; // 사용자 관련 상태를 관리하는 user 리듀서
-// import post           from './post';    사용자 관련 상태를 관리하는 post 리듀서
+import { HYDRATE } from 'next-redux-wrapper';
+import { combineReducers } from 'redux';
+import user from './user';
+// import post from './post';
 
-const rootReducer = combineReducers({
-    user, // post
-});
+const rootReducer = (state, action) => {
+  switch (action.type) {
+    // Next.js 서버 사이드 렌더링(SSR) 시 동작하는 HYDRATE 액션 처리
+    case HYDRATE:
+      console.log('HYDRATE 상태 병합:', action);
+      return {
+        ...state,
+        ...action.payload,
+      };
+
+    // 일반적인 Redux 상태 변화 처리
+    default: {
+      const combinedReducer = combineReducers({
+        user,
+        // post,
+      });
+      return combinedReducer(state, action);
+    }
+  }
+};
 
 export default rootReducer;

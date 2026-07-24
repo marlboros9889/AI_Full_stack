@@ -16,9 +16,9 @@ export const LOG_OUT_REQUEST = 'LOG_OUT_REQUEST';     //로그아웃 요청
 export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';     //로그아웃 성공
 export const LOG_OUT_FAILURE = 'LOG_OUT_FAILURE';     //로그아웃 실패
 
-export const SIGN_UP_REQUEST = 'SING_UP_REQUEST';     //회원가입 요청
-export const SIGN_UP_SUCCESS = 'SING_UP_SUCCESS';     //로그아웃 성공
-export const SIGN_UP_FAILURE = 'SING_UP_FAILURE';     //로그아웃 실패
+export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST';     //회원가입 요청
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';     //회원가입 성공
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';     //회원가입 실패
 
 export const LOAD_USERS_REQUEST = 'LOAD_USERS_REQUEST';     //사용자 목록 요청
 export const LOAD_USERS_SUCCESS = 'LOAD_USERS_SUCCESS';     //사용자 목록 성공
@@ -32,19 +32,28 @@ export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';     //사용자 삭제
 export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';     //사용자 삭제 성공
 export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';     //사용자 삭제 실패
 
+export const CHECK_EMAIL_REQUEST = 'CHECK_EMAIL_REQUEST';     //이메일 중복확인 요청
+export const CHECK_EMAIL_SUCCESS = 'CHECK_EMAIL_SUCCESS';     //이메일 중복확인 성공
+export const CHECK_EMAIL_FAILURE = 'CHECK_EMAIL_FAILURE';     //이메일 중복확인 실패
+
 //2. 초기상태
 export const initialState={
     me: null,           // 로그인 사용자 정보 { id, email, nickname   }
     users: [],          // 전체 사용자 목록 [{ id, email, nickname  }]
-    isLoading: false,   // api 요청 중 여보
+    isLoading: false,   // api 요청 중 여부
     error: null,        // 에러메시지
     signUpDone: false,  // 회원가입 완료여부
     
+    // ✅ 이메일 중복검사 관련 상태 추가
+    emailCheckLoading: false,   // 중복확인 요청 중 여부
+    emailCheckDone: false,      // 중복확인 완료 여부
+    emailAvailable: null,       // true: 사용가능, false: 중복, null: 미확인
+    emailCheckError: null,
 };
 
 //3. reducer 함수
-const reducer = (  state=initialState  ,  action   )=>{    // 현재 상태, 요청 액션
-    switch( action.type ){
+const reducer = (state=initialState, action)=>{    // 현재 상태, 요청 액션
+    switch(action.type){
         //요청 액션 → 로딩 시작
         case LOG_IN_REQUEST:
         case LOG_OUT_REQUEST:
@@ -52,6 +61,7 @@ const reducer = (  state=initialState  ,  action   )=>{    // 현재 상태, 요
         case LOAD_USERS_REQUEST:
         case UPDATE_NICKNAME_REQUEST:
         case DELETE_USER_REQUEST:
+        case CHECK_EMAIL_REQUEST:                    // ← 이메일 중복확인 요청
             return {...state, isLoading: true, error: null }
         
         //성공 액션 → 상태 업데이트
@@ -64,14 +74,36 @@ const reducer = (  state=initialState  ,  action   )=>{    // 현재 상태, 요
         case LOAD_USERS_SUCCESS:
             return {...state, isLoading: false, users: action.data };    
         case UPDATE_NICKNAME_SUCCESS:
-            return {...state, isLoading: false, me: state.me && state.me.id === action.data.id? 
-                    {  ...state.me, nickname: action.data.nickname } 
-                    : state.me };    
+            return {...state, isLoading: false, 
+                me: state.me && state.me.id === action.data.id ? 
+                    { ...state.me, nickname: action.data.nickname } : state.me,
+                users: state.users.map(user =>
+                    user.id === action.data.id
+                        ? { ...user, nickname: action.data.nickname }
+                        : user
+                )
+            };    
         case DELETE_USER_SUCCESS:
             return {...state, isLoading: false, 
-                me: state.me?.id ===action.data.id? null: state.me, 
-                users: state.users.filter( (u)=> u.id !== action.data.id )
-             };        
+                me: state.me?.id === action.data.id ? null : state.me, 
+                users: state.users.filter((u)=> u.id !== action.data.id )
+            };
+
+        // ✅ 이메일 중복확인 성공/실패
+        case CHECK_EMAIL_SUCCESS:
+            return {
+                ...state, 
+                emailCheckLoading: false, 
+                emailCheckDone: true,
+                emailAvailable: action.data.available 
+            };
+        case CHECK_EMAIL_FAILURE:
+            return { 
+                ...state, 
+                emailCheckLoading: false, 
+                error: action.error 
+            };
+
         //실패 액션 → 에러메시지 저장
         case LOG_IN_FAILURE:
         case LOG_OUT_FAILURE:
@@ -80,10 +112,11 @@ const reducer = (  state=initialState  ,  action   )=>{    // 현재 상태, 요
         case UPDATE_NICKNAME_FAILURE:
         case DELETE_USER_FAILURE:
             return{ ...state, isLoading: false, error:action.error?.message || action.error  };
+
         //기본값 → 상태변경 없음
         default:
             return state;
-
     }
 };
+
 export default reducer;

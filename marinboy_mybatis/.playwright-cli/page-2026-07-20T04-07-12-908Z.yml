@@ -1,0 +1,99 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation "주요 메뉴" [ref=e3]:
+      - link "MARINBOY SALON" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "서비스" [ref=e6] [cursor=pointer]:
+          - /url: "#serviceMenuSection"
+        - link "예약하기" [ref=e7] [cursor=pointer]:
+          - /url: /reservation
+        - link "내 예약" [ref=e8] [cursor=pointer]:
+          - /url: "#reservationSection"
+        - link "관리자" [ref=e9] [cursor=pointer]:
+          - /url: /admin
+  - main [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - paragraph [ref=e13]: 1인 미용실 예약
+        - heading "마린 헤어 스튜디오 Natural Hair & Beauty" [level=1] [ref=e14]
+        - paragraph [ref=e15]: 자연의 아름다움을 담은 헤어 & 뷰티.오롯이 나를 위한 편안한 시간을 예약하세요.
+        - paragraph [ref=e16]:
+          - text: "등록된 시술 수:"
+          - strong [ref=e17]: "0"
+        - generic [ref=e18]: private beauty reservation
+        - generic [ref=e19]:
+          - link "예약 요청하기" [ref=e20] [cursor=pointer]:
+            - /url: /reservation
+          - link "이달의 헤어 보기" [ref=e21] [cursor=pointer]:
+            - /url: "#monthlyHairSection"
+          - button "내 정보" [ref=e22] [cursor=pointer]
+          - button "로그아웃" [ref=e23] [cursor=pointer]
+      - generic "마린 헤어 대표 스타일 이미지" [ref=e24]:
+        - img "롱레이어드 대표 스타일" [ref=e25]
+        - img "숏단발 보브 대표 스타일" [ref=e26]
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - paragraph [ref=e30]: Monthly Hair Top 5
+          - heading "이달의 TOP5 헤어" [level=2] [ref=e31]
+        - paragraph [ref=e32]: 상담 전 마음에 드는 무드를 먼저 고르고, 아래 메뉴에서 예약을 이어갈 수 있습니다.
+      - generic "예약이 많은 이달의 TOP5 헤어" [ref=e33]:
+        - article [ref=e34]:
+          - img "숏단발 보브 정면 스타일" [ref=e35]
+          - generic [ref=e36]:
+            - generic [ref=e37]: SHORT BOB
+            - heading "숏단발 · 보브" [level=3] [ref=e38] [cursor=pointer]
+            - paragraph [ref=e39]: 깔끔한 목선과 얼굴형 보정이 돋보이는 단발 스타일입니다.
+            - button "바로 예약하러 가기" [ref=e40] [cursor=pointer]
+        - article [ref=e41]:
+          - img "롱레이어드 자연 웨이브 스타일" [ref=e42]
+          - generic [ref=e43]:
+            - generic [ref=e44]: LONG LAYERED
+            - heading "롱레이어드" [level=3] [ref=e45] [cursor=pointer]
+            - paragraph [ref=e46]: 가볍게 흐르는 층과 볼륨감으로 여성스러운 무드를 살립니다.
+            - button "바로 예약하러 가기" [ref=e47] [cursor=pointer]
+        - article [ref=e48]:
+          - img "레이어드컷 긴머리 스타일" [ref=e49]
+          - generic [ref=e50]:
+            - generic [ref=e51]: LAYERED CUT
+            - heading "레이어드컷" [level=3] [ref=e52] [cursor=pointer]
+            - paragraph [ref=e53]: 앞머리와 옆라인의 흐름을 살려 얼굴이 작아 보이는 컷입니다.
+            - button "바로 예약하러 가기" [ref=e54] [cursor=pointer]
+        - article [ref=e55]:
+          - img "거지존 펌 정면 스타일" [ref=e56]
+          - generic [ref=e57]:
+            - generic [ref=e58]: MEDIUM PERM
+            - heading "거지존 · 다양한 펌" [level=3] [ref=e59] [cursor=pointer]
+            - paragraph [ref=e60]: 애매한 길이를 가장 예쁘게 넘길 수 있는 볼륨 펌 스타일입니다.
+            - button "바로 예약하러 가기" [ref=e61] [cursor=pointer]
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - paragraph [ref=e65]: Monthly Nail Top 5
+        - heading "이달의 TOP5 네일" [level=2] [ref=e66]
+      - paragraph [ref=e67]: 마음에 드는 디자인을 선택하면 해당 메뉴의 이미지 묶음과 예약 화면을 확인할 수 있습니다.
+    - generic [ref=e68]:
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - paragraph [ref=e71]: Service Menu
+          - heading "시술 안내" [level=2] [ref=e72]
+        - generic [ref=e73]:
+          - generic [ref=e74]: 카테고리 선택
+          - combobox "카테고리 선택" [ref=e75]
+      - navigation "시술 메뉴 페이지" [ref=e76]:
+        - button "이전" [ref=e77] [cursor=pointer]
+        - button "다음" [ref=e78] [cursor=pointer]
+    - region "예약 안내" [ref=e79]:
+      - text: ✦
+      - generic [ref=e80]:
+        - heading "편안한 공간에서 당신만을 위한 시간을 가져보세요." [level=2] [ref=e81]
+        - link "예약하기" [ref=e82] [cursor=pointer]:
+          - /url: /reservation
+      - text: ✦
+    - generic [ref=e83]:
+      - generic [ref=e84]:
+        - generic [ref=e85]:
+          - paragraph [ref=e86]: Live Availability
+          - heading "예약 가능 현황" [level=2] [ref=e87]
+        - generic [ref=e88]: 예약 가능 시간을 확인하고 있습니다.
+      - generic [ref=e89]: 예약 가능 시간을 불러오는 중입니다.
