@@ -132,7 +132,8 @@ const postReducer = createSlice({
 // 액션 생성자들 export (컴포넌트 / 사가에서 사용)
 export const {
   fetchPostsRequest,  fetchPostsSuccess,  fetchPostsFailure,
-  fetchPostRequest,   fetchPostSuccess,   fetchPostFailure,
+  fetchPostRequest,    fetchPostSuccess,   fetchPostFailure,
+  fetchPostDetailRequest,   fetchPostDetailSuccess,   fetchPostDetailFailure,
   createPostRequest,  createPostSuccess,  createPostFailure,
   updatePostRequest,  updatePostSuccess,  updatePostFailure,
   deletePostRequest,  deletePostSuccess,  deletePostFailure,
