@@ -1,126 +1,82 @@
+# AI Full Stack Portfolio
 
-## 🚀 장영탁|개발자 포트폴리오
->완벽보다 완성을.
-**기획부터 배포까지, 사용자 흐름을 설계하고 끝까지 책임지는 개발자입니다.**
+Java와 Spring 기반 백엔드부터 웹 프론트엔드, 데이터베이스, 배포까지 학습하며 만든 프로젝트를 기록하는 저장소입니다. 단순 기능 구현을 넘어 비즈니스 규칙, 데이터 흐름, 사용자 경험을 함께 설계하는 것을 목표로 합니다.
 
-단순한 기능 구현을 넘어,
-**CS 기반의 구조적 문제 해결력과
-협업 중심의 실전 프로젝트 경험**으로
-현장에서 바로 통하는 역량을 증명해왔습니다.
+## 대표 프로젝트: Marinboy
 
+**Marinboy**는 1인 미용실·뷰티샵 운영자를 위한 예약 관리 서비스입니다. 고객은 시술 정보와 이미지를 확인해 예약을 신청하고, 관리자는 예약 상태와 휴무일, 시술 메뉴, 갤러리, 추천 메뉴를 한곳에서 관리할 수 있습니다.
 
+### 핵심 기능
 
-### 📌 **Contact & Links**
-<img  src="Cat.jpg" alt="./css/img/Cat.jpg"
-      style="width:80px" />
+- 고객/관리자 세션 로그인과 역할별 접근 제어
+- 시술별 소요 시간을 반영한 30분 단위 예약 가능 시간 계산
+- 영업시간(10:00~20:00), 일요일·휴무일, 예약 시간 중복 검증
+- `REQUESTED → CONFIRMED → COMPLETED/NO_SHOW` 중심의 상태 전이 관리
+- 시술 메뉴·가격·소요 시간 및 대표/추가 이미지 갤러리 관리
+- 이달의 추천 TOP3 메뉴 노출과 중복 순위 자동 해제
+- 고객별 시술 이력 조회 및 노쇼 연락처 재예약 제한
+- DTO 기반 요청/응답 분리와 일관된 JSON API 오류 처리
+- H2 로컬 실행 및 Oracle XE 프로필 지원
 
+### 기술 스택
 
-|NAME|**장영탁**|  
-|-|-|
-|EMAIL|marlboros9889@gmail.com|
-|GITHUB|https://github.com/marlboros9889/AI_Full_stack.git|
-|Portfolio|https://marlboros9889.github.io/AI_Full_stack/|
----
-### 📌 Goals
-GitHub의 **핵심기능** 이해 및 실습
-Markdown을 활용한 **문서화 능력 향상**
-협업을 위한 GitHub **워크플로우 익히기**
-AI 도구와 함께하는 **개발환경 체험**
+| 영역 | 기술 |
+| --- | --- |
+| Backend | Java 17, Spring Boot 3.5.3, Spring Web, Bean Validation |
+| View | Thymeleaf, HTML, CSS, JavaScript |
+| Data | Spring Data JPA, H2, Oracle XE |
+| Auth | Session, Interceptor, OAuth2 Client |
+| Test | JUnit 5, Spring Boot Test, Maven |
 
-|기술스택|	연결된 CS 역량 및 실무 활용 능력|
-|-|-|
-|JAVA	|객체지향 프로그래밍(OOP) 원리와 JVM 메모리 관리 이해. **대규모 시스템 설계 및 유지보수 역량**.|
-|JSP|	서버-클라이언트 구조와 렌더링 과정 이해. **MVC 패턴 기반 UI/UX 구현 능력**.|
-|SPRING	|IoC/DI, AOP 등 아키텍처 개념 이해. **대규모 서비스 모듈화와 확장성 확보**.|
-|SPRING BOOT	|자동 설정과 서버 최적화 이해. **MSA 기반 실무 적용 가능**.|
-|ORACLE / MYSQL + MYBATIS + JPA	|트랜잭션, 인덱스, 정규화 등 DB 핵심 개념 이해. **ORM 활용으로 생산성과 유지보수성 향상**.|
-|REACT	|Virtual DOM과 상태 관리 이해. **컴포넌트 기반 설계로 재사용성 극대화**.|
-|LINUX + AWS(EC2)	|운영체제 프로세스 관리, 네트워크 구성 이해. **클라우드 서버 운영 및 배포 자동화 역량**.|
-|Git & GitHub	|분산형 저장소 개념 이해, 브랜치 전략 및 충돌 해결 능력. **CI/CD 흐름과 연계 가능**.|
-|HTML + CSS + JS / JQUERY + AJAX	|DOM 트리, 이벤트 루프 등 브라우저 동작 이해. **접근성, SEO, 비동기 통신 활용 능력**.|
-|PYTHON	|자료구조, 알고리즘, 메모리 관리 등 CS 기초 활용. **데이터 분석, 자동화, AI 모델링 강점**.|
-|DJANGO	|MTV 패턴과 ORM 구조 이해. **보안과 인증 시스템 구축 역량**.|
-|FLUTTER	|위젯 트리와 렌더링 파이프라인 이해. **Cross-Platform 개발로 생산성 확보**.|
----
-### 📌 6개월 학습 여정
-#### 6개월차
+### 설계 포인트
 
-- Python → 자료구조, 알고리즘, 데이터 분석
-- Django → MTV 패턴, 보안 및 인증 시스템 구축
-- Flutter → 크로스 플랫폼 앱 개발 및 위젯 트리 이해
+```text
+Browser → JavaScript fetch → Controller → Service → Repository → Database
+                                               ↓
+                                  비즈니스 규칙 검증 및 DTO 변환
+```
 
-#### 5개월차
+- 시작 시각만 비교하지 않고 시술 종료 시각까지 계산해 예약 구간의 겹침을 차단합니다.
+- 화면 검증과 별개로 Service에서 휴무일, 영업시간, 노쇼 이력을 다시 검증합니다.
+- Entity를 직접 노출하지 않고 요청/응답 DTO로 API 계약과 데이터 모델을 분리합니다.
 
-- Frontend (React) → Virtual DOM, 상태 관리, 컴포넌트 기반 설계
-- UI/UX 개선 및 비동기 통신(AJAX, API 연동) 경험
-- AWS + EC2 → 클라우드 서버 운영, 배포 자동화, 네트워크 구성(VPC, -  보안 그룹) 실습
+### 실행 및 테스트
 
-#### 4개월차
+프로젝트는 `feature/marinboy-reservation-service` 브랜치의 `marinboy` 디렉터리에 있습니다.
 
-- Spring → IoC/DI, AOP 등 아키텍처 개념 이해
-- Spring Boot → 자동 설정, 서버 최적화, MSA 기반 서비스 설계
+```bash
+git switch feature/marinboy-reservation-service
+cd marinboy
+mvn spring-boot:run
+```
 
-#### 3개월차
+실행 후 `http://localhost:8080`에서 확인할 수 있습니다.
 
-- MyBatis / JPA → 데이터 모델링과 ORM 활용
-- 트랜잭션, 인덱스, 정규화 등 DB 심화 학습
+```bash
+# 전체 테스트
+mvn test
 
-#### 2개월차
+# Oracle XE 프로필 실행
+mvn spring-boot:run "-Dspring-boot.run.profiles=oracle"
+```
 
-- JSP → 서버-클라이언트 구조와 동적 페이지 구현
-- DB 기초 (Oracle / MySQL) → 데이터베이스 기본 문법과 활용
+Oracle 접속 정보는 `ORACLE_URL`, `ORACLE_USERNAME`, `ORACLE_PASSWORD` 환경 변수로 변경할 수 있습니다.
 
-#### 1개월차
+### 최근 구현 하이라이트
 
-- Git & GitHub → 버전 관리와 협업 흐름 이해
-- Java → 객체지향 프로그래밍과 웹 서버 구조 학습
-- HTML / CSS / JS → 웹 기본기와 DOM 구조 이해
----
-### 📌 프로젝트 경험
+- 예약 메뉴와 시술 이미지 갤러리의 탐색 경험 개선
+- 관리자 예약 확정·취소·완료·노쇼 처리 흐름 보완
+- 메뉴 이미지 업로드, 추가 이미지 최대 3장, TOP3 큐레이션 구현
+- 고객 예약 가능 시간 조회와 중복 예약 방지 로직 강화
+- 기능 브랜치: `feature/marinboy-reservation-service`
+- 주요 커밋: `8e065daf` 최초 예약 서비스, `1d8faa90` Oracle 포트폴리오, `d781837e` 관리자 흐름 수정, `1912d021` 메뉴·갤러리 개선
 
-- #### 6개월차
-    - **Python 데이터 분석 프로젝트** → CSV 데이터 처리 및 시각화, Pandas/- Matplotlib 활용 → **데이터 인사이트 도출 경험**
-    - **Django AI 챗봇 서비스** → 대화형 웹 애플리케이션, 사용자 인증 및 세션 관리 → **실제 사용자와 상호작용 테스트 성공**
-    - **Flutter 메모 앱** → 크로스 플랫폼(Android/iOS) 앱 개발 → **앱스토어 배포 경험 확보**
+## 학습 기술
 
-- #### 5개월차
+`Java` · `Spring Boot` · `JSP/Thymeleaf` · `MyBatis/JPA` · `Oracle/MySQL/H2` · `HTML/CSS/JavaScript` · `React` · `Git/GitHub`
 
-    - **React 날씨 대시보드** → 외부 API 연동, 상태 관리 및 컴포넌트 기반 설계 → **실제 날씨 정보 제공 서비스 구현**
-    - **UI/UX 개선 프로젝트** → 반응형 디자인 적용, 사용자 경험 최적화 → **사용자 만족도 향상**
-    - **AWS EC2 서버 배포** → 클라우드 서버 환경 구축, 보안 그룹 설정 및 자동화 배포 → **실제 서비스 배포 성공**
+## Links
 
-- #### 4개월차
-
-    - **Spring REST API 서비스** → Todo 관리 API 구현, IoC/DI 적용 → **RESTful 서비스 설계 경험**
-    - **Spring Boot 쇼핑몰 프로젝트** → 상품 등록, 장바구니, 주문 처리 기능 구현 → **전자상거래 서비스 프로토타입 완성**
-
-- #### 3개월차
- 
-    - **블로그 플랫폼 개발 (MyBatis/JPA)** → 회원가입, 글 작성, 댓글 시스템 구현 → **실제 운영 가능한 블로그 서비스 구축**
-    - **DB 성능 개선 실습** → 트랜잭션 관리, 인덱스 최적화, 정규화 적용 → **쿼리 성능 향상 체험**
-
-- #### 2개월차
-
-   - **JSP 게시판 웹 애플리케이션** → 글 작성/조회/삭제 기능 구현 → **기본 CRUD 웹 서비스 완성**
-   - **학생 관리 시스템 (Oracle/MySQL)** → CRUD 기능 구현, 기본 SQL 활용 → **데이터베이스 기초 활용 능력 확보**
-
-- #### 1개월차
-
-    - **GitHub 레포지토리 관리** → 개인 프로젝트 버전 관리 및 협업 워크플로우 체험 → **버전 관리 습관 형성**
-    - **Java 콘솔 프로그램** → 계산기 및 간단한 로직 구현 → **OOP 기초 학습 성과**
-    - **HTML/CSS/JS 프로필 페이지** → 정적 웹사이트 제작 → **웹 기본기와 DOM 구조 이해**
-
-### 📌 성장 포인트
- - 단순 기능 구현 → **CS 기반 문제 해결**로 사고 확장
- - 혼자 학습 →**GitHub 협업 워크플로우**로 팀 개발 경험 체득 (브랜치 전략, Pull Request 경험)
-- 이론 중심 → **실습과 배포까지 경험**하며 “끝까지 책임지는 개발자”로 성장
-- 클라우드 경험 → **AWS EC2 서버 운영 및 보안 그룹 설정**을 통한 실제 서비스 배포
----
-
-### 📌 앞으로의 목표
-- 브랜치 전략과 CI/CD 파이프라인 심화 학습
-- AI 모델과 풀스택 서비스의 결합 프로젝트 진행
-
----
-### 📌 감사합니다
-제 포트폴리오를 읽어주셔서 감사합니다.
+- GitHub: [marlboros9889/AI_Full_stack](https://github.com/marlboros9889/AI_Full_stack)
+- Portfolio: [GitHub Pages](https://marlboros9889.github.io/AI_Full_stack/)
+- Email: marlboros9889@gmail.com
