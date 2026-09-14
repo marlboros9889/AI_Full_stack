@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.the703.dao.UserMapper"> 
+  
+  
+  <select     resultMap="authListMap"   id="readAuth"  parameterType="string">
+     select    u.email,  u.bpass,  a.auth
+     from      users u    left   join authorities a    on u.email   = a.email  
+     where     u.email =#{email} 
+  </select>
+  <resultMap  id="authListMap"          type="AuthUserDto">
+       <result  property="email"         column="email"  />
+       <result  property="bpass"         column="bpass"  />
+       <collection  property="authList"  resultMap="authMap"  />
+  </resultMap>
+  <resultMap  id="authMap"       type="AuthDto" > 
+       <result  property="auth"      column="auth"   />
+  </resultMap>  
+
+
+  <!-- #1. 이메일(아이디) 중복검사 -->
+  <select   id="checkEmail"   parameterType="string"  resultType="int">
+     select   count(*)   from   users   where   email = #{email}
+  </select>
+
+  <!-- #2. 닉네임 중복검사 -->
+  <select   id="checkNickname"   parameterType="string"  resultType="int">
+     select   count(*)   from   users   where   nickname = #{nickname}
+  </select>
+
+  <!-- #3. 회원가입 - users insert -->
+  <insert   id="insertUser"   parameterType="UserDto">
+     insert   into   users ( nickname, bpass, email, mobile, bip )
+     values  ( #{nickname}, #{bpass}, #{email}, #{mobile}, #{bip} )
+  </insert>
+
+  <!-- #3. 회원가입 - 일반멤버 권한(ROLE_MEMBER) 부여 -->
+  <insert   id="insertAuth"   parameterType="string">
+     insert   into   authorities ( email, auth )
+     values  ( #{email}, 'ROLE_MEMBER' )
+  </insert>
+
+  <!-- #4. 마이페이지 조회 -->
+  <select   id="selectUserByEmail"   parameterType="string"  resultType="UserDto">
+     select   uno, nickname, email, mobile, udate, bip
+     from     users
+     where    email = #{email}
+  </select>
+
+</mapper>

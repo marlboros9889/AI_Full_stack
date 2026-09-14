@@ -437,3 +437,33 @@ Step3) reducer
 Step4) saga
 Step5) view
  
+
+1. Layout
+2. 경로
+```
+├── pages/                  # Next.js 라우팅 기반 페이지 폴더
+│   ├── posts/             
+│   │ └──new.js       #  글쓰기 파일
+│   ├── _app.js             # 전체 앱의 공통 설정 (Redux Provider, 글로벌 스타일 등)
+│   ├── singup.js              # 회원가입
+│   ├── mypage.js         # 마이페이지
+│   └── index.js            # 메인 페이지
+```
+<Link href="/">           index.js      # 메인 페이지
+<Link href="/mypage">     mypage.js     # 마이 페이지
+<Link href="/singup">     singup.js     # 회원가입
+<Link href="/posts/new">  posts/new.js  # 글쓰기 파일  
+
+
+3. social 개발자사이트 - 키 찾기 
+> kakao 개발자, naver 개발자, google 개발자
+> boot의 .env 파일 바꾸기
+■.boot3
+└─ service : public AppUser sav
+■.front3
+└─public
+    └─ images
+        이미지 파일들
+
+└─ pages
+
