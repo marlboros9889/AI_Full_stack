@@ -1,0 +1,16 @@
+# Python 실행 환경과 로컬 SQLite 데이터는 개인 PC에서만 사용합니다.
+venv/
+**/__pycache__/
+*.py[cod]
+db.sqlite3
+
+# 비밀번호·OAuth 키는 원격 저장소에 올리지 않습니다.
+.env
+*.env
+application-oauth.yml
+
+# IDE 설정과 Gradle 빌드 결과는 다시 생성됩니다.
+**/.metadata/
+**/.gradle/
+**/build/
+**/bin/
