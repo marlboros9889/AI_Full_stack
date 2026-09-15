@@ -1,146 +1,85 @@
 import json
-import requests
+
 import pandas as pd
-from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import ServiceLog
+from django.shortcuts import render
+from django.views.decorators.http import require_POST
+
+from .models import PortfolioReservation, ServiceLog
+
 
 def dashboard_view(request):
-    spring_api_url = "http://localhost:8080/api/statistics/sync"
+    """완료 예약·후기 데이터를 Pandas로 집계해 관리자용 화면에 전달합니다."""
+    reservation_queryset = PortfolioReservation.objects.all().values(
+        "reservation_date", "service_name", "final_price", "rating"
+    )
 
-    try:
-        response = requests.post(spring_api_url, timeout=3)
-        if response.status_code == 200:
-            print("Spring Boot 통계 동기화 성공")
-        else:
-            print(f"Spring Boot 응답 코드: {response.status_code}")
-    except Exception as e:
-        print(f"Spring Boot 서버 연결 실패: {e}")
+    if not reservation_queryset.exists():
+        return render(request, "analytics/dashboard.html", {"is_empty": True})
 
-    # DB 데이터 가져오기
-    qs = ServiceLog.objects.all().values('date', 'category', 'visitor_count', 'sales_amount')
+    # 1. Django QuerySet을 DataFrame으로 바꿔 Pandas 집계 기능을 사용합니다.
+    data_frame = pd.DataFrame(list(reservation_queryset))
+    data_frame["reservation_date"] = pd.to_datetime(data_frame["reservation_date"])
 
-    if qs.exists():
-        df = pd.DataFrame(list(qs))
+    # 2. 시술별 예약 건수·매출과 별점 분포를 각각 계산합니다.
+    service_summary = (
+        data_frame.groupby("service_name")
+        .agg(reservation_count=("service_name", "size"), sales_amount=("final_price", "sum"))
+        .reset_index()
+        .sort_values("reservation_count", ascending=False)
+    )
+    rating_summary = data_frame.groupby("rating").size().reindex(range(1, 6), fill_value=0)
 
-        # ----------------------------------------------------
-        # 📊 [Pandas 데이터 분석 수행]
-        # ----------------------------------------------------
+    # 3. 날짜별 추이를 만들어 예약 흐름을 그래프로 보여줍니다.
+    daily_summary = (
+        data_frame.groupby("reservation_date")
+        .agg(reservation_count=("service_name", "size"), sales_amount=("final_price", "sum"))
+        .reset_index()
+        .sort_values("reservation_date")
+    )
 
-        # 1. 카테고리별 기본 집계 (합계)
-        summary_df = df.groupby('category')[['visitor_count', 'sales_amount']].sum().reset_index()
-
-        # 2. 비율/점유율 분석 (Share %)
-        total_visitors = summary_df['visitor_count'].sum()
-        if total_visitors > 0:
-            summary_df['visitor_share'] = (summary_df['visitor_count'] / total_visitors * 100).round(1)
-        else:
-            summary_df['visitor_share'] = 0
-
-        # 3. 주요 통계 지표 산출 (평균, 최대, 최소)
-        stats_summary = {
-            'avg_visitors': round(df['visitor_count'].mean(), 1),
-            'max_visitors': int(df['visitor_count'].max()),
-            'min_visitors': int(df['visitor_count'].min()),
-            'total_count': int(df['visitor_count'].sum()),
-        }
-
-        # 4. 가장 실적이 높은 효자 카테고리 도출
-        top_category_idx = summary_df['visitor_count'].idxmax()
-        top_category = summary_df.loc[top_category_idx, 'category']
-
-        # 5. 일자별 x 카테고리 트렌드 피벗 테이블 구성
-        pivot_df = df.pivot_table(
-            index='date', 
-            columns='category', 
-            values='visitor_count', 
-            aggfunc='sum', 
-            fill_value=0
-        ).reset_index()
-
-        # ----------------------------------------------------
-        # 🎯 [템플릿 전달용 데이터 바인딩]
-        # ----------------------------------------------------
-        categories = summary_df['category'].tolist()
-        visitors = summary_df['visitor_count'].tolist()
-        sales = summary_df['sales_amount'].tolist()
-        shares = summary_df['visitor_share'].tolist()
-        trend_dates = pivot_df['date'].astype(str).tolist()
-
-    else:
-        categories, visitors, sales, shares, trend_dates = [], [], [], [], []
-        stats_summary = {'avg_visitors': 0, 'max_visitors': 0, 'min_visitors': 0, 'total_count': 0}
-        top_category = "데이터 없음"
+    total_reservations = int(len(data_frame))
+    total_sales = int(data_frame["final_price"].sum())
+    average_rating = round(float(data_frame["rating"].mean()), 1)
+    high_rating_ratio = round(float((data_frame["rating"] >= 4).mean() * 100), 1)
+    top_service = service_summary.iloc[0]["service_name"]
 
     context = {
-        # 기본 그래프용 데이터
-        'categories': categories,
-        'visitors': visitors,
-        'sales': sales,
-        'shares': shares,             # 카테고리별 점유율 (%)
-        
-        # 분석 요약 데이터
-        'stats_summary': stats_summary, # 평균/최대/최소 통계
-        'top_category': top_category,   # 최다 방문 카테고리
-        'trend_dates': trend_dates,     # 일자별 트렌드 날짜
+        "is_empty": False,
+        "stats": {
+            "total_reservations": total_reservations,
+            "total_sales": f"{total_sales:,}",
+            "average_rating": average_rating,
+            "high_rating_ratio": high_rating_ratio,
+        },
+        "top_service": top_service,
+        "analysis_period": (
+            f"{daily_summary.iloc[0]['reservation_date']:%Y.%m.%d}"
+            f" ~ {daily_summary.iloc[-1]['reservation_date']:%Y.%m.%d}"
+        ),
+        "service_rows": service_summary.to_dict("records"),
+        # json_script가 문자열을 안전하게 JavaScript 데이터로 전달합니다.
+        "daily_dates": daily_summary["reservation_date"].dt.strftime("%m/%d").tolist(),
+        "daily_counts": daily_summary["reservation_count"].astype(int).tolist(),
+        "rating_labels": [f"{rating}점" for rating in rating_summary.index.tolist()],
+        "rating_counts": rating_summary.astype(int).tolist(),
     }
-    return render(request, 'analytics/dashboard.html', context)
+    return render(request, "analytics/dashboard.html", context)
 
 
-@csrf_exempt
+@require_POST
 def api_receive_statistics(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            
-            log_date = data.get('date')
-            category = data.get('category', '커뮤니티')  
-            count_val = data.get('count', 0)
-            
-            # 💡 [포트폴리오용 수정] update_or_create 사용
-            # (date + category) 조건에 맞는 데이터가 있으면 최신 값으로 UPDATE, 없으면 CREATE
-            ServiceLog.objects.update_or_create(
-                date=log_date,
-                category=category,
-                defaults={
-                    'visitor_count': count_val,
-                    'sales_amount': 0
-                }
-            )
-            
-            return JsonResponse({'status': 'success', 'message': '통계 데이터 갱신 완료!'})
-        except Exception as e:
-            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
-            
-    return JsonResponse({'status': 'fail', 'message': 'POST 요청만 지원합니다.'}, status=405)
-
-
-
-
-# import pandas as pd
-# from django.shortcuts import render
-# from .models import ServiceLog
-
-# def dashboard_view(request):
-#     qs = ServiceLog.objects.all().values( 'date' , 'category' , 'visitor_count' , 'sales_amount')
-
-#     # 1. DB 전체 데이터를 QuerySet으로 추출 후 Pandas DataFrame으로 변환
-#     if  qs.exists():
-#         df = pd.DataFrame(list(qs))
-#         # 2. Pandas 연산: 카테고리별 방문자 수 및 매출액 합계 집계
-#         #               1) 그룹핑    합계    다시정렬
-#         summary_df = df.groupby('category')[['visitor_count' , 'sales_amount']].sum().reset_index()
-#         # 3. 템플릿 전달용 순수 파이썬 리스트 추출
-#         categories = summary_df['category'].tolist()
-#         visitors   = summary_df['visitor_count'].tolist()
-#         sales      = summary_df['sales_amount'].tolist()
-#     else:
-#         categories , visitors , sales = [],[],[]
-#     # 4. 템플릿(html)전달할때 바인딩객체 ( Spring - Model , ModelAndView)
-#     context = {
-#         'categories': categories,
-#         'visitors': visitors,
-#         'sales': sales,
-#     }
-#     return render(request, 'analytics/dashboard.html', context)
+    """수업에서 다룬 외부 서비스 통계 수신 예제를 유지합니다."""
+    try:
+        data = json.loads(request.body)
+        ServiceLog.objects.update_or_create(
+            date=data.get("date"),
+            category=data.get("category", "커뮤니티"),
+            defaults={
+                "visitor_count": data.get("count", 0),
+                "sales_amount": data.get("sales_amount", 0),
+            },
+        )
+        return JsonResponse({"status": "success", "message": "통계 데이터를 저장했습니다."})
+    except (TypeError, ValueError) as error:
+        return JsonResponse({"status": "error", "message": str(error)}, status=400)

@@ -1,85 +1,91 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>파이썬 데이터 분석 대시보드</title>
-    <!-- 💡 [필기] 시각화 그래프 작성을 위해 로드한 CDN 라이브러리 이름은? -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marinboy Salon 분석 대시보드</title>
+    <link rel="stylesheet" href="{% static 'analytics/dashboard.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        .dashboard-container { width: 800px; margin: 40px auto; font-family: Arial, sans-serif; }
-        .summary-cards { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 30px; }
-        .card { flex: 1; background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 8px; padding: 15px; text-align: center; }
-        .card h4 { margin: 0 0 8px 0; color: #6c757d; font-size: 14px; }
-        .card p { margin: 0; font-size: 20px; font-weight: bold; color: #333; }
-        .chart-box { background: #ffffff; border: 1px solid #e9ecef; border-radius: 8px; padding: 20px; }
-    </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <h2>Python + Pandas 카테고리별 분석 대시보드</h2>
+    <main class="dashboard-container">
+        <section class="hero-section">
+            <p class="eyebrow">DJANGO · PANDAS · CHART.JS</p>
+            <h1>Marinboy Salon<br>예약·후기 분석 대시보드</h1>
+            <p class="hero-description">포트폴리오 완료 예약·후기 시드 데이터를 분석해 운영자가 바로 확인할 수 있는 핵심 지표로 정리했습니다.</p>
+        </section>
 
-        <!-- 💡 [필기] Django Context에서 넘겨받은 통계 데이터 변수명을 채워넣으세요. -->
-        <div class="summary-cards">
-            <div class="card">
-                <h4>최다 발생 카테고리</h4>
-                <p style="color: #2b6cb0;">{{ top_category }}</p>
-            </div>
-            <div class="card">
-                <h4>평균 건수</h4>
-                <p>{{ stats_summary.avg_visitors }}개</p>
-            </div>
-            <div class="card">
-                <h4>최대 건수</h4>
-                <p>{{ stats_summary.max_visitors }}개</p>
-            </div>
-            <div class="card">
-                <h4>총 누적 건수</h4>
-                <p>{{ stats_summary.total_count }}개</p>
-            </div>
-        </div>
+        {% if is_empty %}
+            <section class="empty-box">
+                <h2>분석 데이터가 아직 없습니다.</h2>
+                <p><code>python manage.py load_portfolio_data</code>를 실행한 뒤 다시 접속해 주세요.</p>
+            </section>
+        {% else %}
+            <section class="period-row">
+                <span>분석 기간</span>
+                <strong>{{ analysis_period }}</strong>
+                <span class="source-badge">익명 포트폴리오 시드 20건</span>
+            </section>
 
-        <div class="chart-box">
-            <canvas id="analysisChart"></canvas>
-        </div>
-    </div>
+            <section class="summary-grid" aria-label="핵심 분석 지표">
+                <article class="summary-card"><p>완료 예약</p><strong>{{ stats.total_reservations }}건</strong></article>
+                <article class="summary-card"><p>분석용 매출 합계</p><strong>{{ stats.total_sales }}원</strong></article>
+                <article class="summary-card"><p>평균 후기 평점</p><strong>{{ stats.average_rating }}점</strong></article>
+                <article class="summary-card"><p>4점 이상 비율</p><strong>{{ stats.high_rating_ratio }}%</strong></article>
+            </section>
 
-    <!-- 💡 [필기] Python 객체를 안전하게 JS 배열로 변환하는 Django 내장 필터는? -->
-    {{ categories|json_script:"categories-data" }}
-    {{ visitors|json_script:"visitors-data" }}
-    {{ sales|json_script:"sales-data" }}
-    {{ shares|json_script:"shares-data" }}
+            <section class="chart-grid">
+                <article class="panel panel-wide">
+                    <div class="panel-heading"><div><p class="panel-label">RESERVATION TREND</p><h2>일자별 완료 예약 추이</h2></div></div>
+                    <div class="chart-area"><canvas id="reservationTrendChart"></canvas></div>
+                </article>
+                <article class="panel">
+                    <div class="panel-heading"><div><p class="panel-label">REVIEW SCORE</p><h2>후기 평점 분포</h2></div></div>
+                    <div class="chart-area"><canvas id="ratingChart"></canvas></div>
+                </article>
+            </section>
 
-    <script>
-        const ctx = document.getElementById('analysisChart').getContext('2d');
-        
-        const chartCategories = JSON.parse(document.getElementById('categories-data').textContent);
-        const chartVisitors = JSON.parse(document.getElementById('visitors-data').textContent);
-        const chartSales = JSON.parse(document.getElementById('sales-data').textContent);
-        const chartShares = JSON.parse(document.getElementById('shares-data').textContent);
+            <section class="panel table-panel">
+                <div class="panel-heading"><div><p class="panel-label">SERVICE SUMMARY</p><h2>시술별 실적</h2></div><span class="top-service">최다 예약: {{ top_service }}</span></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>시술</th><th>완료 예약</th><th>분석용 매출</th></tr></thead>
+                        <tbody>
+                            {% for row in service_rows %}
+                                <tr><td>{{ row.service_name }}</td><td>{{ row.reservation_count }}건</td><td>{{ row.sales_amount|floatformat:0 }}원</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        {% endif %}
+    </main>
 
-        const analysisChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: chartCategories,
-                datasets: [
-                    {
-                        label: '카테고리별 방문자 수 (건)',
-                        data: chartVisitors,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: '카테고리별 총 매출액 (원)',
-                        data: chartSales,
-                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: { responsive: true, scales: { y: { beginAtZero: true } } }
-        });
-    </script>
+    {% if not is_empty %}
+        {{ daily_dates|json_script:"daily-dates-data" }}
+        {{ daily_counts|json_script:"daily-counts-data" }}
+        {{ rating_labels|json_script:"rating-labels-data" }}
+        {{ rating_counts|json_script:"rating-counts-data" }}
+        <script>
+            // Django json_script 필터로 전달받은 데이터를 안전하게 차트에 사용합니다.
+            const dailyDates = JSON.parse(document.getElementById('daily-dates-data').textContent);
+            const dailyCounts = JSON.parse(document.getElementById('daily-counts-data').textContent);
+            const ratingLabels = JSON.parse(document.getElementById('rating-labels-data').textContent);
+            const ratingCounts = JSON.parse(document.getElementById('rating-counts-data').textContent);
+
+            new Chart(document.getElementById('reservationTrendChart'), {
+                type: 'line',
+                data: { labels: dailyDates, datasets: [{ label: '완료 예약', data: dailyCounts, borderColor: '#3a7655', backgroundColor: 'rgba(58, 118, 85, 0.12)', fill: true, tension: 0.35, pointRadius: 3 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } } }
+            });
+
+            new Chart(document.getElementById('ratingChart'), {
+                type: 'doughnut',
+                data: { labels: ratingLabels, datasets: [{ data: ratingCounts, backgroundColor: ['#d9d9d4', '#d9d9d4', '#d9d9d4', '#b6cfbe', '#3a7655'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '62%', plugins: { legend: { position: 'bottom' } } }
+            });
+        </script>
+    {% endif %}
 </body>
 </html>
