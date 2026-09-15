@@ -71,29 +71,9 @@ Oracle 접속 정보는 `ORACLE_URL`, `ORACLE_USERNAME`, `ORACLE_PASSWORD` 환�
 - 기능 브랜치: `feature/marinboy-reservation-service`
 - 주요 커밋: `8e065daf` 최초 예약 서비스, `1d8faa90` Oracle 포트폴리오, `d781837e` 관리자 흐름 수정, `1912d021` 메뉴·갤러리 개선
 
-## 데이터 분석 프로젝트: Marinboy Salon 대시보드
-
-Marinboy Salon 포트폴리오의 완료 예약·후기 시드 20건을 바탕으로, **Django + Pandas + Chart.js** 분석 대시보드를 만들었습니다. 원본 운영 DB에 직접 접속하지 않고 익명 분석 CSV와 Django SQLite를 사용해 예약·후기 데이터를 안전하게 집계했습니다.
-
-<p align="center">
-  <img src="Track/track010_python+django/report/screenshots/marinboy-dashboard.png" alt="Marinboy Salon 예약 후기 분석 대시보드" width="760" />
-</p>
-
-| 바로 보기 | 설명 |
-| --- | --- |
-| [대시보드 소스·실행 방법](Track/track010_python+django/PORTFOLIO_DASHBOARD_README.md) | Django 마이그레이션, CSV 적재, 로컬 실행 순서를 확인합니다. |
-| [분석 결과보고서](Track/track010_python+django/report/ANALYSIS_REPORT.md) | 데이터 기준, Pandas 분석 흐름, 핵심 지표와 인사이트를 확인합니다. |
-| [원본 분석 CSV](Track/track010_python+django/project/analytics/data/portfolio_reservations.csv) | 개인정보를 제외한 20건의 분석용 예약·후기 데이터입니다. |
-
-### 분석 결과
-
-- 완료 예약 **20건**, 분석용 매출 합계 **1,800,000원**, 평균 후기 평점 **4.7점**을 확인했습니다.
-- 후기 20건 모두 4점 이상이었고, 4점 후기의 상담·손질 관련 의견을 개선 포인트로 제시했습니다.
-- 현재는 단일 메뉴 시드이므로, 이후 실제 메뉴별 예약 데이터를 추가해 객단가·평점·예약 비중을 비교 분석할 수 있도록 구성했습니다.
-
 ## 학습 기술
 
-`Java` · `Spring Boot` · `JSP/Thymeleaf` · `MyBatis/JPA` · `Oracle/MySQL/H2` · `Python` · `Django` · `Pandas` · `Chart.js` · `HTML/CSS/JavaScript` · `React` · `Git/GitHub`
+`Java` · `Spring Boot` · `JSP/Thymeleaf` · `MyBatis/JPA` · `Oracle/MySQL/H2` · `HTML/CSS/JavaScript` · `React` · `Git/GitHub`
 
 ## Links
 
